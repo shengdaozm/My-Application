@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/ic_launcher_background.xml" value="0.208" />
+        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/activity_main.xml" value="0.171875" />
+        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/firstpage.xml" value="0.190625" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$" />
   </component>
