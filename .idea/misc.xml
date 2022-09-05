@@ -3,17 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/adressSearch.xml" value="0.2255" />
-        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/ic_baidu_foreground.xml" value="0.2265" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/ic_launcher_background.xml" value="0.208" />
+        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/top_bar_bg.xml" value="0.2265" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/activity_main.xml" value="0.171875" />
-        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/firstpage.xml" value="0.264" />
-        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/firstpage.xml" value="0.190625" />
-        <entry key="..\:/JAVA/My-Application/app/src/main/res/drawable/ic_email_white_24dp.xml" value="0.1" />
-        <entry key="..\:/JAVA/My-Application/app/src/main/res/drawable/ic_launcher_background.xml" value="0.245" />
-        <entry key="..\:/JAVA/My-Application/app/src/main/res/layout/activity_main.xml" value="0.2390625" />
-        <entry key="..\:/JAVA/My-Application/app/src/main/res/layout/firstpage.xml" value="0.2390625" />
-        <entry key="..\:/JAVA/My-Application/app/src/main/res/layout/login.xml" value="0.4" />
+        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/firstpage.xml" value="0.4564498346196251" />
+        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/login.xml" value="0.4" />
+      </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
