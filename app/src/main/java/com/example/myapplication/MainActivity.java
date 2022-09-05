@@ -3,7 +3,8 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.SQLite.*;
+import com.SQlite.*;
+import com.example.myapplication.R;
 import com.firstpage.*;
 
 public class MainActivity extends AppCompatActivity {
