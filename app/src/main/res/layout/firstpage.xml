@@ -1,65 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
-              android:id="@+id/LinearLayout1"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical">
+              android:background="#fafafa"
+              android:hardwareAccelerated="true"
+              android:orientation="vertical"
+              tools:context="cn.mkblog.www.mkbrowser.WebActivity">
 
+    <!-- 顶部地址栏 -->
     <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="10dp" android:background="#E2B6CA">
-    </LinearLayout>
-    <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:background="#F6F6F6"
-    >
-        <ImageButton
-                android:layout_width="49dp"
-                android:layout_height="match_parent" app:srcCompat="@mipmap/ic_up_search"
-                android:id="@+id/up_search_button"
-                android:background="@drawable/button_shape"
-                android:layout_weight="1"/>
+            android:layout_height="@dimen/top_bar_height"
+            android:orientation="horizontal"
+            android:background="@drawable/top_bar_bg">
+
+        <ImageView
+                android:id="@+id/webIcon"
+                android:layout_width="@dimen/top_bar_height"
+                android:layout_height="@dimen/top_bar_height"
+                android:contentDescription="favicon"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:padding="11dp"
+                android:src="@drawable/internet"
+                android:background="#01000000"/>
+
         <EditText
-                android:layout_width="292dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/text_round_shape"
-                android:inputType="textPostalAddress"
-                android:ems="10"
-                android:id="@+id/editTextTextPostalAddress"/>
-        <ImageButton
-                android:layout_width="47dp"
-                android:layout_height="match_parent" app:srcCompat="@mipmap/ic_up_more"
-                android:id="@+id/more_settings_button"
-                android:background="@drawable/button_shape"
-                android:layout_weight="1"/>
+                android:id="@+id/textUrl"
+                android:layout_width="0dp"
+                android:layout_height="34dp"
+                android:layout_weight="1"
+                android:layout_marginTop="3dp"
+                android:background="#01000000"
+                android:hint="@string/input_url"
+                android:imeOptions="actionGo"
+                android:inputType="textUri"
+                android:maxLines="1"
+                android:textSize="15sp"
+                android:textColor="#606060"
+                android:textColorHint="#9f9f9f"/>
+
+        <ImageView
+                android:id="@+id/btnStart"
+                android:layout_width="@dimen/top_bar_height"
+                android:layout_height="@dimen/top_bar_height"
+                android:contentDescription="refresh"
+                android:padding="11dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginEnd="2dp"
+                android:src="@drawable/refresh"
+                android:background="#01000000"/>
+
     </LinearLayout>
 
-
-    <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="139dp"
-            android:background="#E2B6CA"
-    />
-    <LinearLayout
-            android:orientation="vertical"
+    <!-- 浏览器容器区域 -->
+    <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="403dp" android:rotation="0" android:background="#E2B6CA">
-        <EditText
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:background="#d1d1d1">
+
+        <WebView
+                android:id="@+id/webView"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:inputType="textPersonName"
-                android:background="@drawable/text_round_shape"
-                android:text="Name"
-                android:ems="10"
-                android:id="@+id/editTextTextPersonName" android:layout_weight="0"
-                android:rotationX="25"/>
-        <ImageButton
+                android:layout_height="match_parent" />
+
+        <!-- 网页进度条 -->
+        <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" app:srcCompat="@mipmap/ic_down_search"
-                android:background="@drawable/button_shape"
-                android:id="@+id/imageButton" android:layout_weight="0"/>
+                android:layout_height="2dp"
+                android:max="100"
+                android:progress="50" />
+    </FrameLayout>
+
+    <!-- 底部导航栏 -->
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+        <!-- 后退按钮 -->
+        <RelativeLayout style="@style/NavItem">
+
+            <ImageView
+                    android:id="@+id/goBack"
+                    style="@style/NavIcon"
+                    android:contentDescription="@string/nav_left"
+                    android:src="@drawable/nav_left" />
+
+        </RelativeLayout>
+
+        <!-- 前进按钮 -->
+        <RelativeLayout style="@style/NavItem">
+
+            <ImageView
+                    android:id="@+id/goForward"
+                    style="@style/NavIcon"
+                    android:contentDescription="@string/nav_right"
+                    android:src="@drawable/nav_right" />
+
+        </RelativeLayout>
+
+        <!-- 菜单 -->
+        <RelativeLayout style="@style/NavItem">
+
+            <ImageView
+                    android:id="@+id/navSet"
+                    style="@style/NavIcon"
+                    android:contentDescription="@string/nav_set"
+                    android:src="@drawable/nav_set"/>
+
+        </RelativeLayout>
+
+        <!-- 窗口按钮 -->
+        <RelativeLayout style="@style/NavItem">
+
+
+            <ImageView
+                    style="@style/NavIcon"
+                    android:contentDescription="@string/nav_page"
+                    android:src="@drawable/nav_page" />
+
+            <TextView
+                    style="@style/NavIcon"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textAlignment="center"
+                    android:textColor="#555"
+                    android:textSize="12sp"/>
+
+        </RelativeLayout>
+
+        <!-- 主页按钮 -->
+        <RelativeLayout style="@style/NavItem">
+
+            <ImageView
+                    android:id="@+id/goHome"
+                    style="@style/NavIcon"
+                    android:contentDescription="@string/nav_home"
+                    android:src="@drawable/nav_home"/>
+
+        </RelativeLayout>
+
+
     </LinearLayout>
+
 </LinearLayout>
