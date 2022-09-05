@@ -1,18 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/LinearLayout1"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-    <TextView
-            android:id="@+id/tv_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="10dp" android:background="#E2B6CA">
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:background="#F6F6F6"
+    >
+        <ImageButton
+                android:layout_width="49dp"
+                android:layout_height="match_parent" app:srcCompat="@mipmap/ic_up_search"
+                android:id="@+id/up_search_button"
+                android:background="@drawable/button_shape"
+                android:layout_weight="1"/>
+        <EditText
+                android:layout_width="292dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/text_round_shape"
+                android:inputType="textPostalAddress"
+                android:ems="10"
+                android:id="@+id/editTextTextPostalAddress"/>
+        <ImageButton
+                android:layout_width="47dp"
+                android:layout_height="match_parent" app:srcCompat="@mipmap/ic_up_more"
+                android:id="@+id/more_settings_button"
+                android:background="@drawable/button_shape"
+                android:layout_weight="1"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="139dp"
+            android:background="#E2B6CA"
     />
     <LinearLayout
             android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="403dp" android:rotation="0" android:background="#E2B6CA">
+        <EditText
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:inputType="textPersonName"
+                android:background="@drawable/text_round_shape"
+                android:text="Name"
+                android:ems="10"
+                android:id="@+id/editTextTextPersonName" android:layout_weight="0"
+                android:rotationX="25"/>
+        <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" app:srcCompat="@mipmap/ic_down_search"
+                android:background="@drawable/button_shape"
+                android:id="@+id/imageButton" android:layout_weight="0"/>
     </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

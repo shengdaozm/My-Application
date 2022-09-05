@@ -10,35 +10,35 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="傻孩子"
+            android:text="Hello world!"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-    <androidx.drawerlayout.widget.DrawerLayout
-            android:id="@+id/drawer_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+<!--    <androidx.drawerlayout.widget.DrawerLayout-->
+<!--            android:id="@+id/drawer_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent">-->
 
-        <FrameLayout
-                android:id="@+id/ly_content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        <fragment
-                android:id="@+id/id_right_menu"
-                android:name="com.firstpage.firstpage"
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:tag="right_menu"
-                android:layout_gravity="right"
-                android:background="#dddddd"
-                android:choiceMode="singleChoice"
-                android:divider="#eeeeee"
-                android:dividerHeight="1dp" tools:ignore="RtlHardcoded"/>
+<!--        <FrameLayout-->
+<!--                android:id="@+id/ly_content"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"/>-->
+<!--        <fragment-->
+<!--                android:id="@+id/id_right_menu"-->
+<!--                android:name="com.firstpage.firstpage"-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:tag="right_menu"-->
+<!--                android:layout_gravity="right"-->
+<!--                android:background="#dddddd"-->
+<!--                android:choiceMode="singleChoice"-->
+<!--                android:divider="#eeeeee"-->
+<!--                android:dividerHeight="1dp" tools:ignore="RtlHardcoded"/>-->
 
-    </androidx.drawerlayout.widget.DrawerLayout>
+<!--    </androidx.drawerlayout.widget.DrawerLayout>-->
 
 
 
