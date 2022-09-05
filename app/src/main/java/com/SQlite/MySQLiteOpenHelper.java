@@ -1,4 +1,4 @@
-package com.SQlite;
+package com.SQLite;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
