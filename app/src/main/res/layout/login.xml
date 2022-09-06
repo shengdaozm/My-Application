@@ -5,7 +5,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:focusableInTouchMode="true"
-                tools:context=".MainActivity">
+                tools:context="com.login.login">
 
     <FrameLayout
             android:layout_width="wrap_content"
@@ -110,7 +110,7 @@
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:textColor="@android:color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp" android:id="@+id/Email"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -129,7 +129,7 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:textColor="@android:color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp" android:id="@+id/password"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -150,7 +150,7 @@
                     android:textAllCaps="false"
                     android:textStyle="bold"
                     android:textColor="#96ffffff"
-                    android:textSize="16sp" />
+                    android:textSize="16sp" android:onClick="getInformation" android:id="@+id/SignupButton"/>
 
             <Button
                     android:layout_width="wrap_content"
@@ -162,7 +162,7 @@
                     android:textAllCaps="false"
                     android:textColor="#96ffffff"
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold" android:onClick="getInformation" android:id="@+id/SigninButton"/>
 
 
         </LinearLayout>

@@ -6,14 +6,14 @@ import android.os.Bundle;
 import com.SQLite.*;
 import com.example.myapplication.R;
 import com.firstpage.*;
+import com.login.*;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
-        setContentView(R.layout.firstpage);
+        setContentView(R.layout.login);
     }
 
 
