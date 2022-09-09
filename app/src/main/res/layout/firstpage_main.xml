@@ -123,8 +123,8 @@
 
 
             <ImageView
+                    android:id="@+id/newPage"
                     style="@style/NavIcon"
-                    android:id="newPage"
                     android:contentDescription="@string/nav_page"
                     android:src="@drawable/nav_page"/>
 
