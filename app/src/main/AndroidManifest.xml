@@ -35,7 +35,7 @@
         </activity>
 
     </application>
-
     <!-- 手机权限获得 -->
     <uses-permission android:name="android.permission.INTERNET" tools:ignore="ManifestOrder"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 </manifest>

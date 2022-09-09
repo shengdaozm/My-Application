@@ -9,7 +9,6 @@ import com.SQlite.*;
 import com.example.myapplication.R;
 import com.firstpage.*;
 import com.login.*;
-
 public class MainActivity extends AppCompatActivity {
 
     //声明控件

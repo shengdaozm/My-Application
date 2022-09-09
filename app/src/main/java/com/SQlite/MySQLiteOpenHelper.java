@@ -8,8 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.publicClass.User;
 
-import java.util.List;
-
 /**
  *
  */
