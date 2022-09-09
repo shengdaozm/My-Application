@@ -3,10 +3,10 @@ package com.login;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -24,25 +24,29 @@ public class login extends AppCompatActivity {
     private String email;
     private Boolean isSignin;
     private Boolean isSignup;
-    private Button signinButton = (Button) findViewById(R.id.SigninButton);
-    private Button signupButton = (Button) findViewById(R.id.SignupButton);
-    private EditText mailEditText=(EditText) findViewById(R.id.Email);
-    private EditText passwordEditText=(EditText) findViewById(R.id.password);
-
-    public login() {
-        this.isSignin=false;
-        this.isSignup=false;
-        MS = new MySQLiteOpenHelper((this));
-    }
+    private Button signinButton ;
+    private Button signupButton;
+    private EditText mailEditText;
+    private  EditText passwordEditText;
     //private MySQLiteOpenHelper mySQLiteOpenHelper=new MySQLiteOpenHelper();
 
+    @SuppressLint("CutPasteId")
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("TAG","--------login界面-------");
+        this.isSignin=false;
+        this.isSignup=false;
+        //MS = new MySQLiteOpenHelper((this));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
+
         //找到控件
         myBtnLogin = findViewById(R.id.SigninButton);
-
+        signinButton =(Button) findViewById(R.id.SigninButton);
+        signupButton = (Button) findViewById(R.id.SignupButton);
+        mailEditText=(EditText) findViewById(R.id.Email);
+        passwordEditText=(EditText) findViewById(R.id.password);
     }
 
     /**
@@ -57,6 +61,7 @@ public class login extends AppCompatActivity {
              case R.id.SigninButton:
                  this.isSignin=true;
                  this.isSignup=false;
+                 Log.d("TAG","--------点击按钮-------");
                  Intent intent= new Intent(login.this, firstpage.class);
                  startActivity(intent);
                  break;

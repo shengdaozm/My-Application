@@ -7,9 +7,9 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.myapplication.R;
 
 import com.SQlite.MySQLiteOpenHelper;
+import com.example.myapplication.R;
 
 public class firstpage extends AppCompatActivity implements OnClickListener {
     private String url;
