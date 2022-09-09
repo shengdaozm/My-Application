@@ -1,4 +1,4 @@
-package com.SQLite;
+package com.SQlite;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
@@ -7,8 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.publicClass.User;
-
-import java.util.List;
 
 /**
  *
