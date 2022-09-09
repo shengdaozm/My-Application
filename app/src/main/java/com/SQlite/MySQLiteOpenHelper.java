@@ -84,7 +84,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper{
 
         //需要解决  数组的大小已经被提前确定
         User[] usersList = new User[100];
-        //List<User> usersList = new List<User>();
+        //List<User> usersList = new List<>();
 
         Cursor cursor = db.query(TABLE_NAME_USER, null,"name like ?",new String[]{name},null,null, null);
         //2参返回的数据的种类，如果使用：new String[]{"name","number"}; null 所有都要

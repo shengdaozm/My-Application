@@ -1,6 +1,7 @@
 package com.login;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,12 +10,16 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.SQlite.MySQLiteOpenHelper;
 import com.example.myapplication.R;
+import com.firstpage.firstpage;
 
 /**
  * 用户登录界面的控件设置
  */
 public class login extends AppCompatActivity {
+    private MySQLiteOpenHelper MS;
+    private Button myBtnLogin;
     private String password;
     private String email;
     private Boolean isSignin;
@@ -25,15 +30,19 @@ public class login extends AppCompatActivity {
     private EditText passwordEditText=(EditText) findViewById(R.id.password);
 
     public login() {
-        System.out.println("---------------");
         this.isSignin=false;
         this.isSignup=false;
+        MS = new MySQLiteOpenHelper((this));
     }
     //private MySQLiteOpenHelper mySQLiteOpenHelper=new MySQLiteOpenHelper();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+        //找到控件
+        myBtnLogin = findViewById(R.id.SigninButton);
+
     }
 
     /**
@@ -48,20 +57,14 @@ public class login extends AppCompatActivity {
              case R.id.SigninButton:
                  this.isSignin=true;
                  this.isSignup=false;
+                 Intent intent= new Intent(login.this, firstpage.class);
+                 startActivity(intent);
                  break;
              case R.id.SignupButton:
                  this.isSignup=true;
                  this.isSignup=false;
                  break;
          }
-         AlertDialog alertDialog1 = new AlertDialog.Builder(this)
-                 .setTitle("这是标题")//标题
-                 .setMessage("这是内容")//内容
-                 //.setIcon(R.mipmap.ic_launcher)//图标
-                 .create();
-         System.out.println("---------------");
-         alertDialog1.show();
-         System.out.println("------------");;
      }
 
 
