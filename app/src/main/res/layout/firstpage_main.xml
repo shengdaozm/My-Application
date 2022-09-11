@@ -24,6 +24,7 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:padding="11dp"
+                android:clickable="true"
                 android:src="@drawable/internet"
                 android:background="#01000000"/>
 
@@ -49,6 +50,7 @@
                 android:padding="11dp"
                 android:layout_marginRight="2dp"
                 android:layout_marginEnd="2dp"
+                android:clickable="true"
                 android:src="@drawable/refresh"
                 android:background="#01000000"/>
 
@@ -92,7 +94,8 @@
                     android:id="@+id/goBack"
                     style="@style/NavIcon"
                     android:contentDescription="@string/nav_left"
-                    android:src="@drawable/nav_left"/>
+                    android:src="@drawable/nav_left"
+                    android:clickable="true"/>
 
         </RelativeLayout>
 
@@ -102,6 +105,7 @@
             <ImageView
                     android:id="@+id/goForward"
                     style="@style/NavIcon"
+                    android:clickable="true"
                     android:contentDescription="@string/nav_right"
                     android:src="@drawable/nav_right"/>
 
@@ -113,6 +117,7 @@
             <ImageView
                     android:id="@+id/navSet"
                     style="@style/NavIcon"
+                    android:clickable="true"
                     android:contentDescription="@string/nav_set"
                     android:src="@drawable/nav_set"/>
 
@@ -125,6 +130,7 @@
             <ImageView
                     android:id="@+id/newPage"
                     style="@style/NavIcon"
+                    android:clickable="true"
                     android:contentDescription="@string/nav_page"
                     android:src="@drawable/nav_page"/>
 
@@ -144,6 +150,7 @@
             <ImageView
                     android:id="@+id/goHome"
                     style="@style/NavIcon"
+                    android:clickable="true"
                     android:contentDescription="@string/nav_home"
                     android:src="@drawable/nav_home"/>
 

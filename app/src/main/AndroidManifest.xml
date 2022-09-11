@@ -13,14 +13,13 @@
             android:roundIcon="@mipmap/cover"
             android:supportsRtl="true"
             android:theme="@style/Theme.MyApplication"
+            android:usesCleartextTraffic="true"
             tools:targetApi="31">
 
         <activity
                 android:name="com.login.login"
                 android:label="login">
         </activity>
-
-
 
         <activity
                 android:name="com.firstpage.firstpage">
