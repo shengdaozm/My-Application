@@ -1,7 +1,9 @@
 package com.login;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.SQlite.MySQLiteOpenHelper;
 import com.example.myapplication.R;
 import com.firstpage.firstpage;
+import com.publicClass.User;
 
 /**
  * 用户登录界面的控件设置
@@ -28,7 +31,12 @@ public class login extends AppCompatActivity {
     private Button signupButton;
     private EditText mailEditText;
     private  EditText passwordEditText;
-    //private MySQLiteOpenHelper mySQLiteOpenHelper=new MySQLiteOpenHelper();
+
+
+
+    private Context myContext;
+    private MySQLiteOpenHelper mySQLiteOpenHelper;
+    private SQLiteDatabase db;
 
     @SuppressLint("CutPasteId")
     @Override
@@ -39,6 +47,10 @@ public class login extends AppCompatActivity {
         //MS = new MySQLiteOpenHelper((this));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+
+        myContext = login.this;
+        mySQLiteOpenHelper = new MySQLiteOpenHelper(myContext);
 
 
         //找到控件
@@ -70,7 +82,20 @@ public class login extends AppCompatActivity {
                  this.isSignup=false;
                  break;
          }
+
+         User user = new User();
+         user.setPhoneNumber(null);
+         user.setPassword(this.password);
+         user.setName("xyz");
+         user.setMail(this.email);
+
+
+        mySQLiteOpenHelper.insertData(user);
+        mySQLiteOpenHelper.queryFromDBByName("xyz");
+
      }
+
+
 
 
     /**
