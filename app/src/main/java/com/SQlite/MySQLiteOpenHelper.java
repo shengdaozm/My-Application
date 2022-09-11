@@ -22,16 +22,13 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper{
 
     private static final String CREATE_TABLE_SQL = "create table " + TABLE_NAME_USER + " (id integer primary key autoincrement, name text, number text, mail text, password text);";
 
+
     //构造函数
-    public MySQLiteOpenHelper(Context context){
-        super(context,DB_NAME,null,1);
-    }
+    public MySQLiteOpenHelper(Context context){ super(context,DB_NAME,null,1); }
 
     //第一次创建数据库时调用
     @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE_SQL);
-    }
+    public void onCreate(SQLiteDatabase db) { db.execSQL(CREATE_TABLE_SQL); }
 
     //数据库升级调用
     @Override
