@@ -1,82 +1,145 @@
 package com.firstpage;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+import android.webkit.*;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 
 import com.SQlite.MySQLiteOpenHelper;
 import com.example.myapplication.R;
 
+
 public class firstpage extends AppCompatActivity implements OnClickListener {
+    private static final String HTTP = "http://";
+    private static final String HTTPS = "https://";
+    private static final int PRESS_BACK_EXIT_GAP = 2000;
+    //https://github.com/zhangbenzhi/Mkbrowser-master
     private String url;
-
-    private EditText texturl;
-    private ImageView btnStart;
-    private WebView Web;
-    private ImageView btnback;
-    private ImageView btnGo;
-    private ImageView btnSettings;
-    //???
-    //private ImageView btnNewpage= (ImageView) findViewById(R.id.newPage);
-    private ImageView btnGohome;
-
+    private EditText textUrl;
+    private ImageView btnStart, btnback, btnGo, btnSettings, btnNewpage, btnGohome, webIcon;
+    private WebView webView;
+    private ProgressBar progressBar;
     private MySQLiteOpenHelper mySQLiteOpenHelper;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.firstpage_main);
+    /**
+     * 绑定控件
+     */
+    private void initView() {
+        //顶层网址控件
+        webIcon = (ImageView) findViewById(R.id.webIcon);
+        textUrl = (EditText) findViewById(R.id.textUrl);
         btnStart = (ImageView) findViewById(R.id.btnStart);
+        //浏览器的进度条
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        //网页内容显示
+        webView = (WebView) findViewById(R.id.webView);
+        //底层功能控件
         btnback = (ImageView) findViewById(R.id.goBack);
-        texturl = (EditText) findViewById(R.id.textUrl);
         btnGo = (ImageView) findViewById(R.id.goForward);
+        btnNewpage = (ImageView) findViewById(R.id.newPage);
         btnSettings = (ImageView) findViewById(R.id.navSet);
         btnGohome = (ImageView) findViewById(R.id.goHome);
-        Web=(WebView) findViewById(R.id.webView);
+        webView = (WebView) findViewById(R.id.webView);
+    }
+
+    /**
+     * 初始化 web
+     */
+    @SuppressLint("SetJavaScriptEnabled")
+    private void initWeb() {
+        // 重写 WebViewClient
+        webView.setWebViewClient(new MkWebViewClient());
+        // 重写 WebChromeClient
+        webView.setWebChromeClient(new MkWebChromeClient());
+
+        WebSettings settings = webView.getSettings();
+        // 启用 js 功能
+        settings.setJavaScriptEnabled(true);
+        // 设置浏览器 UserAgent
+        settings.setUserAgentString(settings.getUserAgentString() + " mkBrowser/" + getVerName(firstpage.this));
+        // 将图片调整到适合 WebView 的大小
+        settings.setUseWideViewPort(true);
+        // 缩放至屏幕的大小
+        settings.setLoadWithOverviewMode(true);
+        // 支持缩放，默认为true。是下面那个的前提。
+        settings.setSupportZoom(true);
+        // 设置内置的缩放控件。若为false，则该 WebView 不可缩放
+        settings.setBuiltInZoomControls(true);
+        // 隐藏原生的缩放控件
+        settings.setDisplayZoomControls(false);
+        // 缓存
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        // 设置可以访问文件
+        settings.setAllowFileAccess(true);
+        // 支持通过JS打开新窗口
+        settings.setJavaScriptCanOpenWindowsAutomatically(true);
+        // 支持自动加载图片
+        settings.setLoadsImagesAutomatically(true);
+        // 设置默认编码格式
+        settings.setDefaultTextEncodingName("utf-8");
+        // 本地存储
+        settings.setDomStorageEnabled(true);
+        settings.setPluginState(WebSettings.PluginState.ON);
+
+        // 资源混合模式
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
+
+        // 加载首页
+        webView.loadUrl(getResources().getString(R.string.home_url));
+    }
+
+    /**
+     * 获取版本号名称
+     * @param context 上下文
+     * @return 当前版本名称
+     */
+    private static String getVerName(Context context) {
+        String verName ="unKnow" ;
+        try {
+            verName = context.getPackageManager().
+                    getPackageInfo(context.getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return verName;
     }
 
     // TODO 这个部分暂时为了测试，先不写线程
+
     /**
      * 连接网络，并将网页发送到webview，需要注意的是，每一个网页应该是一个线程，支持多网页的打开并浏览
      */
     public void connectIntnet() {
         //网址的预处理
         //TODO 考虑优化异常处理的逻辑，用户输入网址的时候，直接进行访问；用户输入的是中文，直接加工成url百度的网址进行访问
-        url= String.valueOf(texturl.getText());
-        Log.d("TAG",url+"###############################################");
-        if(url.equals("")) return;
-        url= "https://" +url;
-        url=url.replace(" ","");
-        Web.loadUrl(url);
-        Web.getSettings().setUseWideViewPort(true);
-        Web.getSettings().setLoadWithOverviewMode(true);
-
-        Log.d("TAG","#######################浏览器界面测试##########################");
-        WebSettings settings = Web.getSettings();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING);
-        }
-        Web.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                return false;
-            }
-        });
+        url = String.valueOf(textUrl.getText());
+        Log.d("TAG", url + "###############################################");
+        if (url.equals("")) return;
+        url = "https://" + url;
+        url = url.replace(" ", "");
     }
 
 
     /**
      * firstpage主界面的点击响应
+     *
      * @param view 界面的响应
      */
     @SuppressLint("NonConstantResourceId")
@@ -84,17 +147,120 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnStart:
-                connectIntnet();
                 break;
             case R.id.goBack:
                 //退回上一个网页
                 break;
             case R.id.goForward:
-
+                //回到下一个网页
                 break;
             case R.id.goHome:
-
+                //回到主菜单
                 break;
         }
+    }
+
+    /**
+     * 重写 WebViewClient
+     */
+    private class MkWebViewClient extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            // 设置在webView点击打开的新网页在当前界面显示,而不跳转到新的浏览器中
+            if (url == null) {
+                // 返回true自己处理，返回false不处理
+                return true;
+            }
+            // 正常的内容，打开
+            if (url.startsWith(HTTP) || url.startsWith(HTTPS)) {
+                view.loadUrl(url);
+                return true;
+            }
+            // 调用第三方应用，防止crash (如果手机上没有安装处理某个scheme开头的url的APP, 会导致crash)
+            try {
+                // TODO:弹窗提示用户，允许后再调用
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivityForResult(intent, 100);
+                return true;
+            } catch (Exception e) {
+                return true;
+            }
+        }
+
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+            // 网页开始加载，显示进度条
+            progressBar.setProgress(0);
+            progressBar.setVisibility(View.VISIBLE);
+            // 更新状态文字
+            textUrl.setText("加载中...");
+            // 切换默认网页图标
+            webIcon.setImageResource(R.drawable.internet);
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            // 网页加载完毕，隐藏进度条
+            progressBar.setVisibility(View.INVISIBLE);
+            //nowUrl = url;
+            //添加浏览记录
+            //BrowseUtil.browse(WebActivity.this, url);
+            // 改变标题
+            setTitle(webView.getTitle());
+            // 显示页面标题
+            textUrl.setText(webView.getTitle());
+
+            //设置收藏与取消收藏
+            //collection.setActivated(CollectionUtil.isCollected(WebActivity.this, url));
+        }
+    }
+
+    /**
+     * 重写 WebChromeClient
+     */
+    private class MkWebChromeClient extends WebChromeClient {
+        private final static int WEB_PROGRESS_MAX = 100;
+
+        @Override
+        public void onProgressChanged(WebView view, int newProgress) {
+            super.onProgressChanged(view, newProgress);
+            // 加载进度变动，刷新进度条
+            progressBar.setProgress(newProgress);
+            if (newProgress > 0)
+                if (newProgress == WEB_PROGRESS_MAX)
+                    progressBar.setVisibility(View.INVISIBLE);
+                else
+                    progressBar.setVisibility(View.VISIBLE);
+        }
+        @Override
+        public void onReceivedIcon(WebView view, Bitmap icon) {
+            super.onReceivedIcon(view, icon);
+            // 改变图标
+            webIcon.setImageBitmap(icon);
+        }
+
+        @Override
+        public void onReceivedTitle(WebView view, String title) {
+            super.onReceivedTitle(view, title);
+            // 改变标题
+            setTitle(title);
+            // 显示页面标题
+            textUrl.setText(title);
+        }
+    }
+
+    /**
+     * firstpage界面生成
+     * @param savedInstanceState
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.firstpage_main);
+        initView();
+        initWeb();
+//        getPemmsion();//请求权限
     }
 }
