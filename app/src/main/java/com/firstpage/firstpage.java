@@ -20,7 +20,6 @@ import android.widget.ProgressBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 
-import com.SQlite.MySQLiteOpenHelper;
 import com.example.myapplication.R;
 
 
