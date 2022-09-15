@@ -1,6 +1,5 @@
 package com.firstpage;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -9,8 +8,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.*;
@@ -18,16 +15,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 
 import com.example.myapplication.R;
 
-
+//https://github.com/zhangbenzhi/Mkbrowser-master
 public class firstpage extends AppCompatActivity implements OnClickListener {
     private static final String HTTP = "http://";
     private static final String HTTPS = "https://";
     private static final int PRESS_BACK_EXIT_GAP = 2000;
-    //https://github.com/zhangbenzhi/Mkbrowser-master
     private String url;
     private EditText textUrl;
     private ImageView btnStart, btnback, btnGo, btnSettings, btnNewpage, btnGohome, webIcon;
@@ -38,7 +33,7 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
     /**
      * 绑定控件
      */
-    private void initView() {
+    public void initView() {
         //顶层网址控件
         webIcon = (ImageView) findViewById(R.id.webIcon);
         textUrl = (EditText) findViewById(R.id.textUrl);
@@ -88,6 +83,7 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
         // 支持通过JS打开新窗口
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
         // 支持自动加载图片
+        // TODO 在此处可以考虑加入无图浏览功能
         settings.setLoadsImagesAutomatically(true);
         // 设置默认编码格式
         settings.setDefaultTextEncodingName("utf-8");
@@ -99,8 +95,7 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
-
-        // 加载首页
+        // 加载首页 主页不设置加载历史
         webView.loadUrl(getResources().getString(R.string.home_url));
     }
 
@@ -123,20 +118,6 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
     // TODO 这个部分暂时为了测试，先不写线程
 
     /**
-     * 连接网络，并将网页发送到webview，需要注意的是，每一个网页应该是一个线程，支持多网页的打开并浏览
-     */
-    public void connectIntnet() {
-        //网址的预处理
-        //TODO 考虑优化异常处理的逻辑，用户输入网址的时候，直接进行访问；用户输入的是中文，直接加工成url百度的网址进行访问
-        url = String.valueOf(textUrl.getText());
-        Log.d("TAG", url + "###############################################");
-        if (url.equals("")) return;
-        url = "https://" + url;
-        url = url.replace(" ", "");
-    }
-
-
-    /**
      * firstpage主界面的点击响应
      *
      * @param view 界面的响应
@@ -146,6 +127,8 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnStart:
+                String url= String.valueOf(textUrl.getText());
+                webView.loadUrl("https://"+url);
                 break;
             case R.id.goBack:
                 //退回上一个网页
@@ -154,6 +137,7 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
                 //回到下一个网页
                 break;
             case R.id.goHome:
+                webView.loadUrl(String.valueOf(R.string.home_url));
                 //回到主菜单
                 break;
         }
@@ -260,6 +244,5 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
         setContentView(R.layout.firstpage_main);
         initView();
         initWeb();
-//        getPemmsion();//请求权限
     }
 }

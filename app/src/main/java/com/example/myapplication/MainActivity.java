@@ -7,32 +7,33 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 
-import com.SQlite.*;
-import com.firstpage.*;
-import com.login.*;
+import com.publicClass.isFirst;
+
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button mainBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("TAG","--------------Begin----------------");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //声明控件
         mainBtn = (Button) findViewById(R.id.mainBtn);
+        isFirst isJump;
+        try {
+            isJump = new isFirst();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if (isJump.getIsfirst()) {
+            Intent intent= new Intent(com.example.myapplication.MainActivity.this, com.firstpage.firstpage.class);
+            startActivity(intent);
+        }
     }
 
     public void begin(View view) {
-        Log.d("TAG","---------------------点击按钮-----------------------");
         Intent intent= new Intent(com.example.myapplication.MainActivity.this, com.login.login.class);
         startActivity(intent);
-    }
-
-
-    @Override
-    protected void onDestroy() {
-
-        super.onDestroy();
     }
 }
