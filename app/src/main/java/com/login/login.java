@@ -1,9 +1,7 @@
 package com.login;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,7 +10,6 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import com.SQlite.MySQLiteOpenHelper;
 import com.example.myapplication.R;
 import com.firstpage.firstpage;
 import com.publicClass.User;
@@ -21,7 +18,6 @@ import com.publicClass.User;
  * 用户登录界面的控件设置
  */
 public class login extends AppCompatActivity {
-    private MySQLiteOpenHelper MS;
     private Button myBtnLogin;
     private String password;
     private String email;
@@ -33,11 +29,6 @@ public class login extends AppCompatActivity {
     private  EditText passwordEditText;
 
 
-
-    private Context myContext;
-    private MySQLiteOpenHelper mySQLiteOpenHelper;
-    private SQLiteDatabase db;
-
     @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +38,6 @@ public class login extends AppCompatActivity {
         //MS = new MySQLiteOpenHelper((this));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-
-
-        myContext = login.this;
-        mySQLiteOpenHelper = new MySQLiteOpenHelper(myContext);
 
 
         //找到控件
@@ -89,9 +76,6 @@ public class login extends AppCompatActivity {
          user.setName("xyz");
          user.setMail(this.email);
 
-
-        mySQLiteOpenHelper.insertData(user);
-        mySQLiteOpenHelper.queryFromDBByName("xyz");
 
      }
 

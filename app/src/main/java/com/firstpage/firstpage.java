@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.SQlite.MySQLiteOpenHelper;
 import com.example.myapplication.R;
 
 //https://github.com/zhangbenzhi/Mkbrowser-master
