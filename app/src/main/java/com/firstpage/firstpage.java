@@ -8,7 +8,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.SQlite.MySQLiteOpenHelper;
 import com.example.myapplication.R;
 
 public class firstpage extends AppCompatActivity implements OnClickListener {

@@ -1,8 +1,9 @@
 package com.publicClass;
 
 public class User {
+
+    private int Id;
     private String Name;
-    private String PhoneNumber;
     private String Mail;
     private String Password;
 
@@ -12,14 +13,6 @@ public class User {
 
     public void setName(String name) {
         Name = name;
-    }
-
-    public String getPhoneNumber() {
-        return PhoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        PhoneNumber = phoneNumber;
     }
 
     public String getMail() {
@@ -37,4 +30,7 @@ public class User {
     public void setPassword(String password) {
         Password = password;
     }
+    public int getId() { return Id; }
+
+    public void setId(int id) { Id = id; }
 }
