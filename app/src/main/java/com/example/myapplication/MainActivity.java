@@ -1,38 +1,32 @@
 package com.example.myapplication;
 
-import android.content.Intent;
-import android.util.Log;
-import android.view.View;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;;
+import android.view.LayoutInflater;
+import android.view.View;
 
-import com.SQlite.*;
-import com.firstpage.*;
-import com.login.*;
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
-    private Button mainBtn;
+public class MainActivity extends AppCompatActivity{
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("TAG","--------------Begin----------------");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //声明控件
-        mainBtn = (Button) findViewById(R.id.mainBtn);
-    }
 
-    public void begin(View view) {
-        Log.d("TAG","---------------------点击按钮-----------------------");
-        Intent intent= new Intent(com.example.myapplication.MainActivity.this, com.login.login.class);
-        startActivity(intent);
-    }
+        ViewPager viewpaper = (ViewPager) findViewById(R.id.viewpager);
 
+        ArrayList<View> view_list = new ArrayList<View>();
 
-    @Override
-    protected void onDestroy() {
+        LayoutInflater li = getLayoutInflater();
 
-        super.onDestroy();
+        view_list.add(li.inflate(R.layout.view_one,null,false));
+        view_list.add(li.inflate(R.layout.view_two,null,false));
+        view_list.add(li.inflate(R.layout.view_three,null,false));
+
+        MsPagerAdapter mAdapter =  new MsPagerAdapter(view_list);
+
+        viewpaper.setAdapter(mAdapter);
     }
 }
