@@ -47,7 +47,6 @@ public class SQLiteMaster {
     private static final String mUserSqlStr = "create table if not exists" + UserDBDao.TABLE_NAME + "(" +
             UserDBDao.KEY_ID + " integer primary key autoincrement , " +
             UserDBDao.KEY_NAME + " text not null , " +
-            UserDBDao.KEY_PHONENUMBER + " text not null , " +
             UserDBDao.KEY_MAIL + " text not null , " +
             UserDBDao.KEY_PASSWORD + " text );";
 
