@@ -71,16 +71,10 @@ public class login extends AppCompatActivity {
          }
 
          User user = new User();
-         user.setPhoneNumber(null);
          user.setPassword(this.password);
          user.setName("xyz");
          user.setMail(this.email);
-
-
      }
-
-
-
 
     /**
      * 用户输入信息，验证是否正确,使用类的内部变量

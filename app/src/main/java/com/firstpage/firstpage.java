@@ -8,36 +8,49 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.*;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.SQlite.SQLiteMaster;
 import com.example.myapplication.R;
 
-//https://github.com/zhangbenzhi/Mkbrowser-master
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+// 参考仓库：https://github.com/zhangbenzhi/Mkbrowser-master
 public class firstpage extends AppCompatActivity implements OnClickListener {
     private static final String HTTP = "http://";
     private static final String HTTPS = "https://";
     private static final int PRESS_BACK_EXIT_GAP = 2000;
+    private Context mContext;
+    private InputMethodManager manager;
+    private long exitTime = 0;
     private String url;
     private EditText textUrl;
-    private ImageView btnStart, btnback, btnGo, btnSettings, btnNewpage, btnGohome, webIcon;
+    private ImageView  btnback, btnGo, btnSettings, btnNewpage, btnGohome, webIcon;
+    private ImageButton btnStart;
     private WebView webView;
     private ProgressBar progressBar;
-    private MySQLiteOpenHelper mySQLiteOpenHelper;
+    private SQLiteMaster mySQLiteOpenHelper;
 
     /**
      * 绑定控件
      */
+    @SuppressLint("ClickableViewAccessibility")
     public void initView() {
         //顶层网址控件
         webIcon = (ImageView) findViewById(R.id.webIcon);
         textUrl = (EditText) findViewById(R.id.textUrl);
-        btnStart = (ImageView) findViewById(R.id.btnStart);
+        btnStart = (ImageButton) findViewById(R.id.btnStart);
         //浏览器的进度条
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         //网页内容显示
@@ -49,6 +62,68 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
         btnSettings = (ImageView) findViewById(R.id.navSet);
         btnGohome = (ImageView) findViewById(R.id.goHome);
         webView = (WebView) findViewById(R.id.webView);
+
+        // 地址输入栏获取与失去焦点处理
+        textUrl.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    // 显示当前网址链接 TODO:搜索页面显示搜索词
+                    textUrl.setText(webView.getUrl());
+                    // 光标置于末尾
+                    textUrl.setSelection(textUrl.getText().length());
+                    // 显示因特网图标
+                    webIcon.setImageResource(R.drawable.internet);
+                    // 显示跳转按钮
+                    btnStart.setImageResource(R.drawable.go);
+                } else {
+                    // 显示网站名
+                    textUrl.setText(webView.getTitle());
+                    // 显示网站图标
+                    webIcon.setImageBitmap(webView.getFavicon());
+                    // 显示刷新按钮
+                    btnStart.setImageResource(R.drawable.refresh);
+                }
+            }
+        });
+
+        // 监听键盘回车搜索
+        textUrl.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
+                    // 执行搜索
+                    Log.d("tag","键盘响应了---------------");
+                    btnStart.callOnClick();
+                    textUrl.clearFocus();
+                }
+                return false;
+            }
+        });
+
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 隐藏软键盘
+                if (manager.isActive()) {
+                    manager.hideSoftInputFromWindow(textUrl.getApplicationWindowToken(), 0);
+                }
+                // 地址栏有焦点，是跳转
+                String input = textUrl.getText().toString();
+                if (!isHttpUrl(input)) {
+                    // 不是网址，加载搜索引擎处理
+                    try {// URL 编码
+                        input = URLEncoder.encode(input, "utf-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    input = "https://www.baidu.com/s?wd=" + input + "&ie=UTF-8";
+                }
+                webView.loadUrl(input);
+                // 取消掉地址栏的焦点
+                textUrl.clearFocus();
+            }
+        });
     }
 
     /**
@@ -115,34 +190,6 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
         return verName;
     }
 
-    // TODO 这个部分暂时为了测试，先不写线程
-
-    /**
-     * firstpage主界面的点击响应
-     *
-     * @param view 界面的响应
-     */
-    @SuppressLint("NonConstantResourceId")
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btnStart:
-                String url= String.valueOf(textUrl.getText());
-                webView.loadUrl("https://"+url);
-                break;
-            case R.id.goBack:
-                //退回上一个网页
-                break;
-            case R.id.goForward:
-                //回到下一个网页
-                break;
-            case R.id.goHome:
-                webView.loadUrl(String.valueOf(R.string.home_url));
-                //回到主菜单
-                break;
-        }
-    }
-
     /**
      * 重写 WebViewClient
      */
@@ -188,8 +235,6 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
             // 网页加载完毕，隐藏进度条
             progressBar.setVisibility(View.INVISIBLE);
             //nowUrl = url;
-            //添加浏览记录
-            //BrowseUtil.browse(WebActivity.this, url);
             // 改变标题
             setTitle(webView.getTitle());
             // 显示页面标题
@@ -240,9 +285,96 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("tag","firstpage已经创建了--------");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.firstpage_main);
+        mContext = firstpage.this;
+        manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         initView();
         initWeb();
+    }
+
+    /**
+     * 返回按钮处理
+     */
+    @Override
+    public void onBackPressed() {
+        // 能够返回则返回上一页
+        if (webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            if ((System.currentTimeMillis() - exitTime) > PRESS_BACK_EXIT_GAP) {
+                // 连点两次退出程序
+                Toast.makeText(mContext, "再按一次退出程序",
+                        Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                super.onBackPressed();
+            }
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        Log.d("tag","点击响应！！！！！！！！！！！！！！！！！！！");
+        int ID=view.getId();
+        if(ID==R.id.btnStart) {
+            Log.d("tag","我被调用了！！！！！！！！！！！！！！！！！！！");
+            if (textUrl.hasFocus()) {
+                // 隐藏软键盘
+                if (manager.isActive()) {
+                    manager.hideSoftInputFromWindow(textUrl.getApplicationWindowToken(), 0);
+                }
+                // 地址栏有焦点，是跳转
+                String input = textUrl.getText().toString();
+                if (!isHttpUrl(input)) {
+                    // 不是网址，加载搜索引擎处理
+                    try {// URL 编码
+                        input = URLEncoder.encode(input, "utf-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    input = "https://www.baidu.com/s?wd=" + input + "&ie=UTF-8";
+                }
+                webView.loadUrl(input);
+                // 取消掉地址栏的焦点
+                textUrl.clearFocus();
+            } else {
+                // 地址栏没焦点，是刷新
+                webView.reload();
+            }
+        } else if(ID==R.id.goBack) {
+            webView.goBack();
+        } else if(ID==R.id.goForward) {
+            webView.goForward();
+        } else if(ID==R.id.goHome) {
+            webView.loadUrl(String.valueOf(R.string.home_url));
+        }
+    }
+
+    /**
+     * 判断字符串是否为URL（https://blog.csdn.net/bronna/article/details/77529145）
+     * @param urls 要勘定的字符串
+     * @return true:是URL、false:不是URL
+     */
+    public static boolean isHttpUrl(String urls) {
+        boolean isUrl;
+        // 判断是否是网址的正则表达式
+        String regex = "(((https|http)?://)?([a-z0-9]+[.])|(www.))"
+                + "\\w+[.|\\/]([a-z0-9]{0,})?[[.]([a-z0-9]{0,})]+((/[\\S&&[^,;\u4E00-\u9FA5]]+)+)?([.][a-z0-9]{0,}+|/?)";
+
+        Pattern pat = Pattern.compile(regex.trim());
+        Matcher mat = pat.matcher(urls.trim());
+        isUrl = mat.matches();
+        return isUrl;
+    }
+
+    private void toast(final String msg) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

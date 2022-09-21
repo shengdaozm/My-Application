@@ -42,17 +42,20 @@
                 android:textSize="15sp"
                 android:textColor="#606060"
                 android:textColorHint="#9f9f9f"/>
-        <ImageView
+        <ImageButton
                 android:id="@+id/btnStart"
-                android:layout_width="@dimen/top_bar_height"
+                android:layout_width="41dp"
                 android:layout_height="@dimen/top_bar_height"
+                android:focusable="true"
                 android:contentDescription="refresh"
                 android:padding="11dp"
                 android:layout_marginRight="2dp"
                 android:layout_marginEnd="2dp"
                 android:clickable="true"
+                android:scaleType="centerCrop"
                 android:src="@drawable/refresh"
-                android:background="#01000000"/>
+                android:background="#01000000"
+        />
 
     </LinearLayout>
 

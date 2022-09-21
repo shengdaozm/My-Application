@@ -1,6 +1,5 @@
 package com.publicClass;
 
-public class history {
 import android.graphics.Bitmap;
 
 public class history {

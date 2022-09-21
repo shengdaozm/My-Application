@@ -17,9 +17,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        //声明控件
-        mainBtn = (Button) findViewById(R.id.mainBtn);
         isFirst isJump;
         try {
             isJump = new isFirst();
@@ -30,9 +27,11 @@ public class MainActivity extends AppCompatActivity {
             Intent intent= new Intent(com.example.myapplication.MainActivity.this, com.firstpage.firstpage.class);
             startActivity(intent);
         }
+        setContentView(R.layout.activity_main);
+        mainBtn = (Button) findViewById(R.id.mainBtn);
     }
 
-    public void begin(View view) {
+    public void changeActivity(View view) {
         Intent intent= new Intent(com.example.myapplication.MainActivity.this, com.login.login.class);
         startActivity(intent);
     }
