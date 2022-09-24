@@ -68,12 +68,11 @@
             android:layout_marginBottom="1dp"
             android:background="#d1d1d1">
 
+        <!-- 网页进度条 -->
         <WebView
                 android:id="@+id/webView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        <!-- 网页进度条 -->
+                android:layout_height="match_parent"/>
         <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyleHorizontal"
@@ -93,35 +92,47 @@
         <!-- 后退按钮 -->
         <RelativeLayout style="@style/NavItem">
 
-            <ImageView
+            <ImageButton
                     android:id="@+id/goBack"
                     style="@style/NavIcon"
+                    android:focusable="true"
+                    android:padding="10dp"
                     android:contentDescription="@string/nav_left"
                     android:src="@drawable/nav_left"
-                    android:clickable="true"/>
+                    android:clickable="true"
+                    android:scaleType="centerCrop"
+                    android:background="#01000000"
+            />
 
         </RelativeLayout>
 
         <!-- 前进按钮 -->
         <RelativeLayout style="@style/NavItem">
 
-            <ImageView
+            <ImageButton
                     android:id="@+id/goForward"
                     style="@style/NavIcon"
                     android:clickable="true"
                     android:contentDescription="@string/nav_right"
-                    android:src="@drawable/nav_right"/>
+                    android:scaleType="centerCrop"
+                    android:padding="10dp"
+                    android:src="@drawable/nav_right"
+                    android:background="#01000000"/>
 
         </RelativeLayout>
 
         <!-- 菜单 -->
         <RelativeLayout style="@style/NavItem">
 
-            <ImageView
-                    android:id="@+id/navSet"
+            <ImageButton
+                    android:id="@+id/Setting"
                     style="@style/NavIcon"
                     android:clickable="true"
                     android:contentDescription="@string/nav_set"
+                    android:focusable="true"
+                    android:scaleType="centerCrop"
+                    android:background="#01000000"
+                    android:padding="11dp"
                     android:src="@drawable/nav_set"/>
 
         </RelativeLayout>
@@ -130,11 +141,15 @@
         <RelativeLayout style="@style/NavItem">
 
 
-            <ImageView
+            <ImageButton
                     android:id="@+id/newPage"
                     style="@style/NavIcon"
                     android:clickable="true"
                     android:contentDescription="@string/nav_page"
+                    android:focusable="true"
+                    android:scaleType="centerCrop"
+                    android:background="#01000000"
+                    android:padding="11dp"
                     android:src="@drawable/nav_page"/>
 
             <TextView
@@ -143,18 +158,23 @@
                     android:text="1"
                     android:textAlignment="center"
                     android:textColor="#555"
-                    android:textSize="12sp" android:layout_height="wrap_content" android:layout_width="16dp"/>
+                    android:textSize="12sp" android:layout_height="wrap_content" android:layout_width="16dp"
+                    android:id="@+id/Pages"/>
 
         </RelativeLayout>
 
         <!-- 主页按钮 -->
         <RelativeLayout style="@style/NavItem">
 
-            <ImageView
+            <ImageButton
                     android:id="@+id/goHome"
                     style="@style/NavIcon"
                     android:clickable="true"
                     android:contentDescription="@string/nav_home"
+                    android:focusable="true"
+                    android:scaleType="centerCrop"
+                    android:background="#01000000"
+                    android:padding="11dp"
                     android:src="@drawable/nav_home"/>
 
         </RelativeLayout>
