@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -18,7 +17,7 @@ import android.webkit.*;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.SQlite.SQLiteMaster;
+import com.SQlite.UserDBDao;
 import com.example.myapplication.R;
 
 import java.io.UnsupportedEncodingException;
@@ -36,11 +35,14 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
     private long exitTime = 0;
     private String url;
     private EditText textUrl;
-    private ImageView  btnback, btnGo, btnSettings, btnNewpage, btnGohome, webIcon;
-    private ImageButton btnStart;
+
+    // TODO 根据据不同的网页来显示标号，可以当作网页的id使用
+    private  TextView pageCount;
+    private ImageView webIcon;
+    private ImageButton btnStart,btnback, btnGo, btnSettings, btnNewpage, btnGohome;
     private WebView webView;
     private ProgressBar progressBar;
-    private SQLiteMaster mySQLiteOpenHelper;
+    private UserDBDao mySQLiteOpenHelper;
 
     /**
      * 绑定控件
@@ -56,11 +58,11 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
         //网页内容显示
         webView = (WebView) findViewById(R.id.webView);
         //底层功能控件
-        btnback = (ImageView) findViewById(R.id.goBack);
-        btnGo = (ImageView) findViewById(R.id.goForward);
-        btnNewpage = (ImageView) findViewById(R.id.newPage);
-        btnSettings = (ImageView) findViewById(R.id.navSet);
-        btnGohome = (ImageView) findViewById(R.id.goHome);
+        btnback = (ImageButton) findViewById(R.id.goBack);
+        btnGo = (ImageButton) findViewById(R.id.goForward);
+        btnNewpage = (ImageButton) findViewById(R.id.newPage);
+        btnSettings = (ImageButton) findViewById(R.id.Setting);
+        btnGohome = (ImageButton) findViewById(R.id.goHome);
         webView = (WebView) findViewById(R.id.webView);
 
         // 地址输入栏获取与失去焦点处理
@@ -92,8 +94,6 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                 if (keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_DOWN) {
-                    // 执行搜索
-                    Log.d("tag","键盘响应了---------------");
                     btnStart.callOnClick();
                     textUrl.clearFocus();
                 }
@@ -101,29 +101,11 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
             }
         });
 
-        btnStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // 隐藏软键盘
-                if (manager.isActive()) {
-                    manager.hideSoftInputFromWindow(textUrl.getApplicationWindowToken(), 0);
-                }
-                // 地址栏有焦点，是跳转
-                String input = textUrl.getText().toString();
-                if (!isHttpUrl(input)) {
-                    // 不是网址，加载搜索引擎处理
-                    try {// URL 编码
-                        input = URLEncoder.encode(input, "utf-8");
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-                    input = "https://www.baidu.com/s?wd=" + input + "&ie=UTF-8";
-                }
-                webView.loadUrl(input);
-                // 取消掉地址栏的焦点
-                textUrl.clearFocus();
-            }
-        });
+        btnStart.setOnClickListener(this);
+        btnGohome.setOnClickListener(this);
+        btnback.setOnClickListener(this);
+        btnGo.setOnClickListener(this);
+        btnSettings.setOnClickListener(this);
     }
 
     /**
@@ -285,10 +267,10 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("tag","firstpage已经创建了--------");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.firstpage_main);
         mContext = firstpage.this;
+        mySQLiteOpenHelper=new UserDBDao(mContext);
         manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         initView();
         initWeb();
@@ -349,6 +331,10 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
             webView.goForward();
         } else if(ID==R.id.goHome) {
             webView.loadUrl(String.valueOf(R.string.home_url));
+        } else if(ID==R.id.Setting) {
+
+        } else if(ID==R.id.Pages) {
+            // TODO 需要页面的滑动样式
         }
     }
 
