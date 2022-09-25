@@ -10,15 +10,14 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import com.SQlite.MySQLiteOpenHelper;
 import com.example.myapplication.R;
 import com.firstpage.firstpage;
+import com.publicClass.User;
 
 /**
  * 用户登录界面的控件设置
  */
 public class login extends AppCompatActivity {
-    private MySQLiteOpenHelper MS;
     private Button myBtnLogin;
     private String password;
     private String email;
@@ -28,7 +27,7 @@ public class login extends AppCompatActivity {
     private Button signupButton;
     private EditText mailEditText;
     private  EditText passwordEditText;
-    //private MySQLiteOpenHelper mySQLiteOpenHelper=new MySQLiteOpenHelper();
+
 
     @SuppressLint("CutPasteId")
     @Override
@@ -70,8 +69,12 @@ public class login extends AppCompatActivity {
                  this.isSignup=false;
                  break;
          }
-     }
 
+         User user = new User();
+         user.setPassword(this.password);
+         user.setName("xyz");
+         user.setMail(this.email);
+     }
 
     /**
      * 用户输入信息，验证是否正确,使用类的内部变量
