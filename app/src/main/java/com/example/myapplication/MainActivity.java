@@ -1,11 +1,12 @@
 package com.example.myapplication;
 
-import android.content.Intent;
-import android.util.Log;
-import android.view.View;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Button;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;;
+import android.view.LayoutInflater;
+import android.view.View;
+
+import java.util.ArrayList;
 
 import com.publicClass.isFirst;
 
@@ -13,7 +14,6 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button mainBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +28,20 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
         setContentView(R.layout.activity_main);
+
+        ViewPager viewpaper = (ViewPager) findViewById(R.id.viewpager);
+
+        ArrayList<View> view_list = new ArrayList<View>();
+
+        LayoutInflater li = getLayoutInflater();
+
+        view_list.add(li.inflate(R.layout.view_one,null,false));
+        view_list.add(li.inflate(R.layout.view_two,null,false));
+        view_list.add(li.inflate(R.layout.view_three,null,false));
+
+        MsPagerAdapter mAdapter =  new MsPagerAdapter(view_list);
+
+        viewpaper.setAdapter(mAdapter);
         mainBtn = (Button) findViewById(R.id.mainBtn);
     }
 
