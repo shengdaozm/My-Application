@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;;
 import android.view.LayoutInflater;
@@ -35,14 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         LayoutInflater li = getLayoutInflater();
 
-        view_list.add(li.inflate(R.layout.view_one,null,false));
-        view_list.add(li.inflate(R.layout.view_two,null,false));
-        view_list.add(li.inflate(R.layout.view_three,null,false));
-
-        MsPagerAdapter mAdapter =  new MsPagerAdapter(view_list);
-
-        viewpaper.setAdapter(mAdapter);
-        mainBtn = (Button) findViewById(R.id.mainBtn);
+        Button mainBtn = (Button) findViewById(R.id.mainBtn);
     }
 
     public void changeActivity(View view) {

@@ -15,8 +15,10 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.*;
 import android.widget.*;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.slidingpanelayout.widget.SlidingPaneLayout;
 import com.SQlite.UserDBDao;
 import com.example.myapplication.R;
 
@@ -39,7 +41,7 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
     // TODO 根据据不同的网页来显示标号，可以当作网页的id使用
     private  TextView pageCount;
     private ImageView webIcon;
-    private ImageButton btnStart,btnback, btnGo, btnSettings, btnNewpage, btnGohome;
+    private ImageButton btnStart;
     private WebView webView;
     private ProgressBar progressBar;
     private UserDBDao mySQLiteOpenHelper;
@@ -56,13 +58,6 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
         //浏览器的进度条
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         //网页内容显示
-        webView = (WebView) findViewById(R.id.webView);
-        //底层功能控件
-        btnback = (ImageButton) findViewById(R.id.goBack);
-        btnGo = (ImageButton) findViewById(R.id.goForward);
-        btnNewpage = (ImageButton) findViewById(R.id.newPage);
-        btnSettings = (ImageButton) findViewById(R.id.Setting);
-        btnGohome = (ImageButton) findViewById(R.id.goHome);
         webView = (WebView) findViewById(R.id.webView);
 
         // 地址输入栏获取与失去焦点处理
@@ -102,10 +97,6 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
         });
 
         btnStart.setOnClickListener(this);
-        btnGohome.setOnClickListener(this);
-        btnback.setOnClickListener(this);
-        btnGo.setOnClickListener(this);
-        btnSettings.setOnClickListener(this);
     }
 
     /**
@@ -216,14 +207,10 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
             super.onPageFinished(view, url);
             // 网页加载完毕，隐藏进度条
             progressBar.setVisibility(View.INVISIBLE);
-            //nowUrl = url;
             // 改变标题
             setTitle(webView.getTitle());
             // 显示页面标题
             textUrl.setText(webView.getTitle());
-
-            //设置收藏与取消收藏
-            //collection.setActivated(CollectionUtil.isCollected(WebActivity.this, url));
         }
     }
 
@@ -298,19 +285,14 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
 
     @Override
     public void onClick(View view) {
-        Log.d("tag","点击响应！！！！！！！！！！！！！！！！！！！");
-        int ID=view.getId();
-        if(ID==R.id.btnStart) {
-            Log.d("tag","我被调用了！！！！！！！！！！！！！！！！！！！");
-            if (textUrl.hasFocus()) {
-                // 隐藏软键盘
-                if (manager.isActive()) {
+        int ID = view.getId();
+        if (ID == R.id.btnStart) {
+            if (textUrl.hasFocus()) { // 隐藏软键盘
+                if (manager.isActive())
                     manager.hideSoftInputFromWindow(textUrl.getApplicationWindowToken(), 0);
-                }
                 // 地址栏有焦点，是跳转
                 String input = textUrl.getText().toString();
-                if (!isHttpUrl(input)) {
-                    // 不是网址，加载搜索引擎处理
+                if (!isHttpUrl(input)) {// 不是网址，加载搜索引擎处理
                     try {// URL 编码
                         input = URLEncoder.encode(input, "utf-8");
                     } catch (UnsupportedEncodingException e) {
@@ -321,23 +303,11 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
                 webView.loadUrl(input);
                 // 取消掉地址栏的焦点
                 textUrl.clearFocus();
-            } else {
-                // 地址栏没焦点，是刷新
+            } else // 地址栏没焦点，是刷新
                 webView.reload();
-            }
-        } else if(ID==R.id.goBack) {
-            webView.goBack();
-        } else if(ID==R.id.goForward) {
-            webView.goForward();
-        } else if(ID==R.id.goHome) {
-            webView.loadUrl(String.valueOf(R.string.home_url));
-        } else if(ID==R.id.Setting) {
-
-        } else if(ID==R.id.Pages) {
-            // TODO 需要页面的滑动样式
         }
     }
-
+    
     /**
      * 判断字符串是否为URL（https://blog.csdn.net/bronna/article/details/77529145）
      * @param urls 要勘定的字符串
