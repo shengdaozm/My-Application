@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import com.example.myapplication.R;
-import com.firstpage.firstpage;
+import com.webpage.webpage;
 import com.publicClass.User;
 
 /**
@@ -61,7 +61,7 @@ public class login extends AppCompatActivity {
                  this.isSignin=true;
                  this.isSignup=false;
                  Log.d("TAG","--------点击按钮-------");
-                 Intent intent= new Intent(login.this, firstpage.class);
+                 Intent intent= new Intent(login.this, webpage.class);
                  startActivity(intent);
                  break;
              case R.id.SignupButton:

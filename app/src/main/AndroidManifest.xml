@@ -23,7 +23,13 @@
         </activity>
 
         <activity
-                android:name="com.firstpage.firstpage">
+                android:name="com.webpage.webpage"
+                android:label="webpage">
+        </activity>
+
+        <activity
+                android:name="com.webpage.historyShow"
+                android:label="history">
         </activity>
 
         <activity
