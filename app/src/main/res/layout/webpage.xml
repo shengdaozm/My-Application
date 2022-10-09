@@ -18,8 +18,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
                     android:gravity="center"
+                    android:clickable="true"
                     android:fontFamily="@font/gotham"
-                    android:id="@+id/leftmenutext"/>
+                    android:id="@+id/leftmenutext" android:focusable="true"/>
             <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -39,10 +40,11 @@
                         android:background="#01000000"
                 />
                 <TextView
-                        android:text="帮助"
+                        android:text="新页面"
                         android:gravity="center"
                         android:fontFamily="@font/gotham"
                         android:layout_width="119dp"
+                        android:clickable="true"
                         android:layout_height="match_parent" android:id="@+id/textView2"/>
             </LinearLayout>
             <LinearLayout
@@ -50,7 +52,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                 <ImageButton
-                        android:id="@+id/btnStart"
+                        android:id="@+id/btnhistory"
                         android:layout_width="41dp"
                         android:layout_height="@dimen/top_bar_height"
                         android:focusable="true"
@@ -68,6 +70,7 @@
                         android:gravity="center"
                         android:fontFamily="@font/gotham"
                         android:layout_width="119dp"
+                        android:clickable="true"
                         android:layout_height="match_parent" android:id="@+id/textView2"/>
             </LinearLayout>
             <LinearLayout
@@ -93,6 +96,7 @@
                         android:gravity="center"
                         android:fontFamily="@font/gotham"
                         android:layout_width="119dp"
+                        android:clickable="true"
                         android:layout_height="match_parent" android:id="@+id/textView2"/>
             </LinearLayout>
             <LinearLayout
@@ -118,6 +122,7 @@
                         android:gravity="center"
                         android:fontFamily="@font/gotham"
                         android:layout_width="119dp"
+                        android:clickable="true"
                         android:layout_height="match_parent" android:id="@+id/textView2"/>
             </LinearLayout>
             <LinearLayout
@@ -143,6 +148,7 @@
                         android:gravity="center"
                         android:fontFamily="@font/gotham"
                         android:layout_width="119dp"
+                        android:clickable="true"
                         android:layout_height="match_parent" android:id="@+id/textView2"/>
             </LinearLayout>
             <LinearLayout
@@ -153,11 +159,12 @@
                         android:text="无图模式"
                         android:gravity="center"
                         android:fontFamily="@font/gotham"
-                        android:layout_width="119dp"
+                        android:layout_width="113dp"
+                        android:clickable="true"
                         android:layout_height="match_parent" android:id="@+id/textView2"/>
                 <Switch
                         android:text="Switch"
-                        android:layout_width="wrap_content"
+                        android:layout_width="50dp"
                         android:layout_height="51dp" android:id="@+id/switch1" android:layout_weight="1"/>
 
             </LinearLayout>
@@ -169,7 +176,8 @@
                         android:text="无痕浏览"
                         android:gravity="center"
                         android:fontFamily="@font/gotham"
-                        android:layout_width="119dp"
+                        android:layout_width="113dp"
+                        android:clickable="true"
                         android:layout_height="match_parent" android:id="@+id/textView2"/>
                 <Switch
                         android:text="Switch"
@@ -189,7 +197,7 @@
                   android:background="#fafafa"
                   android:hardwareAccelerated="true"
                   android:orientation="vertical"
-                  tools:context="com.firstpage.firstpage">
+                  tools:context="com.webpage.webpage">
 
         <!-- 顶部地址栏 -->
         <LinearLayout

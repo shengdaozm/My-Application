@@ -1,4 +1,4 @@
-package com.firstpage;
+package com.webpage;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -8,17 +8,14 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.*;
 import android.widget.*;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import androidx.slidingpanelayout.widget.SlidingPaneLayout;
 import com.SQlite.UserDBDao;
 import com.example.myapplication.R;
 
@@ -27,8 +24,10 @@ import java.net.URLEncoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.publicClass.history;
+
 // 参考仓库：https://github.com/zhangbenzhi/Mkbrowser-master
-public class firstpage extends AppCompatActivity implements OnClickListener {
+public class webpage extends AppCompatActivity implements OnClickListener {
     private static final String HTTP = "http://";
     private static final String HTTPS = "https://";
     private static final int PRESS_BACK_EXIT_GAP = 2000;
@@ -38,13 +37,14 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
     private String url;
     private EditText textUrl;
 
-    // TODO 根据据不同的网页来显示标号，可以当作网页的id使用
     private  TextView pageCount;
     private ImageView webIcon;
-    private ImageButton btnStart;
+    private ImageButton btnStart,btnHistory;
     private WebView webView;
     private ProgressBar progressBar;
     private UserDBDao mySQLiteOpenHelper;
+
+    private boolean haveimage=true;
 
     /**
      * 绑定控件
@@ -55,6 +55,7 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
         webIcon = (ImageView) findViewById(R.id.webIcon);
         textUrl = (EditText) findViewById(R.id.textUrl);
         btnStart = (ImageButton) findViewById(R.id.btnStart);
+        btnHistory = (ImageButton) findViewById(R.id.btnhistory);
         //浏览器的进度条
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         //网页内容显示
@@ -97,6 +98,7 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
         });
 
         btnStart.setOnClickListener(this);
+        btnHistory.setOnClickListener(this);
     }
 
     /**
@@ -113,7 +115,7 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
         // 启用 js 功能
         settings.setJavaScriptEnabled(true);
         // 设置浏览器 UserAgent
-        settings.setUserAgentString(settings.getUserAgentString() + " mkBrowser/" + getVerName(firstpage.this));
+        settings.setUserAgentString(settings.getUserAgentString() + " mkBrowser/" + getVerName(webpage.this));
         // 将图片调整到适合 WebView 的大小
         settings.setUseWideViewPort(true);
         // 缩放至屏幕的大小
@@ -131,8 +133,7 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
         // 支持通过JS打开新窗口
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
         // 支持自动加载图片
-        // TODO 在此处可以考虑加入无图浏览功能
-        settings.setLoadsImagesAutomatically(true);
+        settings.setLoadsImagesAutomatically(haveimage);
         // 设置默认编码格式
         settings.setDefaultTextEncodingName("utf-8");
         // 本地存储
@@ -200,6 +201,8 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
             textUrl.setText("加载中...");
             // 切换默认网页图标
             webIcon.setImageResource(R.drawable.internet);
+            history h=new history(url, webView.getTitle(),favicon);
+            //TODO 把histro加入数据库。
         }
 
         @Override
@@ -255,8 +258,8 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.firstpage_main);
-        mContext = firstpage.this;
+        setContentView(R.layout.webpage);
+        mContext = webpage.this;
         mySQLiteOpenHelper=new UserDBDao(mContext);
         manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         initView();
@@ -305,9 +308,13 @@ public class firstpage extends AppCompatActivity implements OnClickListener {
                 textUrl.clearFocus();
             } else // 地址栏没焦点，是刷新
                 webView.reload();
+        } else if(ID==R.id.btnhistory) {
+            //添加活动跳转
+            Intent intent= new Intent(com.webpage.webpage.this, historyShow.class);
+            startActivity(intent);
         }
     }
-    
+
     /**
      * 判断字符串是否为URL（https://blog.csdn.net/bronna/article/details/77529145）
      * @param urls 要勘定的字符串

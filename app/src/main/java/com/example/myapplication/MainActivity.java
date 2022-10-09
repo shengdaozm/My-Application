@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;;
@@ -10,6 +11,7 @@ import android.view.View;
 
 import java.util.ArrayList;
 
+import com.webpage.webpage;
 import com.publicClass.isFirst;
 
 import java.io.IOException;
@@ -18,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("TAG","软件启动");
         super.onCreate(savedInstanceState);
         isFirst isJump;
         try {
@@ -26,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
         if (isJump.getIsfirst()) {
-            Intent intent= new Intent(com.example.myapplication.MainActivity.this, com.firstpage.firstpage.class);
+            Intent intent= new Intent(com.example.myapplication.MainActivity.this, webpage.class);
             startActivity(intent);
         }
         setContentView(R.layout.activity_main);
