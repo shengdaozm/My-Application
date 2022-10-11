@@ -203,6 +203,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             webIcon.setImageResource(R.drawable.internet);
             history h=new history(url, webView.getTitle(),favicon);
             //TODO 把histro加入数据库。
+
         }
 
         @Override
@@ -288,7 +289,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
 
     //TODO 数据库的测试
     public void testForDB() {
-
+        Log.d("TEST","在这里面添加打印的信息");
     }
     @Override
     public void onClick(View view) {
