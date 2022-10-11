@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -96,7 +97,6 @@ public class webpage extends AppCompatActivity implements OnClickListener {
                 return false;
             }
         });
-
         btnStart.setOnClickListener(this);
         btnHistory.setOnClickListener(this);
     }
@@ -286,10 +286,15 @@ public class webpage extends AppCompatActivity implements OnClickListener {
         }
     }
 
+    //TODO 数据库的测试
+    public void testForDB() {
+
+    }
     @Override
     public void onClick(View view) {
         int ID = view.getId();
         if (ID == R.id.btnStart) {
+            Log.d("TEST","btnStart  is on!");
             if (textUrl.hasFocus()) { // 隐藏软键盘
                 if (manager.isActive())
                     manager.hideSoftInputFromWindow(textUrl.getApplicationWindowToken(), 0);
@@ -309,8 +314,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             } else // 地址栏没焦点，是刷新
                 webView.reload();
         } else if(ID==R.id.btnhistory) {
-            //添加活动跳转
-            Intent intent= new Intent(com.webpage.webpage.this, historyShow.class);
+            Intent intent= new Intent(com.webpage.webpage.this, historyShow.class); //添加活动跳转
             startActivity(intent);
         }
     }
