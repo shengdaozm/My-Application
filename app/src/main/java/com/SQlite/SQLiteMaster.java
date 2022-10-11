@@ -18,10 +18,12 @@ public class SQLiteMaster {
 
     //数据表操作类实例化
     public UserDBDao mUserDBDao;
+    public HistoryDBDao mHistoryDBDao;
 
     public SQLiteMaster(Context context){
         mContext = context;
         mUserDBDao = new UserDBDao(mContext);
+        mHistoryDBDao = new HistoryDBDao(mContext);
     }
 
     //打开数据库
@@ -50,8 +52,18 @@ public class SQLiteMaster {
             UserDBDao.KEY_MAIL + " text not null , " +
             UserDBDao.KEY_PASSWORD + " text );";
 
+    //创建该数据库下History表的语句
+    private static final String mHistorySqlqtr = "create table if not exists" + HistoryDBDao.TABLE_NAME + "(" +
+            HistoryDBDao.KEY_ID + "integer primary key autoincrement , " +
+            HistoryDBDao.KEY_URL + " text not null , " +
+            HistoryDBDao.KEY_TEXT + " text not null , " +
+            HistoryDBDao.KEY_WEBICON + " blob not null );";
+
     //删除该数据库下User表的语句
     private static final String mUserDelSql = "DROP TABLE IF EXISTS " + UserDBDao.TABLE_NAME;
+
+    //删除该数据库下History表的语句
+    private static final String mHistoryDelSql = "DROP TABLE IF EXISTS " + HistoryDBDao.TABLE_NAME;
     //数据表打开帮助类
     public static class DBOpenHelper extends SQLiteOpenHelper{
 
@@ -61,12 +73,14 @@ public class SQLiteMaster {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL(mUserDelSql);
+            db.execSQL(mUserSqlStr);
+            db.execSQL(mHistorySqlqtr);
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int i, int i1) {
             db.execSQL(mUserDelSql);
+            db.execSQL(mHistoryDelSql);
             onCreate(db);
         }
     }
