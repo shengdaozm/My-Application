@@ -215,14 +215,16 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             webIcon.setImageResource(R.drawable.internet);
 
             //TODO 把histro加入数据库。
-
-        mSQLiteMaster = new SQLiteMaster(com.webpage.webpage.this);
-        mSQLiteMaster.openDataBase();
-
-        history h = new history(url , view.getTitle(), favicon);
-        Log.d("TEST" , "标记1");
-        mSQLiteMaster.mHistoryDBDao.insertData(h);
-
+            mSQLiteMaster = new SQLiteMaster(com.webpage.webpage.this);
+            mSQLiteMaster.openDataBase();
+            history h = new history(url , view.getTitle(), favicon);
+//            if(mSQLiteMaster.mHistoryDBDao.queryData(url) == null)
+//                mSQLiteMaster.mHistoryDBDao.insertData(h);
+            mSQLiteMaster.closeDataBase();
+            Log.d("TEST","-------------------------------");
+            Log.d("TEST","数据加入成功");
+            Log.d("TEST","标题:"+h.getText());
+            Log.d("TEST","网址"+h.getUrl());
         }
 
         @Override
@@ -320,22 +322,10 @@ public class webpage extends AppCompatActivity implements OnClickListener {
 
     //TODO 数据库的测试
     public void testForDB() throws IllegalAccessException, InstantiationException {
-//        Log.d("TEST" , (String)(com.webpage.webpage.this));
-
         mSQLiteMaster = new SQLiteMaster(com.webpage.webpage.this);
         mSQLiteMaster.openDataBase();
-
-//        history h = new history("网址" , "标题" , null);
-//        Log.d("TEST" , "标记1");
-//        mSQLiteMaster.mHistoryDBDao.insertData(h);
-
-//        mSQLiteMaster.mHistoryDBDao.updateData("网址" , h);
-
         listHistory = mSQLiteMaster.mHistoryDBDao.queryDataList();
-
-        for(int i =0 ; i < listHistory.size() ; i ++)
-            Log.d("TEST",listHistory.get(i).getUrl()+" " +listHistory.get(i).getText());
-//        mSQLiteMaster.closeDataBase();
+        for (com.publicClass.history history : listHistory)  Log.d("TEST", history.getUrl() + " " + history.getText());
     }
     @Override
     public void onClick(View view) {
