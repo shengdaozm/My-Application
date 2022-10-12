@@ -1,5 +1,6 @@
 package com.webpage;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -17,11 +18,15 @@ import android.webkit.*;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.core.app.ActivityCompat;
+import com.SQlite.MyApplication;
+import com.SQlite.SQLiteMaster;
 import com.SQlite.UserDBDao;
 import com.example.myapplication.R;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,6 +37,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
     private static final String HTTP = "http://";
     private static final String HTTPS = "https://";
     private static final int PRESS_BACK_EXIT_GAP = 2000;
+    private List<history> listHistory;
     private Context mContext;
     private InputMethodManager manager;
     private long exitTime = 0;
@@ -43,15 +49,20 @@ public class webpage extends AppCompatActivity implements OnClickListener {
     private ImageButton btnStart,btnHistory;
     private WebView webView;
     private ProgressBar progressBar;
-    private UserDBDao mySQLiteOpenHelper;
 
     private boolean haveimage=true;
 
+    SQLiteMaster mSQLiteMaster;
+
+    public static final int EXTERNAL_STORAGE_REQ_CODE = 10 ;
+
     /**
+     * 绑定控件
      * 绑定控件
      */
     @SuppressLint("ClickableViewAccessibility")
     public void initView() {
+        Log.d("TEST","界面控件初始化");
         //顶层网址控件
         webIcon = (ImageView) findViewById(R.id.webIcon);
         textUrl = (EditText) findViewById(R.id.textUrl);
@@ -193,6 +204,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            Log.d("TEST","加载界面");
             super.onPageStarted(view, url, favicon);
             // 网页开始加载，显示进度条
             progressBar.setProgress(0);
@@ -201,8 +213,15 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             textUrl.setText("加载中...");
             // 切换默认网页图标
             webIcon.setImageResource(R.drawable.internet);
-            history h=new history(url, webView.getTitle(),favicon);
+
             //TODO 把histro加入数据库。
+
+        mSQLiteMaster = new SQLiteMaster(com.webpage.webpage.this);
+        mSQLiteMaster.openDataBase();
+
+        history h = new history(url , view.getTitle(), favicon);
+        Log.d("TEST" , "标记1");
+        mSQLiteMaster.mHistoryDBDao.insertData(h);
 
         }
 
@@ -258,10 +277,21 @@ public class webpage extends AppCompatActivity implements OnClickListener {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("TEST","界面初始化");
         super.onCreate(savedInstanceState);
+//        mSQLiteMaster.openDataBase();
+
+        int permission = ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // 请求权限
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    EXTERNAL_STORAGE_REQ_CODE);
+        }
+
         setContentView(R.layout.webpage);
         mContext = webpage.this;
-        mySQLiteOpenHelper=new UserDBDao(mContext);
         manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         initView();
         initWeb();
@@ -287,15 +317,38 @@ public class webpage extends AppCompatActivity implements OnClickListener {
         }
     }
 
+
     //TODO 数据库的测试
-    public void testForDB() {
-        Log.d("TEST","在这里面添加打印的信息");
+    public void testForDB() throws IllegalAccessException, InstantiationException {
+//        Log.d("TEST" , (String)(com.webpage.webpage.this));
+
+        mSQLiteMaster = new SQLiteMaster(com.webpage.webpage.this);
+        mSQLiteMaster.openDataBase();
+
+//        history h = new history("网址" , "标题" , null);
+//        Log.d("TEST" , "标记1");
+//        mSQLiteMaster.mHistoryDBDao.insertData(h);
+
+//        mSQLiteMaster.mHistoryDBDao.updateData("网址" , h);
+
+        listHistory = mSQLiteMaster.mHistoryDBDao.queryDataList();
+
+        for(int i =0 ; i < listHistory.size() ; i ++)
+            Log.d("TEST",listHistory.get(i).getUrl()+" " +listHistory.get(i).getText());
+//        mSQLiteMaster.closeDataBase();
     }
     @Override
     public void onClick(View view) {
         int ID = view.getId();
         if (ID == R.id.btnStart) {
             Log.d("TEST","btnStart  is on!");
+            try {
+                testForDB();
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e);
+            } catch (InstantiationException e) {
+                throw new RuntimeException(e);
+            }
             if (textUrl.hasFocus()) { // 隐藏软键盘
                 if (manager.isActive())
                     manager.hideSoftInputFromWindow(textUrl.getApplicationWindowToken(), 0);
