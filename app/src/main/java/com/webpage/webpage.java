@@ -219,12 +219,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             mSQLiteMaster.openDataBase();
             history h = new history(url , view.getTitle(), favicon);
 //            if(mSQLiteMaster.mHistoryDBDao.queryData(url) == null)
-//                mSQLiteMaster.mHistoryDBDao.insertData(h);
-            mSQLiteMaster.closeDataBase();
-            Log.d("TEST","-------------------------------");
-            Log.d("TEST","数据加入成功");
-            Log.d("TEST","标题:"+h.getText());
-            Log.d("TEST","网址"+h.getUrl());
+                mSQLiteMaster.mHistoryDBDao.insertData(h);
         }
 
         @Override
@@ -327,19 +322,12 @@ public class webpage extends AppCompatActivity implements OnClickListener {
         listHistory = mSQLiteMaster.mHistoryDBDao.queryDataList();
         for (com.publicClass.history history : listHistory)  Log.d("TEST", history.getUrl() + " " + history.getText());
     }
+
     @Override
     public void onClick(View view) {
-        Log.d("TEST","webpage页面响应");
         int ID = view.getId();
         if (ID == R.id.btnStart) {
             Log.d("TEST","btnStart  is on!");
-            try {
-                testForDB();
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(e);
-            } catch (InstantiationException e) {
-                throw new RuntimeException(e);
-            }
             if (textUrl.hasFocus()) { // 隐藏软键盘
                 if (manager.isActive())
                     manager.hideSoftInputFromWindow(textUrl.getApplicationWindowToken(), 0);
@@ -389,5 +377,12 @@ public class webpage extends AppCompatActivity implements OnClickListener {
                 Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    protected void onDestroy() {
+        Log.d("TEST","webpage完成销毁！");
+        super.onDestroy();
+        // 关闭数据库
+        mSQLiteMaster.closeDataBase();
     }
 }
