@@ -1,6 +1,8 @@
 package com.webpage;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,22 +22,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.webpage.webpage.EXTERNAL_STORAGE_REQ_CODE;
+
 /**
  * 历史记录展示界面
  */
 public class historyShow extends AppCompatActivity {
 
+    SQLiteMaster mSQLiteMaster;
+
     RecyclerView mRecyclerView;
     List<history> mHistories = new ArrayList<>();
 
-
     public void getFromDB() throws IllegalAccessException, InstantiationException {
-        SQLiteMaster mSQLiteMaster = new SQLiteMaster(com.webpage.historyShow.this);
+        mSQLiteMaster = new SQLiteMaster(com.webpage.historyShow.this);
         mSQLiteMaster.openDataBase();
         mHistories = mSQLiteMaster.mHistoryDBDao.queryDataList();
         Collections.reverse(mHistories);//反转mHistories 按照时间的新旧进行排序
-        mSQLiteMaster.closeDataBase();
-        Log.d("TEST","数据库条目:"+mHistories.size());
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,10 @@ public class historyShow extends AppCompatActivity {
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(new MyAdapter());//添加适配器
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
+
+        mSQLiteMaster = new SQLiteMaster(com.webpage.historyShow.this);
+        mSQLiteMaster.openDataBase();
+
     }
 
     class MyAdapter extends RecyclerView.Adapter<MyViewHoder> {
@@ -83,5 +91,12 @@ public class historyShow extends AppCompatActivity {
             mTitle = itemView.findViewById(R.id.history_title);
             mUrl = itemView.findViewById(R.id.history_url);
         }
+    }
+
+    protected void onDestroy() {
+        Log.d("TEST","webpage完成销毁！");
+        super.onDestroy();
+        // 关闭数据库
+        mSQLiteMaster.closeDataBase();
     }
 }
