@@ -25,9 +25,8 @@ public class SQLiteMaster {
     public SQLiteMaster(Context context){
         mContext = context;
         mUserDBDao = new UserDBDao(mContext);
-        Log.d("TEST","标记3");
         mHistoryDBDao = new HistoryDBDao(mContext);
-        Log.d("TEST","标记5");
+        Log.d("TEST","SQLiteMaster构造成功");
     }
 
     //打开数据库
