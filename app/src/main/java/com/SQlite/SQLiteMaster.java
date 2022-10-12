@@ -4,7 +4,9 @@ import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import com.publicClass.User;
+import com.publicClass.history;
 import com.SQlite.SQLiteConfig;
 
 import static com.SQlite.SQLiteConfig.DB_NAME;
@@ -23,7 +25,9 @@ public class SQLiteMaster {
     public SQLiteMaster(Context context){
         mContext = context;
         mUserDBDao = new UserDBDao(mContext);
+        Log.d("TEST","标记3");
         mHistoryDBDao = new HistoryDBDao(mContext);
+        Log.d("TEST","标记5");
     }
 
     //打开数据库
@@ -36,6 +40,7 @@ public class SQLiteMaster {
         }
         //设置数据库的SQLiteDatabase
         mUserDBDao.setDatabase(mDatabase);
+        mHistoryDBDao.setDatabase(mDatabase);
     }
 
     //关闭数据库
@@ -46,15 +51,15 @@ public class SQLiteMaster {
     }
 
     //创建该数据库下User表的语句
-    private static final String mUserSqlStr = "create table if not exists" + UserDBDao.TABLE_NAME + "(" +
+    private static final String mUserSqlStr = "create table if not exists " + UserDBDao.TABLE_NAME + "(" +
             UserDBDao.KEY_ID + " integer primary key autoincrement , " +
             UserDBDao.KEY_NAME + " text not null , " +
             UserDBDao.KEY_MAIL + " text not null , " +
             UserDBDao.KEY_PASSWORD + " text );";
 
     //创建该数据库下History表的语句
-    private static final String mHistorySqlqtr = "create table if not exists" + HistoryDBDao.TABLE_NAME + "(" +
-            HistoryDBDao.KEY_ID + "integer primary key autoincrement , " +
+    private static final String mHistorySqlqtr = "create table if not exists " + HistoryDBDao.TABLE_NAME + "(" +
+            HistoryDBDao.KEY_ID + " integer primary key autoincrement , " +
             HistoryDBDao.KEY_URL + " text not null , " +
             HistoryDBDao.KEY_TEXT + " text not null , " +
             HistoryDBDao.KEY_WEBICON + " blob not null );";

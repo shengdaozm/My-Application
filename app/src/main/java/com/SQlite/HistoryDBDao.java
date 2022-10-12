@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import com.publicClass.history;
 
 import java.io.ByteArrayOutputStream;
@@ -30,18 +31,29 @@ public class HistoryDBDao {
     private Context mContext;
     private SQLiteMaster.DBOpenHelper mDBOpenHelper;
 
-    public HistoryDBDao(Context context){ mContext = context; }
-    public void setDatabase(SQLiteDatabase db){ mDatabase = db; }
+    public HistoryDBDao(Context context){
+        Log.d("TEST","标记4");
+        mContext = context;;
+    }
+
+    public void setDatabase(SQLiteDatabase db){
+        Log.d("TEST" , "标记6");mDatabase = db; }
 
     //插入一条数据
     public long insertData(history History) {
         ContentValues values = new ContentValues();
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-        History.getWebIcon().compress(Bitmap.CompressFormat.PNG,100,os);
+
+        //History.getWebIcon().compress(Bitmap.CompressFormat.PNG,100,os);
+        Log.d("TEST","d3");
         values.put(KEY_URL,History.getUrl());
         values.put(KEY_TEXT,History.getText());
         values.put(KEY_WEBICON,os.toByteArray());
-        return mDatabase.insert(TABLE_NAME , null , values);
+        Log.d("TEST","......");
+        long lo = mDatabase.insert(TABLE_NAME , null , values);
+        //return mDatabase.insert(TABLE_NAME , null , values);
+        Log.d("TSET" , "d4");
+        return lo;
     }
 
     //更新一条数据
@@ -59,7 +71,7 @@ public class HistoryDBDao {
 
     /**
      *
-     * @param url  用户昵称
+     * @param url
      * @return
      */
     public List<history> queryData(String url){
@@ -75,9 +87,11 @@ public class HistoryDBDao {
 
     //查询所有数据
     public List<history> queryDataList(){
-        if(!SQLiteConfig.HaveData(mDatabase,TABLE_NAME)){
-            return null;
-        }
+        Log.d("TEST","cursor");
+//        if(!SQLiteConfig.HaveData(mDatabase,TABLE_NAME)){
+//            return null;
+//        }
+        Log.d("TEST","cursor1");
         Cursor results = mDatabase.query(TABLE_NAME, new String[]{KEY_ID ,
                 KEY_URL,
                 KEY_TEXT,
@@ -88,6 +102,8 @@ public class HistoryDBDao {
     //查询结果转换
     @SuppressLint("Range")
     private List<history> convertUtil(Cursor cursor){
+        if(cursor==null)
+            Log.d("TEST","这是空的");
         int resultCounts = cursor.getCount();
         if(resultCounts == 0 || !cursor.moveToFirst()){
             return null;
