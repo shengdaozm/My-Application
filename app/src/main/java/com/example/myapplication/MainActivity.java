@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("TAG","软件启动");
+        Log.d("TEST","软件启动");
         super.onCreate(savedInstanceState);
 //        isFirst isJump;
 //        try {

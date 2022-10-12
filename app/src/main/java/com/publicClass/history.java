@@ -7,6 +7,8 @@ public class history {
     private String url,text;//网址  网页内容标题
     private Bitmap webIcon;//网页的图标
 
+
+    public history() {}
     /**
      * history构造函数
      * @param url 网站的地址
