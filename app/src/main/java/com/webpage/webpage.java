@@ -253,7 +253,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
     }
 
     /**
-     * firstpage界面生成
+     * webpage界面生成
      * @param savedInstanceState
      */
     @Override
@@ -293,6 +293,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
     }
     @Override
     public void onClick(View view) {
+        Log.d("TEST","webpage页面响应");
         int ID = view.getId();
         if (ID == R.id.btnStart) {
             Log.d("TEST","btnStart  is on!");
@@ -315,6 +316,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             } else // 地址栏没焦点，是刷新
                 webView.reload();
         } else if(ID==R.id.btnhistory) {
+            Log.d("TEST","btnhistory is on !");
             Intent intent= new Intent(com.webpage.webpage.this, historyShow.class); //添加活动跳转
             startActivity(intent);
         }
