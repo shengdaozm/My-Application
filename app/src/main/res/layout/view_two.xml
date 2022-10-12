@@ -1,14 +1,56 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="#00d2d3"
-              android:gravity="center"
-              android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="#D12D2E"
+                android:gravity="center"
+                android:id="@+id/layout">
 
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_edit_white"
+            android:maxWidth="400dp"
+            android:layout_marginLeft="8dp" android:layout_marginTop="8dp" android:layout_marginStart="8dp"
+            android:layout_marginRight="8dp" android:layout_marginEnd="8dp" android:layout_marginBottom="8dp"/>
     <TextView
+
+            android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Page Two"
-            android:textColor="#ffffff" />
-</LinearLayout>
+            android:text=""
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="15dp"/>
+
+    <TextView
+
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Simple to use"
+            android:textStyle="bold"
+            android:textSize="32sp"
+            android:textColor="@color/cardview_light_background"
+            android:layout_alignParentBottom="true" android:layout_marginBottom="229dp"
+            android:layout_alignParentEnd="true" android:layout_alignParentRight="true"
+            android:layout_marginRight="105dp" android:layout_marginEnd="105dp"/>
+    <TextView
+
+            android:id="@+id/text2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Add a welcome screen to your app with only a  few lines of code."
+
+
+
+            android:textSize="20sp"
+
+            android:textColor="@color/cardview_light_background"
+            android:layout_alignParentBottom="true" android:layout_marginBottom="160dp"
+            android:layout_alignParentEnd="true" android:layout_alignParentRight="true"
+            android:layout_marginRight="0dp" android:layout_marginEnd="0dp"/>
+
+</RelativeLayout>

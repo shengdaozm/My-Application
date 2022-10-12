@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         LayoutInflater li = getLayoutInflater();
 
-        Button mainBtn = (Button) findViewById(R.id.mainBtn);
+//        Button mainBtn = (Button) findViewById(R.id.mainBtn);
 
         view_list.add(li.inflate(R.layout.view_one,null,false));
         view_list.add(li.inflate(R.layout.view_two,null,false));

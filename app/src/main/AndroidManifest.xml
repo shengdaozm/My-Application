@@ -32,6 +32,7 @@
                 android:label="history">
         </activity>
 
+
         <activity
                 android:name="com.example.myapplication.MainActivity"
                 android:exported="true" tools:ignore="MissingClass">
@@ -41,6 +42,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+
+
+        
 
     </application>
 
