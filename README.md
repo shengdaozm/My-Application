@@ -1,6 +1,6 @@
 # My-Application
 
-Welcome!!!
+Welcome to the project!!!
 
 ## The big job of embedded mobile phone development terminal
 
