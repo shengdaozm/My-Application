@@ -149,7 +149,7 @@
                     android:textAllCaps="false"
                     android:textStyle="bold"
                     android:textColor="#96ffffff"
-                    android:textSize="16sp" android:onClick="getInformation" android:id="@+id/SignupButton"/>
+                    android:textSize="16sp" android:onClick="getInformation" android:id="@+id/all_in_all"/>
 
             <Button
                     android:layout_width="wrap_content"

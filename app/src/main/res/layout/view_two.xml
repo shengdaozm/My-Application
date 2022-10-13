@@ -43,11 +43,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Add a welcome screen to your app with only a  few lines of code."
-
-
-
             android:textSize="20sp"
-
             android:textColor="@color/cardview_light_background"
             android:layout_alignParentBottom="true" android:layout_marginBottom="160dp"
             android:layout_alignParentEnd="true" android:layout_alignParentRight="true"
