@@ -8,17 +8,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import com.publicClass.history;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-//历史数据表操作类
-public class HistoryDBDao {
+//收藏数据表操作类
+public class CollectionDBDao {
     //数据库名称
-    public static final String TABLE_NAME = "history_info";
+    public static final String TABLE_NAME = "collection_info";
 
     //数据库自增ID
     public static String KEY_ID = "id";
@@ -33,7 +32,7 @@ public class HistoryDBDao {
     //数据库打开帮助类
     private SQLiteMaster.DBOpenHelper mDBOpenHelper;
 
-    public HistoryDBDao(Context context){
+    public CollectionDBDao(Context context){
         mContext = context;;
     }
 
