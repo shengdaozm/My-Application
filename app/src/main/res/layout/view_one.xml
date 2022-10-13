@@ -1,69 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:focusableInTouchMode="true">
+                android:clipChildren="false"
+                android:background="#F67904">
 
-    <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_front_desk_white"
+            android:maxWidth="400dp"
+            android:layout_marginLeft="8dp" android:layout_marginTop="8dp" android:layout_marginStart="8dp"
+            android:layout_marginRight="8dp" android:layout_marginEnd="8dp" android:layout_marginBottom="8dp"/>
+    <TextView
 
-        <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/welcome_first_view"/>
-
-    </FrameLayout>
-
-
-    <LinearLayout
-            android:id="@+id/linearLayout"
+            android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="80dp"
-            android:orientation="horizontal">
+            android:text="Welcome"
+            android:textStyle="bold"
+            android:textSize="32sp"
+            android:textColor="@color/cardview_light_background"
+            android:layout_alignParentBottom="true" android:layout_marginBottom="241dp"
+            android:layout_alignParentEnd="true" android:layout_alignParentRight="true"
+            android:layout_marginRight="142dp" android:layout_marginEnd="142dp"/>
+    <TextView
 
-        <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+            android:id="@+id/text2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="An Android library for onboarding.instructional screens,and more"
+            android:textSize="20sp"
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/gotham"
-                    android:text="Love "
-                    android:textColor="#ffffff"
-                    android:textSize="48sp"
-                    android:textStyle="bold|italic"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-            <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/gotham"
-                    android:text="Everyday"
-                    android:textColor="#ffffff"
-                    android:textSize="48sp"
-                    android:textStyle="bold|italic"/>
-
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="2dp"
-                    android:background="#deff00" />
-        </LinearLayout>
-    </LinearLayout>
+            android:textColor="@color/cardview_light_background"
+            android:layout_alignParentBottom="true" android:layout_marginBottom="160dp"
+            android:layout_alignParentEnd="true" android:layout_alignParentRight="true"
+            android:layout_marginRight="0dp" android:layout_marginEnd="0dp"/>
 
 
 </RelativeLayout>
