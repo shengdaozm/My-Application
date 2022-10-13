@@ -36,7 +36,7 @@
                         android:layout_marginEnd="2dp"
                         android:clickable="true"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_wenhao"
+                        android:src="@drawable/refresh"
                         android:background="#01000000"
                 />
                 <TextView
@@ -62,7 +62,7 @@
                         android:layout_marginEnd="2dp"
                         android:clickable="true"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_wenhao"
+                        android:src="@drawable/ic_history"
                         android:background="#01000000"
                 />
                 <TextView
@@ -88,7 +88,7 @@
                         android:layout_marginEnd="2dp"
                         android:clickable="true"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_wenhao"
+                        android:src="@drawable/ic_add_collection"
                         android:background="#01000000"
                 />
                 <TextView
@@ -114,11 +114,37 @@
                         android:layout_marginEnd="2dp"
                         android:clickable="true"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/ic_wenhao"
+                        android:src="@drawable/ic_collections"
                         android:background="#01000000"
                 />
                 <TextView
                         android:text="我的收藏"
+                        android:gravity="center"
+                        android:fontFamily="@font/gotham"
+                        android:layout_width="119dp"
+                        android:clickable="true"
+                        android:layout_height="match_parent" android:id="@+id/textView2"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <ImageButton
+                        android:id="@+id/btnStart"
+                        android:layout_width="41dp"
+                        android:layout_height="@dimen/top_bar_height"
+                        android:focusable="true"
+                        android:contentDescription="refresh"
+                        android:padding="11dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:clickable="true"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_download"
+                        android:background="#01000000"
+                />
+                <TextView
+                        android:text="界面下载"
                         android:gravity="center"
                         android:fontFamily="@font/gotham"
                         android:layout_width="119dp"
@@ -189,10 +215,8 @@
     </ScrollView>
 
 <!--    主页面的中心布局-->
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  xmlns:app="http://schemas.android.com/apk/res-auto"
-                  xmlns:tools="http://schemas.android.com/tools"
-                  android:layout_width="match_parent"
+    <LinearLayout
+            android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:background="#fafafa"
                   android:hardwareAccelerated="true"
