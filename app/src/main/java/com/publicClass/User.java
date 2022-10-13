@@ -2,7 +2,8 @@ package com.publicClass;
 
 public class User {
 
-    private int Id;
+    //数据库自增ID
+    public int id;
     private String Name;
     private String Mail;
     private String Password;
@@ -30,7 +31,4 @@ public class User {
     public void setPassword(String password) {
         Password = password;
     }
-    public int getId() { return Id; }
-
-    public void setId(int id) { Id = id; }
 }
