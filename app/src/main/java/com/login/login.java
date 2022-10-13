@@ -43,7 +43,7 @@ public class login extends AppCompatActivity {
         //找到控件
         myBtnLogin = findViewById(R.id.SigninButton);
         signinButton =(Button) findViewById(R.id.SigninButton);
-        signupButton = (Button) findViewById(R.id.SignupButton);
+        signupButton = (Button) findViewById(R.id.all_in_all);
         mailEditText=(EditText) findViewById(R.id.Email);
         passwordEditText=(EditText) findViewById(R.id.password);
     }
@@ -64,7 +64,7 @@ public class login extends AppCompatActivity {
                  Intent intent= new Intent(login.this, webpage.class);
                  startActivity(intent);
                  break;
-             case R.id.SignupButton:
+             case R.id.all_in_all:
                  this.isSignup=true;
                  this.isSignup=false;
                  break;
