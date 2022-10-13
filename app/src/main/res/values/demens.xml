@@ -6,4 +6,8 @@
     <!-- 地址栏背景间隙 -->
     <dimen name="top_bar_bg_gap">5dp</dimen>
 
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="list_item_margin">16dp</dimen>
+
 </resources>
