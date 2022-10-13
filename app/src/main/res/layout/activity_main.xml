@@ -18,7 +18,6 @@
 <!--            app:layout_constraintTop_toTopOf="parent"-->
 <!--            android:onClick="begin" tools:ignore="OnClick"/>-->
 
-    <LinearLayout
     <RelativeLayout
             android:id="@+id/LinearLayout1"
                   android:layout_width="match_parent"
