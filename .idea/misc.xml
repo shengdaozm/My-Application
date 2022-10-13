@@ -59,15 +59,28 @@
         <entry key="..\:/My-Application/app/src/main/res/layout/view_three.xml" value="0.1" />
         <entry key="..\:/My-Application/app/src/main/res/layout/view_two.xml" value="0.1" />
         <entry key="..\:/My-Application/app/src/main/res/layout/viewpaper.xml" value="0.1" />
+        <entry key="..\:/My-app/app/src/main/res/drawable/button_background_transparent.xml" value="0.118" />
+        <entry key="..\:/My-app/app/src/main/res/drawable/circle_translucent.xml" value="0.118" />
+        <entry key="..\:/My-app/app/src/main/res/drawable/ic_back_white.xml" value="0.118" />
+        <entry key="..\:/My-app/app/src/main/res/drawable/ic_brush_blue.xml" value="0.118" />
+        <entry key="..\:/My-app/app/src/main/res/drawable/ic_check_white.xml" value="0.118" />
+        <entry key="..\:/My-app/app/src/main/res/drawable/ic_edit_white.xml" value="0.118" />
+        <entry key="..\:/My-app/app/src/main/res/drawable/ic_front_desk_white.xml" value="0.118" />
+        <entry key="..\:/My-app/app/src/main/res/drawable/ic_image_white.xml" value="0.118" />
+        <entry key="..\:/My-app/app/src/main/res/drawable/ic_photo_gray.xml" value="0.118" />
+        <entry key="..\:/My-app/app/src/main/res/drawable/ic_style_blue.xml" value="0.118" />
+        <entry key="..\:/My-app/app/src/main/res/drawable/ic_style_white.xml" value="0.118" />
+        <entry key="..\:/My-app/app/src/main/res/drawable/ic_thumb_up_white.xml" value="0.118" />
+        <entry key="..\:/My-app/app/src/main/res/drawable/ic_view_carousel_white.xml" value="0.118" />
         <entry key="..\:/My-app/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
         <entry key="..\:/My-app/app/src/main/res/layout/history_fav.xml" value="0.178125" />
         <entry key="..\:/My-app/app/src/main/res/layout/history_item.xml" value="0.17481884057971014" />
         <entry key="..\:/My-app/app/src/main/res/layout/history_show.xml" value="0.3333333333333333" />
         <entry key="..\:/My-app/app/src/main/res/layout/leftmenu.xml" value="0.3333333333333333" />
         <entry key="..\:/My-app/app/src/main/res/layout/login.xml" value="0.17481884057971014" />
-        <entry key="..\:/My-app/app/src/main/res/layout/view_one.xml" value="0.14666666666666667" />
-        <entry key="..\:/My-app/app/src/main/res/layout/view_three.xml" value="0.1" />
-        <entry key="..\:/My-app/app/src/main/res/layout/view_two.xml" value="0.1" />
+        <entry key="..\:/My-app/app/src/main/res/layout/view_one.xml" value="0.16666666666666666" />
+        <entry key="..\:/My-app/app/src/main/res/layout/view_three.xml" value="0.14666666666666667" />
+        <entry key="..\:/My-app/app/src/main/res/layout/view_two.xml" value="0.1630170316301703" />
         <entry key="..\:/My-app/app/src/main/res/layout/webpage.xml" value="0.17481884057971014" />
       </map>
     </option>

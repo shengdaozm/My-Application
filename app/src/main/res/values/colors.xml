@@ -9,12 +9,21 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#8E95D8</color>
     <!-- 下拉到底的阴影 -->
-    <color name="colorPrimary">#FFFCFC</color>
 
-    <!-- 导航栏颜色 -->
-    <color name="colorPrimaryDark">#3d3d3d</color>
-    <color name="colorAccent">#9b9b9b</color>
     <color name="ic_down_search_background">#C6AAA8</color>
     <color name="ic_up_more_background">#AB9C9A</color>
     <color name="ic_up_search_background">#FAFAFA</color>
+
+    <color name="colorPrimary">#1976d2</color>
+    <color name="colorPrimaryDark">#1565c0</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="blue_background">#1976D2</color>
+    <color name="teal_background">#00796B</color>
+    <color name="orange_background">#F57C00</color>
+    <color name="red_background">#D32F2F</color>
+    <color name="purple_background">#7B1FA2</color>
+
+    <color name="transparent_button_pressed">#44444444</color>
+    <color name="transparent_button_focused">#44666666</color>
 </resources>

@@ -43,6 +43,10 @@
             </intent-filter>
         </activity>
 
+
+
+        
+
     </application>
 
     <!-- 手机权限获得 -->
