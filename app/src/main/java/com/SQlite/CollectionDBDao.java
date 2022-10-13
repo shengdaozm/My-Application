@@ -14,7 +14,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-//用户数据表操作类
+//收藏数据表操作类
 public class CollectionDBDao {
     //数据库名称
     public static final String TABLE_NAME = "collection_info";

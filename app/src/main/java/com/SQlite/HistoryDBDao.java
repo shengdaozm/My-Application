@@ -15,7 +15,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-//用户数据表操作类
+//历史数据表操作类
 public class HistoryDBDao {
     //数据库名称
     public static final String TABLE_NAME = "history_info";
