@@ -1,8 +1,5 @@
 package com.webpage;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,8 +17,6 @@ import com.publicClass.history;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import static com.webpage.webpage.EXTERNAL_STORAGE_REQ_CODE;
 
 /**
  * 历史记录展示界面
