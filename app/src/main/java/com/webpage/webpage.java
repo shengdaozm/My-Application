@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -81,7 +82,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
                     // 光标置于末尾
                     textUrl.setSelection(textUrl.getText().length());
                     // 显示因特网图标
-                    webIcon.setImageResource(R.drawable.internet);
+                    webIcon.setImageResource(R.drawable.ic_internet);
                     // 显示跳转按钮
                     btnStart.setImageResource(R.drawable.go);
                 } else {
@@ -213,12 +214,14 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             // 切换默认网页图标
             webIcon.setImageResource(R.drawable.internet);
 
-            //TODO 把histro加入数据库。
+            //TODO 把histroy加入数据库。
             mSQLiteMaster = new SQLiteMaster(com.webpage.webpage.this);
             mSQLiteMaster.openDataBase();
-            history h = new history(url , view.getTitle(), favicon);
+            Log.d("TEST","1");
+            history h = new history(url , view.getTitle(), favicon==null?((BitmapDrawable)webIcon.getDrawable()).getBitmap():favicon);
 //            if(mSQLiteMaster.mHistoryDBDao.queryData(url) == null)
                 mSQLiteMaster.mHistoryDBDao.insertData(h);
+            Log.d("TEST","2");
         }
 
         @Override
