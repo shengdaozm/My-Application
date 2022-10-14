@@ -74,7 +74,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                 <ImageButton
-                        android:id="@+id/btnStart"
+                        android:id="@+id/btnFav"
                         android:layout_width="41dp"
                         android:layout_height="@dimen/top_bar_height"
                         android:focusable="true"
