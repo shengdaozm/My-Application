@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -71,6 +72,7 @@ public class historyShow extends AppCompatActivity {
             history h = mHistories.get(position);
             holder.mTitle.setText(h.getText());
             holder.mUrl.setText(h.getUrl());
+            holder.mimage.setImageBitmap(h.getWebIcon());
         }
 
         @Override
@@ -79,11 +81,13 @@ public class historyShow extends AppCompatActivity {
 
     static class MyViewHoder extends RecyclerView.ViewHolder {
         TextView mTitle,mUrl;
+        ImageView mimage;
 
         public MyViewHoder(final View itemView) {
             super(itemView);
             mTitle = itemView.findViewById(R.id.history_title);
             mUrl = itemView.findViewById(R.id.history_url);
+            mimage=itemView.findViewById(R.id.web_history_icon);
         }
     }
 

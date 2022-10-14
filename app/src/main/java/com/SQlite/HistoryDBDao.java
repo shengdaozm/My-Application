@@ -41,14 +41,28 @@ public class HistoryDBDao {
 
     //插入一条数据
     public long insertData(history History) {
+        Long id = null;
         ContentValues values = new ContentValues();
+        Log.d("TEST","3");
         ByteArrayOutputStream os = new ByteArrayOutputStream();
+        Log.d("TEST","4");
         //TODO 无法插入bitmap
-        //History.getWebIcon().compress(Bitmap.CompressFormat.PNG,100,os);
+        if(History.getWebIcon() != null) {
+            History.getWebIcon().compress(Bitmap.CompressFormat.PNG, 100, os);
+        }
+        else os = null;
+        Log.d("TEST","5");
         values.put(KEY_URL,History.getUrl());
         values.put(KEY_TEXT,History.getText());
-        values.put(KEY_WEBICON,os.toByteArray());
-        return mDatabase.insert(TABLE_NAME , null , values);
+        Log.d("TEST","6");
+        if(os != null)
+            values.put(KEY_WEBICON,os.toByteArray());
+        else
+            values.put(KEY_WEBICON,(Byte)null);
+        Log.d("TEST","7");
+        long num = mDatabase.insert(TABLE_NAME , null , values);
+        Log.d("TEST","8");
+        return num;
     }
 
     //删除数据

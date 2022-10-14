@@ -43,7 +43,7 @@ public class CollectionDBDao {
         ContentValues values = new ContentValues();
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         //TODO 无法插入bitmap
-        //History.getWebIcon().compress(Bitmap.CompressFormat.PNG,100,os);
+        History.getWebIcon().compress(Bitmap.CompressFormat.PNG,100,os);
         values.put(KEY_URL,History.getUrl());
         values.put(KEY_TEXT,History.getText());
         values.put(KEY_WEBICON,os.toByteArray());
