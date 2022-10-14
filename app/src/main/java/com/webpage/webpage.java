@@ -19,9 +19,7 @@ import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.core.app.ActivityCompat;
-import com.SQlite.MyApplication;
 import com.SQlite.SQLiteMaster;
-import com.SQlite.UserDBDao;
 import com.example.myapplication.R;
 
 import java.io.UnsupportedEncodingException;
@@ -37,7 +35,6 @@ public class webpage extends AppCompatActivity implements OnClickListener {
     private static final String HTTP = "http://";
     private static final String HTTPS = "https://";
     private static final int PRESS_BACK_EXIT_GAP = 2000;
-    private List<history> listHistory;
     private Context mContext;
     private InputMethodManager manager;
     private long exitTime = 0;
@@ -46,7 +43,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
 
     private  TextView pageCount;
     private ImageView webIcon;
-    private ImageButton btnStart,btnHistory;
+    private ImageButton btnStart,btnHistory,btnDownload;
     private WebView webView;
     private ProgressBar progressBar;
 
@@ -64,14 +61,15 @@ public class webpage extends AppCompatActivity implements OnClickListener {
     public void initView() {
         Log.d("TEST","界面控件初始化");
         //顶层网址控件
-        webIcon = (ImageView) findViewById(R.id.webIcon);
-        textUrl = (EditText) findViewById(R.id.textUrl);
-        btnStart = (ImageButton) findViewById(R.id.btnStart);
-        btnHistory = (ImageButton) findViewById(R.id.btnhistory);
+        webIcon = findViewById(R.id.webIcon);
+        textUrl = findViewById(R.id.textUrl);
+        btnStart = findViewById(R.id.btnStart);
+        btnHistory = findViewById(R.id.btnhistory);
+        btnDownload= findViewById(R.id.btn_download);
         //浏览器的进度条
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar);
         //网页内容显示
-        webView = (WebView) findViewById(R.id.webView);
+        webView = findViewById(R.id.webView);
 
         // 地址输入栏获取与失去焦点处理
         textUrl.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -110,6 +108,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
         });
         btnStart.setOnClickListener(this);
         btnHistory.setOnClickListener(this);
+        btnDownload.setOnClickListener(this);
     }
 
     /**
@@ -314,15 +313,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
         }
     }
 
-
-    //TODO 数据库的测试
-    public void testForDB() throws IllegalAccessException, InstantiationException {
-        mSQLiteMaster = new SQLiteMaster(com.webpage.webpage.this);
-        mSQLiteMaster.openDataBase();
-        listHistory = mSQLiteMaster.mHistoryDBDao.queryDataList();
-        for (com.publicClass.history history : listHistory)  Log.d("TEST", history.getUrl() + " " + history.getText());
-    }
-
+    //TODO webpage的界面响应
     @Override
     public void onClick(View view) {
         int ID = view.getId();
@@ -350,6 +341,8 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             Log.d("TEST","btnhistory is on !");
             Intent intent= new Intent(com.webpage.webpage.this, historyShow.class); //添加活动跳转
             startActivity(intent);
+        } else if(ID==R.id.btn_download) {
+
         }
     }
 

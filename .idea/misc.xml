@@ -3,12 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/button_background_transparent.xml" value="0.2265" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/button_shape.xml" value="0.2265" />
+        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/circle_translucent.xml" value="0.2265" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/ic___.xml" value="0.203" />
+        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/ic_add_collection.xml" value="0.2265" />
+        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/ic_back_white.xml" value="0.2265" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/ic_baidu_foreground.xml" value="0.203" />
+        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/ic_brush_blue.xml" value="0.2265" />
+        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/ic_check_white.xml" value="0.2265" />
+        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/ic_collections.xml" value="0.2265" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/ic_down_search_foreground.xml" value="0.203" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/ic_download.xml" value="0.2265" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/ic_email_white_24dp.xml" value="0.203" />
+        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/ic_history.xml" value="0.2265" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/ic_launcher_background.xml" value="0.208" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/ic_lock_white_24dp.xml" value="0.203" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/drawable/ic_up_more_foreground.xml" value="0.203" />
@@ -23,6 +31,7 @@
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/firstpage.xml" value="0.1" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/firstpage_below.xml" value="0.234375" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/firstpage_main.xml" value="0.31797235023041476" />
+        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/history_fav.xml" value="0.19429347826086957" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/history_item.xml" value="0.2995658465991317" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/history_show.xml" value="0.19674556213017752" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/histroy_show.xml" value="0.19746376811594202" />
@@ -30,6 +39,10 @@
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/login.xml" value="0.4" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/test.xml" value="0.20989583333333334" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/test1.xml" value="0.19429347826086957" />
+        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/view_1.xml" value="0.19429347826086957" />
+        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/view_2.xml" value="0.19429347826086957" />
+        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/view_3.xml" value="0.19429347826086957" />
+        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/view_4.xml" value="0.19429347826086957" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/view_forth.xml" value="0.4" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/view_one.xml" value="0.2" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/layout/view_thre.xml" value="0.19429347826086957" />
@@ -44,6 +57,7 @@
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/mipmap-anydpi-v26/ic_up_more.xml" value="0.1" />
+        <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/mipmap-anydpi-v26/ic_up_more_round.xml" value="0.1" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/mipmap-anydpi-v26/ic_up_search.xml" value="0.1" />
         <entry key="..\:/IDEA/projects/My-Application/app/src/main/res/mipmap-anydpi-v26/ic_up_search_round.xml" value="0.1" />
         <entry key="..\:/JAVA/My-Application/app/src/main/res/layout/AD.xml" value="0.11626139817629179" />
