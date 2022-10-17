@@ -71,7 +71,7 @@ public class historyShow extends Fragment {
             history h = mHistories.get(position);
             holder.mTitle.setText(h.getText());
             holder.mUrl.setText(h.getUrl());
-            //holder.mimage.setImageBitmap(h.getWebIcon());
+            holder.mimage.setImageBitmap(h.getWebIcon());
         }
 
         @Override

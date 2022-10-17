@@ -70,7 +70,7 @@ public class SQLiteMaster {
             HistoryDBDao.KEY_ID + " integer primary key autoincrement , " +
             HistoryDBDao.KEY_URL + " text not null , " +
             HistoryDBDao.KEY_TEXT + " text not null , " +
-            HistoryDBDao.KEY_WEBICON + " blob not null );";
+            HistoryDBDao.KEY_WEBICON + " BLOB );";
 
     //删除该数据库下User表的语句
     private static final String mUserDelSql = "DROP TABLE IF EXISTS " + UserDBDao.TABLE_NAME;
