@@ -21,11 +21,13 @@ public class SQLiteMaster {
     //数据表操作类实例化
     public UserDBDao mUserDBDao;
     public HistoryDBDao mHistoryDBDao;
+    public CollectionDBDao mCollectionDBDao;
 
     public SQLiteMaster(Context context){
         mContext = context;
         mUserDBDao = new UserDBDao(mContext);
         mHistoryDBDao = new HistoryDBDao(mContext);
+        mCollectionDBDao = new CollectionDBDao(mContext);
         Log.d("TEST","SQLiteMaster构造成功");
     }
 
@@ -40,6 +42,7 @@ public class SQLiteMaster {
         //设置数据库的SQLiteDatabase
         mUserDBDao.setDatabase(mDatabase);
         mHistoryDBDao.setDatabase(mDatabase);
+        mCollectionDBDao.setDatabase(mDatabase);
     }
 
     //关闭数据库
@@ -63,11 +66,19 @@ public class SQLiteMaster {
             HistoryDBDao.KEY_TEXT + " text not null , " +
             HistoryDBDao.KEY_WEBICON + " blob not null );";
 
+    private static final String mCollectionSqlqtr = "create table if not exists " + CollectionDBDao.TABLE_NAME + "(" +
+            HistoryDBDao.KEY_ID + " integer primary key autoincrement , " +
+            HistoryDBDao.KEY_URL + " text not null , " +
+            HistoryDBDao.KEY_TEXT + " text not null , " +
+            HistoryDBDao.KEY_WEBICON + " BLOB );";
+
     //删除该数据库下User表的语句
     private static final String mUserDelSql = "DROP TABLE IF EXISTS " + UserDBDao.TABLE_NAME;
 
     //删除该数据库下History表的语句
     private static final String mHistoryDelSql = "DROP TABLE IF EXISTS " + HistoryDBDao.TABLE_NAME;
+    //删除该数据库下Collection表的语句
+    private static final String getCollectionDelSql = "DROP TABLE IF EXISTS " + HistoryDBDao.TABLE_NAME;
     //数据表打开帮助类
     public static class DBOpenHelper extends SQLiteOpenHelper{
 
@@ -79,12 +90,14 @@ public class SQLiteMaster {
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(mUserSqlStr);
             db.execSQL(mHistorySqlqtr);
+            db.execSQL(mCollectionSqlqtr);
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int i, int i1) {
             db.execSQL(mUserDelSql);
             db.execSQL(mHistoryDelSql);
+            db.execSQL(mCollectionSqlqtr);
             onCreate(db);
         }
     }

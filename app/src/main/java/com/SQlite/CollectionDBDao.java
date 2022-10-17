@@ -8,17 +8,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import com.publicClass.history;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-//历史数据表操作类
-public class HistoryDBDao {
+//收藏数据表操作类
+public class CollectionDBDao {
     //数据库名称
-    public static final String TABLE_NAME = "history_info";
+    public static final String TABLE_NAME = "collection_info";
 
     //数据库自增ID
     public static String KEY_ID = "id";
@@ -33,7 +32,7 @@ public class HistoryDBDao {
     //数据库打开帮助类
     private SQLiteMaster.DBOpenHelper mDBOpenHelper;
 
-    public HistoryDBDao(Context context){
+    public CollectionDBDao(Context context){
         mContext = context;;
     }
 
@@ -41,28 +40,14 @@ public class HistoryDBDao {
 
     //插入一条数据
     public long insertData(history History) {
-        Long id = null;
         ContentValues values = new ContentValues();
-        Log.d("TEST","3");
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-        Log.d("TEST","4");
         //TODO 无法插入bitmap
-        if(History.getWebIcon() != null) {
-            History.getWebIcon().compress(Bitmap.CompressFormat.PNG, 100, os);
-        }
-        else os = null;
-        Log.d("TEST","5");
+        History.getWebIcon().compress(Bitmap.CompressFormat.PNG,100,os);
         values.put(KEY_URL,History.getUrl());
         values.put(KEY_TEXT,History.getText());
-        Log.d("TEST","6");
-        if(os != null)
-            values.put(KEY_WEBICON,os.toByteArray());
-        else
-            values.put(KEY_WEBICON,(Byte)null);
-        Log.d("TEST","7");
-        long num = mDatabase.insert(TABLE_NAME , null , values);
-        Log.d("TEST","8");
-        return num;
+        values.put(KEY_WEBICON,os.toByteArray());
+        return mDatabase.insert(TABLE_NAME , null , values);
     }
 
     //删除数据
