@@ -187,11 +187,16 @@
                         android:fontFamily="@font/gotham"
                         android:layout_width="113dp"
                         android:clickable="true"
-                        android:layout_height="match_parent" android:id="@+id/textView2"/>
+                        android:layout_height="match_parent"
+                        android:id="@+id/textView2"/>
                 <Switch
                         android:text="Switch"
+                        android:checked="false"
                         android:layout_width="50dp"
-                        android:layout_height="51dp" android:id="@+id/switch1" android:layout_weight="1"/>
+                        android:layout_height="51dp"
+                        android:id="@+id/no_image"
+                        android:focusable="true"
+                        android:layout_weight="1"/>
 
             </LinearLayout>
             <LinearLayout
@@ -204,11 +209,16 @@
                         android:fontFamily="@font/gotham"
                         android:layout_width="113dp"
                         android:clickable="true"
-                        android:layout_height="match_parent" android:id="@+id/textView2"/>
+                        android:layout_height="match_parent"
+                        android:id="@+id/textView2"/>
                 <Switch
+                        android:id="@+id/no_history"
                         android:text="Switch"
                         android:layout_width="wrap_content"
-                        android:layout_height="51dp" android:id="@+id/switch1" android:layout_weight="1"/>
+                        android:focusable="true"
+                        android:checked="false"
+                        android:layout_height="51dp"
+                        android:layout_weight="1"/>
 
             </LinearLayout>
         </LinearLayout>

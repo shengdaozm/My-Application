@@ -3,6 +3,7 @@ package com.webpage;
 import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class history_collections_main extends FragmentActivity  {
-    private RadioButton ib1,ib2;//对应历史、收藏的按钮
+    private ImageButton ib1,ib2;//对应历史、收藏的按钮
     private FragmentManager fragmentManager;
     private FragmentTransaction mTransaction;
     private RadioGroup lly;

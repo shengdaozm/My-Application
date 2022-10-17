@@ -10,7 +10,7 @@
     <FrameLayout
             android:id="@+id/frameLayout"
             android:layout_width="match_parent"
-            android:layout_height="581dp"
+            android:layout_height="623dp"
             android:layout_weight="1"/>
 
     <RadioGroup
@@ -26,19 +26,27 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical">
-            <RadioButton
+            <ImageButton
                     android:id="@+id/histories_imageButton"
-                    android:layout_width="63dp"
-                    android:layout_height="75dp"
+                    android:layout_width="41dp"
+                    android:layout_height="@dimen/top_bar_height"
                     android:focusable="true"
                     android:padding="11dp"
                     android:layout_marginRight="2dp"
                     android:layout_marginEnd="2dp"
                     android:clickable="true"
                     android:scaleType="centerCrop"
-                    android:button="@null"
-                    android:drawableTop="@drawable/history"
-                    android:background="#01000000"/>
+                    android:src="@drawable/history"
+                    android:background="#01000000" />
+            <TextView
+                    android:id="@+id/t1"
+                    android:layout_weight="1"
+                    android:layout_width="38dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="历史"
+                    android:textSize="10sp"
+                    android:textColor="#000"/>
         </LinearLayout>
         <LinearLayout
                 android:layout_weight="1"
@@ -46,19 +54,27 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical" tools:ignore="ExtraText">
-            <RadioButton
+            <ImageButton
                     android:id="@+id/collections_imageButton"
-                    android:layout_width="64dp"
-                    android:layout_height="75dp"
+                    android:layout_width="41dp"
+                    android:layout_height="@dimen/top_bar_height"
                     android:focusable="true"
                     android:padding="11dp"
                     android:layout_marginRight="2dp"
                     android:layout_marginEnd="2dp"
                     android:clickable="true"
                     android:scaleType="centerCrop"
-                    android:button="@null"
-                    android:drawableTop="@drawable/collections"
+                    android:src="@drawable/collections"
                     android:background="#01000000"/>
+            <TextView
+                    android:id="@+id/t2"
+                    android:layout_weight="1"
+                    android:layout_width="40dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="收藏"
+                    android:textSize="10sp"
+                    android:textColor="#000"/>
         </LinearLayout>
 
     </RadioGroup>
