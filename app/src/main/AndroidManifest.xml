@@ -28,7 +28,7 @@
         </activity>
 
         <activity
-                android:name="com.webpage.historyShow"
+                android:name="com.webpage.history_collections_main"
                 android:label="history">
         </activity>
 

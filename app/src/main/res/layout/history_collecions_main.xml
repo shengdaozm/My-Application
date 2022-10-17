@@ -1,0 +1,66 @@
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.webpage.history_collections_main">
+
+
+    <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="581dp"
+            android:layout_weight="1"/>
+
+    <RadioGroup
+            android:id="@+id/whichshow"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:background="#FFFFFF">
+        <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+            <RadioButton
+                    android:id="@+id/histories_imageButton"
+                    android:layout_width="63dp"
+                    android:layout_height="75dp"
+                    android:focusable="true"
+                    android:padding="11dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginEnd="2dp"
+                    android:clickable="true"
+                    android:scaleType="centerCrop"
+                    android:button="@null"
+                    android:drawableTop="@drawable/history"
+                    android:background="#01000000"/>
+        </LinearLayout>
+        <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical" tools:ignore="ExtraText">
+            <RadioButton
+                    android:id="@+id/collections_imageButton"
+                    android:layout_width="64dp"
+                    android:layout_height="75dp"
+                    android:focusable="true"
+                    android:padding="11dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginEnd="2dp"
+                    android:clickable="true"
+                    android:scaleType="centerCrop"
+                    android:button="@null"
+                    android:drawableTop="@drawable/collections"
+                    android:background="#01000000"/>
+        </LinearLayout>
+
+    </RadioGroup>
+
+</LinearLayout>

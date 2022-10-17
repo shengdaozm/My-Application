@@ -2,11 +2,13 @@ package com.webpage;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,11 +19,12 @@ import com.publicClass.history;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 历史记录展示界面
  */
-public class historyShow extends AppCompatActivity {
+public class historyShow extends Fragment {
 
     SQLiteMaster mSQLiteMaster;
 
@@ -29,15 +32,15 @@ public class historyShow extends AppCompatActivity {
     List<history> mHistories = new ArrayList<>();
 
     public void getFromDB() throws IllegalAccessException, InstantiationException {
-        mSQLiteMaster = new SQLiteMaster(com.webpage.historyShow.this);
+        mSQLiteMaster = new SQLiteMaster(getActivity());
         mSQLiteMaster.openDataBase();
         mHistories = mSQLiteMaster.mHistoryDBDao.queryDataList();
         Collections.reverse(mHistories);//反转mHistories 按照时间的新旧进行排序
     }
 
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.history_show);
+    @NonNull
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("TEST","进入历史记录页面 !");
         //构造数据
         try {
@@ -47,22 +50,19 @@ public class historyShow extends AppCompatActivity {
         } catch (InstantiationException e) {
             throw new RuntimeException(e);
         }
-        mRecyclerView=findViewById(R.id.recyclerview);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(historyShow.this, LinearLayoutManager.VERTICAL, false);//布局管理器
+        mRecyclerView= mRecyclerView.findViewById(R.id.recyclerview);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);//布局管理器
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(new MyAdapter());//添加适配器
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
-
-        mSQLiteMaster = new SQLiteMaster(com.webpage.historyShow.this);
-        mSQLiteMaster.openDataBase();
-
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
+        return inflater.inflate(R.layout.history, container, false);
     }
 
     class MyAdapter extends RecyclerView.Adapter<MyViewHoder> {
         @NonNull
         @Override
         public MyViewHoder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = View.inflate(historyShow.this, R.layout.history_item, null);
+            View view = View.inflate(getContext(), R.layout.history_item, null);
             return new MyViewHoder(view);
         }
 
@@ -71,6 +71,7 @@ public class historyShow extends AppCompatActivity {
             history h = mHistories.get(position);
             holder.mTitle.setText(h.getText());
             holder.mUrl.setText(h.getUrl());
+            //holder.mimage.setImageBitmap(h.getWebIcon());
         }
 
         @Override
@@ -79,18 +80,13 @@ public class historyShow extends AppCompatActivity {
 
     static class MyViewHoder extends RecyclerView.ViewHolder {
         TextView mTitle,mUrl;
+        ImageView mimage;
 
         public MyViewHoder(final View itemView) {
             super(itemView);
             mTitle = itemView.findViewById(R.id.history_title);
             mUrl = itemView.findViewById(R.id.history_url);
+            mimage=itemView.findViewById(R.id.web_history_icon);
         }
-    }
-
-    protected void onDestroy() {
-        Log.d("TEST","webpage完成销毁！");
-        super.onDestroy();
-        // 关闭数据库
-        mSQLiteMaster.closeDataBase();
     }
 }
