@@ -220,8 +220,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             Log.d("TEST","1");
             history h = new history(url , view.getTitle(), favicon==null?((BitmapDrawable)webIcon.getDrawable()).getBitmap():favicon);
 //            if(mSQLiteMaster.mHistoryDBDao.queryData(url) == null)
-                mSQLiteMaster.mHistoryDBDao.insertData(h);
-            Log.d("TEST","2");
+            mSQLiteMaster.mHistoryDBDao.insertData(h);
         }
 
         @Override
@@ -272,13 +271,11 @@ public class webpage extends AppCompatActivity implements OnClickListener {
 
     /**
      * webpage界面生成
-     * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("TEST","界面初始化");
         super.onCreate(savedInstanceState);
-//        mSQLiteMaster.openDataBase();
 
         int permission = ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -294,6 +291,8 @@ public class webpage extends AppCompatActivity implements OnClickListener {
         manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         initView();
         initWeb();
+        toast("欢迎使用！祝您快乐每一天！");
+        toast("右滑可以打开设置栏！");
     }
 
     /**
@@ -342,10 +341,13 @@ public class webpage extends AppCompatActivity implements OnClickListener {
                 webView.reload();
         } else if(ID==R.id.btnhistory) {
             Log.d("TEST","btnhistory is on !");
-            Intent intent= new Intent(com.webpage.webpage.this, historyShow.class); //添加活动跳转
+            Intent intent= new Intent(com.webpage.webpage.this, history_collections_main.class);
             startActivity(intent);
         } else if(ID==R.id.btn_download) {
+            Log.d("TEST","btn_download is on!");
+            // TODO 添加页面下载功能
 
+            toast("下载完成，请移步到文件管理器中查看！");
         }
     }
 
@@ -359,7 +361,6 @@ public class webpage extends AppCompatActivity implements OnClickListener {
         // 判断是否是网址的正则表达式
         String regex = "(((https|http)?://)?([a-z0-9]+[.])|(www.))"
                 + "\\w+[.|\\/]([a-z0-9]{0,})?[[.]([a-z0-9]{0,})]+((/[\\S&&[^,;\u4E00-\u9FA5]]+)+)?([.][a-z0-9]{0,}+|/?)";
-
         Pattern pat = Pattern.compile(regex.trim());
         Matcher mat = pat.matcher(urls.trim());
         isUrl = mat.matches();
@@ -376,7 +377,6 @@ public class webpage extends AppCompatActivity implements OnClickListener {
     }
 
     protected void onDestroy() {
-        Log.d("TEST","webpage完成销毁！");
         super.onDestroy();
         // 关闭数据库
         mSQLiteMaster.closeDataBase();
