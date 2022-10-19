@@ -19,7 +19,6 @@ import com.publicClass.history;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * 历史记录展示界面
@@ -42,20 +41,16 @@ public class historyShow extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("TEST","进入历史记录页面 !");
-        //构造数据
-        try {
-            getFromDB();
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        }
-        mRecyclerView= mRecyclerView.findViewById(R.id.recyclerview);
+        View view=inflater.inflate(R.layout.history, container, false);
+        //获得数据
+        try {getFromDB();} catch (IllegalAccessException e) {throw new RuntimeException(e);} catch (InstantiationException e) {throw new RuntimeException(e);}
+
+        mRecyclerView= view.findViewById(R.id.recyclerview);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);//布局管理器
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(new MyAdapter());//添加适配器
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
-        return inflater.inflate(R.layout.history, container, false);
+        return view;
     }
 
     class MyAdapter extends RecyclerView.Adapter<MyViewHoder> {
