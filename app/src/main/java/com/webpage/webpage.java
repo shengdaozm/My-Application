@@ -25,7 +25,9 @@ import com.example.myapplication.R;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,6 +35,8 @@ import com.publicClass.history;
 
 // 参考仓库：https://github.com/zhangbenzhi/Mkbrowser-master
 public class webpage extends AppCompatActivity implements OnClickListener {
+
+    private Set<String> hs;//用哈希进行判重
     private static final String HTTP = "http://";
     private static final String HTTPS = "https://";
     private static final int PRESS_BACK_EXIT_GAP = 2000;
@@ -101,8 +105,23 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             return false;
         });
 
-        no_image.setOnCheckedChangeListener((Switch.OnCheckedChangeListener) this);
-        no_history.setOnCheckedChangeListener((Switch.OnCheckedChangeListener) this);
+        no_image.setOnCheckedChangeListener((compoundButton, b) -> {
+            is_add_history = !b;
+            if (b) {
+                toast("你的浏览不会被记录啦！");
+            } else {
+                toast("又要记录你的浏览啦！");
+            }
+        });
+        no_history.setOnCheckedChangeListener((compoundButton, b) -> {
+            is_have_image = !b;
+            settings.setLoadsImagesAutomatically(is_have_image);
+            if (b) {
+                toast("进入无图模式,记得刷新哦");
+            } else {
+                toast("又可以看到图片啦,记得刷新哦");
+            }
+        });
         btnStart.setOnClickListener(this);
         btnHistory.setOnClickListener(this);
         btnDownload.setOnClickListener(this);
@@ -202,16 +221,13 @@ public class webpage extends AppCompatActivity implements OnClickListener {
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             Log.d("TEST","加载界面");
             super.onPageStarted(view, url, favicon);
-            // 网页开始加载，显示进度条
-            progressBar.setProgress(0);
+            progressBar.setProgress(0); // 网页开始加载，显示进度条
             progressBar.setVisibility(View.VISIBLE);
-            // 更新状态文字
-            textUrl.setText("加载中...");
-            // 切换默认网页图标
-            webIcon.setImageResource(R.drawable.internet);
-
-            //TODO 历史记录的判空需要做。
-            if(is_add_history) {
+            textUrl.setText("加载中..."); // 更新状态文字
+            webIcon.setImageResource(R.drawable.internet); // 切换默认网页图标
+            // TODO 数据库的基础判重需要做。
+            if(is_add_history&&hs.equals(url)) {
+                hs.add(url);
                 history h = new history(url , view.getTitle(), favicon==null?((BitmapDrawable)webIcon.getDrawable()).getBitmap():favicon);
 //            if(mSQLiteMaster.mHistoryDBDao.queryData(url) == null)
                 mSQLiteMaster.mHistoryDBDao.insertData(h);
@@ -284,6 +300,8 @@ public class webpage extends AppCompatActivity implements OnClickListener {
         Log.d("TEST","界面初始化");
         super.onCreate(savedInstanceState);
 
+        hs= new HashSet<>();
+
         int permission = ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
@@ -325,26 +343,6 @@ public class webpage extends AppCompatActivity implements OnClickListener {
         }
     }
 
-    public void onFocusChange(View view, boolean b) {
-        int ID = view.getId();
-        if (ID == R.id.no_history) {
-            is_add_history = !b;
-            if (b) {
-                toast("你的浏览不会被记录啦！");
-            } else {
-                toast("又要记录你的浏览啦！");
-            }
-        } else {
-            is_have_image = !b;
-            settings.setLoadsImagesAutomatically(is_have_image);
-            if (b) {
-                toast("进入无图模式,记得刷新哦");
-            } else {
-                toast("又可以看到图片啦");
-            }
-        }
-    }
-
     //TODO webpage的界面响应
     @Override
     public void onClick(View view) {
@@ -370,7 +368,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             } else // 地址栏没焦点，是刷新
                 webView.reload();
         } else if(ID==R.id.btnhistory) {
-            Log.d("TEST","btnhistory is on !");
+            Log.d("TEST","btn_history is on !");
             Intent intent= new Intent(com.webpage.webpage.this, history_collections_main.class);
             startActivity(intent);
         } else if(ID==R.id.btn_download) {
