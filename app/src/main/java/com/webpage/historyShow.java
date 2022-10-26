@@ -64,8 +64,8 @@ public class historyShow extends Fragment {
         @Override
         public void onBindViewHolder(MyViewHoder holder, int position) {
             history h = mHistories.get(position);
-            holder.mTitle.setText(h.getText());
-            holder.mUrl.setText(h.getUrl());
+            holder.mTitle.setText(h.getText()==null?"标题":h.getText());
+            holder.mUrl.setText(h.getUrl()==null?"网址":(h.getUrl().substring(0,10)+"..."));
             holder.mimage.setImageBitmap(h.getWebIcon());
         }
 

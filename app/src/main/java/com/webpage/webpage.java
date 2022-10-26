@@ -105,7 +105,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             return false;
         });
 
-        no_image.setOnCheckedChangeListener((compoundButton, b) -> {
+        no_history.setOnCheckedChangeListener((compoundButton, b) -> {
             is_add_history = !b;
             if (b) {
                 toast("你的浏览不会被记录啦！");
@@ -113,7 +113,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
                 toast("又要记录你的浏览啦！");
             }
         });
-        no_history.setOnCheckedChangeListener((compoundButton, b) -> {
+        no_image.setOnCheckedChangeListener((compoundButton, b) -> {
             is_have_image = !b;
             settings.setLoadsImagesAutomatically(is_have_image);
             if (b) {
@@ -226,7 +226,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             textUrl.setText("加载中..."); // 更新状态文字
             webIcon.setImageResource(R.drawable.internet); // 切换默认网页图标
             // TODO 数据库的基础判重需要做。
-            if(is_add_history&&hs.equals(url)) {
+            if(is_add_history&&!hs.equals(url)) {
                 hs.add(url);
                 history h = new history(url , view.getTitle(), favicon==null?((BitmapDrawable)webIcon.getDrawable()).getBitmap():favicon);
 //            if(mSQLiteMaster.mHistoryDBDao.queryData(url) == null)
@@ -376,8 +376,6 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             // TODO 添加页面下载功能
 
             toast("下载完成，请移步到文件管理器中查看！");
-        } else if(ID==R.id.no_history) {
-            toast("???在这显示了");
         }
     }
 
