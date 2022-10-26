@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import com.example.myapplication.R;
 
+// //https://www.dmoe.cc/random.phpkaolv 使用随机图API
 public class collectionShow extends Fragment {
 
     @NonNull

@@ -4,19 +4,23 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
                                                     tools:context="com.webpage.historyShow">
-
-
-    <TextView
-            android:text="@string/histories"
-            android:layout_width="411dp"
-            android:gravity="center"
-            android:layout_height="67dp" android:id="@+id/textView3" tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteY="-1dp" tools:layout_editor_absoluteX="0dp"/>
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview"
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="644dp"
-            tools:layout_editor_absoluteX="0dp"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="1.0"
-            app:layout_constraintTop_toTopOf="@+id/textView3" />
+            android:layout_height="match_parent" tools:ignore="UselessParent">
+        <TextView
+                android:text="@string/histories"
+                android:layout_width="411dp"
+                android:gravity="center"
+                android:layout_height="67dp" android:id="@+id/textView3" tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteY="-1dp" tools:layout_editor_absoluteX="0dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="664dp"
+                tools:layout_editor_absoluteX="0dp"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintVertical_bias="1.0"
+                app:layout_constraintTop_toTopOf="@+id/textView3">
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
 </FrameLayout>

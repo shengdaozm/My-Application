@@ -68,7 +68,6 @@ public class history_collections_main extends FragmentActivity  {
                 mTransaction.show(fragment);
             else
                 mTransaction.hide(fragment);
-
         mTransaction.commit();
     }
 }
