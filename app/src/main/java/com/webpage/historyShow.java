@@ -1,5 +1,6 @@
 package com.webpage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,7 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,41 +27,39 @@ import java.util.List;
 /**
  * 历史记录展示界面
  */
-public class historyShow extends Fragment {
+public class historyShow extends AppCompatActivity {
 
     SQLiteMaster mSQLiteMaster;
 
     RecyclerView mRecyclerView;
     List<history> mHistories = new ArrayList<>();
 
+    public String Onurl;
     public void getFromDB() throws IllegalAccessException, InstantiationException {
-        mSQLiteMaster = new SQLiteMaster(getActivity());
+        mSQLiteMaster = new SQLiteMaster(historyShow.this);
         mSQLiteMaster.openDataBase();
         mHistories = mSQLiteMaster.mHistoryDBDao.queryDataList();
         Collections.reverse(mHistories);//反转mHistories 按照时间的新旧进行排序
     }
 
-    @NonNull
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         Log.d("TEST","进入历史记录页面 !");
-        View view=inflater.inflate(R.layout.history, container, false);
-        //获得数据
+        setContentView(R.layout.history);
         try {getFromDB();} catch (IllegalAccessException e) {throw new RuntimeException(e);} catch (InstantiationException e) {throw new RuntimeException(e);}
-
-        mRecyclerView= view.findViewById(R.id.recyclerview);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);//布局管理器
+        mRecyclerView= findViewById(R.id.recyclerview);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(historyShow.this, LinearLayoutManager.VERTICAL, false);//布局管理器
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(new MyAdapter());//添加适配器
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
-        return view;
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(historyShow.this,DividerItemDecoration.VERTICAL));
     }
 
     class MyAdapter extends RecyclerView.Adapter<MyViewHoder> {
         @NonNull
         @Override
         public MyViewHoder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = View.inflate(getContext(), R.layout.history_item, null);
+            View view = View.inflate(historyShow.this, R.layout.history_item, null);
             return new MyViewHoder(view);
         }
 
@@ -67,6 +69,16 @@ public class historyShow extends Fragment {
             holder.mTitle.setText(h.getText()==null?"标题":h.getText());
             holder.mUrl.setText(h.getUrl()==null?"网址":(h.getUrl().substring(0,10)+"..."));
             holder.mimage.setImageBitmap(h.getWebIcon());
+            // TODO 需要增加每条链接的响应，使得链接可以访问
+            holder.mRootView.setOnClickListener(view -> {
+                Onurl=mHistories.get(position).getUrl();
+                Log.d("TSET","返回地址是"+Onurl);
+                //传递参数并跳转
+                Intent jump_url=new Intent(historyShow.this,webpage.class);
+                jump_url.putExtra("load_url",Onurl);
+                //带参数的活动跳转
+                startActivity(jump_url);
+            });
         }
 
         @Override
@@ -76,12 +88,14 @@ public class historyShow extends Fragment {
     static class MyViewHoder extends RecyclerView.ViewHolder {
         TextView mTitle,mUrl;
         ImageView mimage;
+        ConstraintLayout mRootView;
 
         public MyViewHoder(final View itemView) {
             super(itemView);
             mTitle = itemView.findViewById(R.id.history_title);
             mUrl = itemView.findViewById(R.id.history_url);
             mimage=itemView.findViewById(R.id.web_history_icon);
+            mRootView = itemView.findViewById(R.id.history_item);
         }
     }
 }

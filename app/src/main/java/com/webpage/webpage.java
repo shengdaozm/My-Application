@@ -34,6 +34,7 @@ import java.util.regex.Pattern;
 import com.publicClass.history;
 
 // 参考仓库：https://github.com/zhangbenzhi/Mkbrowser-master
+@SuppressLint("UseSwitchCompatOrMaterialCode")
 public class webpage extends AppCompatActivity implements OnClickListener {
 
     private Set<String> hs;//用哈希进行判重
@@ -45,12 +46,10 @@ public class webpage extends AppCompatActivity implements OnClickListener {
     private long exitTime = 0;
     private EditText textUrl;
     private ImageView webIcon;
-    private ImageButton btnStart,btnHistory,btnDownload;
+    private ImageButton btnStart,btnHistory,btnDownload,btn_add_collection,btn_my_collections;
     private WebView webView;
     private WebSettings settings;
     private ProgressBar progressBar;
-    private Switch no_image;
-    private Switch no_history;
     private boolean is_have_image=true,is_add_history=true;
     SQLiteMaster mSQLiteMaster;
     public static final int EXTERNAL_STORAGE_REQ_CODE = 10 ;
@@ -67,13 +66,15 @@ public class webpage extends AppCompatActivity implements OnClickListener {
         btnStart = findViewById(R.id.btnStart);
         btnHistory = findViewById(R.id.btnhistory);
         btnDownload= findViewById(R.id.btn_download);
+        btn_add_collection= findViewById(R.id.btn_add_collection);
+        btn_my_collections= findViewById(R.id.btn_my_collections);
         //浏览器的进度条
         progressBar = findViewById(R.id.progressBar);
         //网页内容显示
         webView = findViewById(R.id.webView);
         //Switch控件
-        no_image=findViewById(R.id.no_image);
-        no_history=findViewById(R.id.no_history);
+        Switch no_image = findViewById(R.id.no_image);
+        Switch no_history = findViewById(R.id.no_history);
 
         // 地址输入栏获取与失去焦点处理
         textUrl.setOnFocusChangeListener((view, hasFocus) -> {
@@ -125,6 +126,8 @@ public class webpage extends AppCompatActivity implements OnClickListener {
         btnStart.setOnClickListener(this);
         btnHistory.setOnClickListener(this);
         btnDownload.setOnClickListener(this);
+        btn_add_collection.setOnClickListener(this);
+        btn_my_collections.setOnClickListener(this);
     }
 
     /**
@@ -219,7 +222,6 @@ public class webpage extends AppCompatActivity implements OnClickListener {
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            Log.d("TEST","加载界面");
             super.onPageStarted(view, url, favicon);
             progressBar.setProgress(0); // 网页开始加载，显示进度条
             progressBar.setVisibility(View.VISIBLE);
@@ -229,7 +231,6 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             if(is_add_history&&!hs.equals(url)) {
                 hs.add(url);
                 history h = new history(url , view.getTitle(), favicon==null?((BitmapDrawable)webIcon.getDrawable()).getBitmap():favicon);
-//            if(mSQLiteMaster.mHistoryDBDao.queryData(url) == null)
                 mSQLiteMaster.mHistoryDBDao.insertData(h);
             }
         }
@@ -319,8 +320,15 @@ public class webpage extends AppCompatActivity implements OnClickListener {
         manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         initView();
         initWeb();
-        toast("欢迎使用！祝您快乐每一天！");
-        toast("右滑可以打开设置栏！");
+        Intent i = getIntent();
+        String load_url = i.getStringExtra("load_url");
+        if(load_url==null) {
+            toast("欢迎使用！祝您快乐每一天！");
+            toast("右滑可以打开设置栏！");
+        } else {
+            Log.d("TEST","url from history is loaded!");
+            webView.loadUrl(load_url);
+        }
     }
 
     /**
@@ -367,15 +375,21 @@ public class webpage extends AppCompatActivity implements OnClickListener {
                 textUrl.clearFocus();
             } else // 地址栏没焦点，是刷新
                 webView.reload();
-        } else if(ID==R.id.btnhistory) {
+        } else if(ID==R.id.btnhistory) { //历史界面
             Log.d("TEST","btn_history is on !");
-            Intent intent= new Intent(com.webpage.webpage.this, history_collections_main.class);
+            Intent intent= new Intent(com.webpage.webpage.this, historyShow.class);
             startActivity(intent);
         } else if(ID==R.id.btn_download) {
-            Log.d("TEST","btn_download is on!");
             // TODO 添加页面下载功能
 
-            toast("下载完成，请移步到文件管理器中查看！");
+            toast("页面下载完成，请移步到文件管理器中查看！");
+        } else if(ID==R.id.btn_add_collection) {
+            //TODO 将目前页添加收藏，需要用户确认收藏的分类是什么
+
+        } else if(ID==R.id.btn_my_collections) {
+            //TODO 进入我的收藏
+            Intent intent= new Intent(com.webpage.webpage.this, collectionShow.class);
+            startActivity(intent);
         }
     }
 
