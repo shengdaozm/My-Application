@@ -2,21 +2,16 @@ package com.webpage;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
 
 // //https://www.dmoe.cc/random.phpkaolv 使用随机图API
-public class collectionShow extends Fragment {
+public class collectionShow extends AppCompatActivity {
 
-    @NonNull
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        Log.d("TEST","进入收藏的记录页面 !");
-        return inflater.inflate(R.layout.collectios, container, false);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d("TEST", "进入收藏的记录页面 !");
+        setContentView(R.layout.collectios);
     }
 }
