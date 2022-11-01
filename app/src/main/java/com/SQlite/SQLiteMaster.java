@@ -5,6 +5,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import com.publicClass.Labol;
 import com.publicClass.User;
 import com.publicClass.history;
 import com.SQlite.SQLiteConfig;
@@ -22,6 +23,7 @@ public class SQLiteMaster {
     public UserDBDao mUserDBDao;
     public HistoryDBDao mHistoryDBDao;
     public CollectionDBDao mCollectionDBDao;
+    public LabolDBDao mLabolDBDao;
 
     public SQLiteMaster(Context context){
         mContext = context;
@@ -72,13 +74,23 @@ public class SQLiteMaster {
             HistoryDBDao.KEY_TEXT + " text not null , " +
             HistoryDBDao.KEY_WEBICON + " BLOB );";
 
+    private static final String mLabolSqlqtr = "create table if not exists " + CollectionDBDao.TABLE_NAME + "(" +
+            LabolDBDao.KEY_ID + " integer primary key autoincrement , " +
+            LabolDBDao.KEY_URL + " text not null , " +
+            LabolDBDao.KEY_TEXT + " text not null , " +
+            LabolDBDao.KEY_WEBICON + " BLOB , " +
+            LabolDBDao.KEY_LABOL + " text not null )";
+            ;
+
     //删除该数据库下User表的语句
     private static final String mUserDelSql = "DROP TABLE IF EXISTS " + UserDBDao.TABLE_NAME;
 
     //删除该数据库下History表的语句
     private static final String mHistoryDelSql = "DROP TABLE IF EXISTS " + HistoryDBDao.TABLE_NAME;
     //删除该数据库下Collection表的语句
-    private static final String getCollectionDelSql = "DROP TABLE IF EXISTS " + HistoryDBDao.TABLE_NAME;
+    private static final String mCollectionDelSql = "DROP TABLE IF EXISTS " + HistoryDBDao.TABLE_NAME;
+    //删除该数据库下Labol表的语句
+    private static final String mLabolDelSql = "DROP TABLE IF EXISTS " + LabolDBDao.TABLE_NAME;
     //数据表打开帮助类
     public static class DBOpenHelper extends SQLiteOpenHelper{
 
@@ -91,6 +103,7 @@ public class SQLiteMaster {
             db.execSQL(mUserSqlStr);
             db.execSQL(mHistorySqlqtr);
             db.execSQL(mCollectionSqlqtr);
+            db.execSQL(mLabolSqlqtr);
         }
 
         @Override
@@ -98,6 +111,7 @@ public class SQLiteMaster {
             db.execSQL(mUserDelSql);
             db.execSQL(mHistoryDelSql);
             db.execSQL(mCollectionSqlqtr);
+            db.execSQL(mLabolSqlqtr);
             onCreate(db);
         }
     }
