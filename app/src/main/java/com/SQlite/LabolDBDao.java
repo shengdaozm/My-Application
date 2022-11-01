@@ -48,7 +48,6 @@ public class LabolDBDao {
         Log.d("TEST","3");
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         Log.d("TEST","4");
-        //TODO 无法插入bitmap
         if(labol.getWebIcon() != null) {
             labol.getWebIcon().compress(Bitmap.CompressFormat.PNG, 100, os);
         }

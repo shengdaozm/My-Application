@@ -9,10 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.SQlite.SQLiteMaster;
 import com.example.myapplication.R;
 import com.publicClass.history;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,6 +23,7 @@ import java.util.List;
 public class historyFav extends AppCompatActivity {
     RecyclerView mRecyclerView;
     MyAdapter mMyAdapter;
+    SQLiteMaster mSQLiteMaster;
     List<history> mHistories = new ArrayList<>();
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,16 @@ public class historyFav extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(historyFav.this, LinearLayoutManager.VERTICAL, false);//布局管理器
         mRecyclerView.setLayoutManager(layoutManager);
         Log.d("TAG","????");
+
+        mSQLiteMaster = new SQLiteMaster(com.webpage.historyFav.this);
+        mSQLiteMaster.openDataBase();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSQLiteMaster.closeDataBase();
     }
 
     class MyAdapter extends RecyclerView.Adapter<MyViewHoder> {
@@ -56,6 +69,15 @@ public class historyFav extends AppCompatActivity {
 
         @Override
         public int getItemCount() {return mHistories.size();}
+
+        // 函数调用可参考historySHow
+        public void getFromDB() throws IllegalAccessException, InstantiationException {
+            mSQLiteMaster = new SQLiteMaster(com.webpage.historyFav.this);
+            mSQLiteMaster.openDataBase();
+            mHistories = mSQLiteMaster.mHistoryDBDao.queryDataList();
+            Collections.reverse(mHistories);//反转mHistories 按照时间的新旧进行排序
+        }
+
     }
 
     class MyViewHoder extends RecyclerView.ViewHolder {

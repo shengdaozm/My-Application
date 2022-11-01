@@ -17,7 +17,7 @@ public class Labol {
         this.l = l;
     }
 
-    private String l;
+    private String l;       //收藏  标题
 
 
     public Labol() {}
