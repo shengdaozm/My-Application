@@ -18,6 +18,15 @@
             tools:targetApi="31">
 
         <activity
+                android:name="com.webpage.collectionShow"
+                android:label="collections">
+        </activity>
+        <activity
+                android:name="com.webpage.historyShow"
+                android:label="history">
+        </activity>
+
+        <activity
                 android:name="com.login.login"
                 android:label="login">
         </activity>
@@ -28,12 +37,6 @@
         </activity>
 
         <activity
-                android:name="com.webpage.historyShow"
-                android:label="history">
-        </activity>
-
-
-        <activity
                 android:name="com.example.myapplication.MainActivity"
                 android:exported="true" tools:ignore="MissingClass">
             <intent-filter>
@@ -41,11 +44,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
         </activity>
-
-
-
-        
 
     </application>
 
@@ -53,7 +53,6 @@
     <uses-permission android:name="android.permission.INTERNET" tools:ignore="ManifestOrder"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!--    读写权限-->
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage"/>
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" tools:ignore="ProtectedPermissions"/>
 </manifest>
