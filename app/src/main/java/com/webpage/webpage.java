@@ -23,6 +23,7 @@ import androidx.core.app.ActivityCompat;
 import com.SQlite.SQLiteMaster;
 import com.example.myapplication.R;
 
+import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashSet;
@@ -380,8 +381,12 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             Intent intent= new Intent(com.webpage.webpage.this, historyShow.class);
             startActivity(intent);
         } else if(ID==R.id.btn_download) {
-            // TODO 添加页面下载功能
-
+            try {
+                new download(webView.getUrl());
+            } catch (FileNotFoundException e) {
+                toast("????！");
+                throw new RuntimeException(e);
+            }
             toast("页面下载完成，请移步到文件管理器中查看！");
         } else if(ID==R.id.btn_add_collection) {
             //TODO 将目前页添加收藏，需要用户确认收藏的分类是什么
