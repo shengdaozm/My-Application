@@ -4,12 +4,14 @@ import android.graphics.Bitmap;
 import androidx.annotation.Nullable;
 
 public class history {
-    //数据库自增ID
-    public int id;
+    public int id;//数据库自增ID
     private String url,text;//网址  网页内容标题
     private Bitmap webIcon;//网页的图标
 
 
+    /**
+     * 无参构造函数
+     */
     public history() {}
     /**
      * history构造函数
@@ -80,4 +82,5 @@ public class history {
     public void setWebIcon(Bitmap webIcon) {
         this.webIcon = webIcon;
     }
+
 }

@@ -6,12 +6,15 @@ import android.util.Log;
 
 public class SQLiteConfig {
 
-    //数据库名称
-    public static final String DB_NAME = "mSQLite.db";
-    //数据库版本
-    public static final int DB_VERSION = 1;
+    public static final String DB_NAME = "mSQLite.db";//数据库名称
+    public static final int DB_VERSION = 1;//数据库版本
 
-    //判断数据表是否为空
+    /**
+     * 判断数据库中的数据表是否为空
+     * @param db 数据库
+     * @param tablename 数据表表名
+     * @return 如果为空则返回false
+     */
     public static boolean HaveData(SQLiteDatabase db , String tablename){
         Cursor cursor;
         boolean a = false;
