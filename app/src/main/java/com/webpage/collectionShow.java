@@ -5,8 +5,7 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import com.SQlite.SQLiteMaster;
 import com.example.myapplication.R;
-import com.publicClass.Labol;
-import com.publicClass.history;
+import com.publicClass.collection;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,7 +15,7 @@ import java.util.List;
 public class collectionShow extends AppCompatActivity {
 
     SQLiteMaster mSQLiteMaster;
-    List<Labol> mLabols = new ArrayList<>();
+    List<collection> mCollections = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,8 +27,8 @@ public class collectionShow extends AppCompatActivity {
     public void getFromDB() throws IllegalAccessException, InstantiationException {
         mSQLiteMaster = new SQLiteMaster(collectionShow.this);
         mSQLiteMaster.openDataBase();
-        mLabols = mSQLiteMaster.mLabolDBDao.queryDataList();
-        Collections.reverse(mLabols);//反转mHistories 按照时间的新旧进行排序
+        mCollections = mSQLiteMaster.mCollectionDBDao.queryDataList();
+        Collections.reverse(mCollections);//反转mHistories 按照时间的新旧进行排序
     }
 
     public void onDestory(){
