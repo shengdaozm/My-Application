@@ -50,25 +50,18 @@ public class HistoryDBDao {
     public long insertData(history History) {
         Long id = null;
         ContentValues values = new ContentValues();
-        Log.d("TEST","3");
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-        Log.d("TEST","4");
-        //TODO 无法插入bitmap
         if(History.getWebIcon() != null) {
             History.getWebIcon().compress(Bitmap.CompressFormat.PNG, 100, os);
         }
         else os = null;
-        Log.d("TEST","5");
         values.put(KEY_URL,History.getUrl());
         values.put(KEY_TEXT,History.getText());
-        Log.d("TEST","6");
         if(os != null)
             values.put(KEY_WEBICON,os.toByteArray());
         else
             values.put(KEY_WEBICON,(Byte)null);
-        Log.d("TEST","7");
         long num = mDatabase.insert(TABLE_NAME , null , values);
-        Log.d("TEST","8");
         return num;
     }
 
@@ -78,6 +71,7 @@ public class HistoryDBDao {
      * @return 输出数据的条数
      */
     public long deleteData(int id) {
+
         return mDatabase.delete(TABLE_NAME, KEY_ID + "=" + id, null);
     }
 
@@ -86,6 +80,7 @@ public class HistoryDBDao {
      * @return 删除数据的条数
      */
     public long deleteAllData() {
+
         return mDatabase.delete(TABLE_NAME, null, null);
     }
 
@@ -101,7 +96,10 @@ public class HistoryDBDao {
         History.getWebIcon().compress(Bitmap.CompressFormat.PNG,100,os);
         values.put(KEY_URL,History.getUrl());
         values.put(KEY_TEXT,History.getText());
-        values.put(KEY_WEBICON,os.toByteArray());
+        if(os != null)
+            values.put(KEY_WEBICON,os.toByteArray());
+        else
+            values.put(KEY_WEBICON,(Byte)null);
         return mDatabase.update(TABLE_NAME,values,KEY_ID + "=" + id , null);
     }
 
