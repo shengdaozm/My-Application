@@ -34,7 +34,6 @@ import java.util.regex.Pattern;
 
 import com.publicClass.history;
 
-// 参考仓库：https://github.com/zhangbenzhi/Mkbrowser-master
 @SuppressLint("UseSwitchCompatOrMaterialCode")
 public class webpage extends AppCompatActivity implements OnClickListener {
 
@@ -399,7 +398,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
     }
 
     /**
-     * 判断字符串是否为URL（https://blog.csdn.net/bronna/article/details/77529145）
+     * 判断字符串是否为URL
      * @param urls 要勘定的字符串
      * @return true:是URL、false:不是URL
      */
