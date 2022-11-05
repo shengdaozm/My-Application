@@ -9,7 +9,6 @@ import com.publicClass.Filename;
 
 /**
  * 判断当前是否是第一次进入软件。
- * 如果是，就不用进行登录和初始界面的换一个界面的演示了
  */
 public class isFirst {
     private Boolean isfirst;
@@ -29,10 +28,18 @@ public class isFirst {
         }
     }
 
+    /**
+     * 提供修改接口
+     * @param isfirst 判断参数
+     */
     public void setIsfirst(Boolean isfirst) {
         this.isfirst = isfirst;
     }
 
+    /**
+     * 获得参数的接口
+     * @return 返回参数
+     */
     public Boolean getIsfirst() {
         return isfirst;
     }
