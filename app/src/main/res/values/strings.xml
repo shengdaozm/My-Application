@@ -53,4 +53,5 @@
     <string name="description_previous_button">Shows a previous button on all but the first page. Back button exits.</string>
     <string name="histories">历 史 记 录</string>
     <string name="taken_space"/>
+    <string name="collection_label">类别</string>
 </resources>

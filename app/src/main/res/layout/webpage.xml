@@ -155,32 +155,6 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                <ImageButton
-                        android:id="@+id/btnStart"
-                        android:layout_width="41dp"
-                        android:layout_height="@dimen/top_bar_height"
-                        android:focusable="true"
-                        android:contentDescription="refresh"
-                        android:padding="11dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginEnd="2dp"
-                        android:clickable="true"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/account"
-                        android:background="#01000000"
-                />
-                <TextView
-                        android:text="账号"
-                        android:gravity="center"
-                        android:fontFamily="@font/gotham"
-                        android:layout_width="119dp"
-                        android:clickable="true"
-                        android:layout_height="match_parent" android:id="@+id/textView2"/>
-            </LinearLayout>
-            <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
                 <TextView
                         android:text="无图模式"
                         android:gravity="center"
