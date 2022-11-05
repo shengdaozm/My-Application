@@ -3,6 +3,7 @@ package com.webpage;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -41,7 +42,7 @@ import com.webpage.download;
 @SuppressLint("UseSwitchCompatOrMaterialCode")
 public class webpage extends AppCompatActivity implements OnClickListener {
     public String html="";
-    public String collection_label;
+    public String collection_label="默认";
 
     private Set<String> hs;//用哈希进行判重
     private static final String HTTP = "http://";
@@ -395,20 +396,30 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             }
             toast("页面保存完成，请到软件的根目录下进行查看！");
         } else if(ID==R.id.btn_add_collection) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(webpage.this);
-            builder.setIcon(R.drawable.add_collections);
-            builder.setTitle("请输入当前页面所属分类");
-            //  通过LayoutInflater来加载一个xml的布局文件作为一个View对象
-            View viewx = LayoutInflater.from(webpage.this).inflate(R.layout.report_collection, null);
-            //  设置我们自己定义的布局文件作为弹出框的Content
-            builder.setView(viewx);
-            final EditText label = viewx.findViewById(R.id.username);
-            builder.setPositiveButton("确定", (dialog, which) -> collection_label = label.getText().toString().trim());
-            builder.setNegativeButton("取消", (dialog, which) -> {});
-            builder.show();
+            @SuppressLint("InflateParams") View viewx = getLayoutInflater().inflate(R.layout.report_collection, null);
+            final EditText editText = (EditText) viewx.findViewById(R.id.username);
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setIcon(R.drawable.add_collections)//设置标题的图片
+                    .setTitle("请输入该页面的分类")//设置对话框的标题
+                    .setView(viewx)
+                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            collection_label = editText.getText().toString();
+                            dialog.dismiss();
+                        }
+                    }).create();
+            dialog.show();
             // 操作完成后，就需要进行将该条记录写入数据库。
             collection c=new collection(webView.getUrl()==null?"网址" : webView.getUrl(), webView.getTitle()==null?"标题" : webView.getTitle(), webView.getFavicon()==null?((BitmapDrawable)webIcon.getDrawable()).getBitmap():webView.getFavicon(), Objects.equals(collection_label, "") ?"默认":collection_label);
-            //Log.d("TEST", Objects.equals(collection_label, "") ?"默认":collection_label);
+            collection c=new collection(webView.getUrl(),webView.getTitle(), webView.getFavicon()==null?((BitmapDrawable)webIcon.getDrawable()).getBitmap():webView.getFavicon(), Objects.equals(collection_label, "") ?"默认":collection_label);
+
             // TODO 将这条记录插入数据库
             mSQLiteMaster.mCollectionDBDao.insertData(c);
             Log.d("TEST","收藏写入成功");
@@ -434,13 +445,12 @@ public class webpage extends AppCompatActivity implements OnClickListener {
         return isUrl;
     }
 
+    /**
+     * 软件运行的时候的弹窗
+     * @param msg 需要打印的信息
+     */
     private void toast(final String msg) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
-            }
-        });
+        runOnUiThread(() -> Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show());
     }
 
     public class InJavaScriptLocalObj {
@@ -453,6 +463,9 @@ public class webpage extends AppCompatActivity implements OnClickListener {
         }
     }
 
+    /**
+     * webpage的activity销毁
+     */
     protected void onDestroy() {
         super.onDestroy();
         // 关闭数据库

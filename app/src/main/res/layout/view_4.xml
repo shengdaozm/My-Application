@@ -79,6 +79,7 @@
                 android:fontFamily="@font/calibri"
                 android:text="Come in"
                 android:clickable="true"
+                android:onClick="changeActivity"
                 android:textAllCaps="false"
                 android:textStyle="bold"
                 android:textColor="#96ffffff"
