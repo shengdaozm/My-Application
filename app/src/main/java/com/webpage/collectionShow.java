@@ -31,6 +31,10 @@ public class collectionShow extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mSQLiteMaster = new SQLiteMaster(collectionShow.this);
+        mSQLiteMaster.openDataBase();
+
         Log.d("TEST","进入收藏记录页面 !");
         setContentView(R.layout.collectios);
         try {
@@ -46,6 +50,7 @@ public class collectionShow extends AppCompatActivity {
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(new MyAdapter());//添加适配器
         mRecyclerView.addItemDecoration(new DividerItemDecoration(collectionShow.this,DividerItemDecoration.VERTICAL));
+
     }
 
     class MyAdapter extends RecyclerView.Adapter<collectionShow.MyViewHoder> {
@@ -92,8 +97,8 @@ public class collectionShow extends AppCompatActivity {
     }
 
     public void getFromDB() throws IllegalAccessException, InstantiationException {
-        mSQLiteMaster = new SQLiteMaster(collectionShow.this);
-        mSQLiteMaster.openDataBase();
+//        mSQLiteMaster = new SQLiteMaster(collectionShow.this);
+//        mSQLiteMaster.openDataBase();
         mCollections = mSQLiteMaster.mCollectionDBDao.queryDataList();
         if(mCollections==null) {
             Log.d("TEST","收藏啥也没有");

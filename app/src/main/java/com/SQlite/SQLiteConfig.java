@@ -22,7 +22,7 @@ public class SQLiteConfig {
         while(cursor.moveToNext()){
             //遍历出表名
             String name = cursor.getString(0);
-            if(name.equals(tablename)){
+          if(name.equals(tablename)){
                 a = true;
             }
             Log.i("System.out" , name);

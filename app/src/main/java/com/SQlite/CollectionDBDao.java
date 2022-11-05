@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import com.publicClass.collection;
 
 import java.io.ByteArrayOutputStream;
@@ -107,7 +108,8 @@ public class CollectionDBDao {
         Cursor results = mDatabase.query(TABLE_NAME, new String[]{KEY_ID ,
                 KEY_URL,
                 KEY_TEXT,
-                KEY_WEBICON}, KEY_ID + "=" + id , null , null , null , null);
+                KEY_WEBICON,
+                KEY_LABEL}, KEY_ID + "=" + id , null , null , null , null);
         return convertUtil(results);
     }
 
@@ -120,7 +122,8 @@ public class CollectionDBDao {
         Cursor results = mDatabase.query(TABLE_NAME, new String[]{KEY_ID ,
                 KEY_URL,
                 KEY_TEXT,
-                KEY_WEBICON}, null , null , null , null , null);
+                KEY_WEBICON,
+                KEY_LABEL}, null , null , null , null , null);
         return convertUtil(results);
     }
 
