@@ -403,7 +403,9 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             builder.show();
             // 操作完成后，就需要进行将该条记录写入数据库。
             collection c=new collection(webView.getUrl(),webView.getTitle(), webView.getFavicon()==null?((BitmapDrawable)webIcon.getDrawable()).getBitmap():webView.getFavicon(),collection_label[0]);
+
             // TODO 将这条记录插入数据库
+            mSQLiteMaster.mCollectionDBDao.insertData(c);
 
         } else if(ID==R.id.btn_my_collections) {
             Intent intent= new Intent(com.webpage.webpage.this, collectionShow.class);
