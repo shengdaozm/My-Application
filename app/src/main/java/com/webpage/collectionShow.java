@@ -94,7 +94,7 @@ public class collectionShow extends AppCompatActivity {
         mSQLiteMaster = new SQLiteMaster(collectionShow.this);
         mSQLiteMaster.openDataBase();
         mCollections = mSQLiteMaster.mCollectionDBDao.queryDataList();
-        Collections.reverse(mCollections);//反转mHistories 按照时间的新旧进行排序
+        Collections.reverse(mCollections);//反转mCollections 按照时间的新旧进行排序
     }
 
     public void onDestory(){
