@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
      * @param is 判定是否是第一次进入软件
      */
     public void changeActivity(Boolean is) {
-        Intent intent= new Intent(com.example.myapplication.MainActivity.this,is?com.login.login.class:com.webpage.webpage.class);
+        Intent intent= new Intent(com.example.myapplication.MainActivity.this,com.webpage.webpage.class);
         startActivity(intent);
     }
 }

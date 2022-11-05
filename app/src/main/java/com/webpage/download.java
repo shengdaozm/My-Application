@@ -9,15 +9,15 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import  com.publicClass.Filename;
 
 public class download {
     public download(String url) throws FileNotFoundException {
-        Date date = new Date();
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
         try {
             URL Url = new URL(url);
-            File fp = new File(dateFormat +".html");
+            File fp = new File(new Filename().getFilename()+dateFormat +".html");
             OutputStream os = null;          //建立文件输出流
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 os = Files.newOutputStream(fp.toPath());

@@ -3,6 +3,7 @@ package com.webpage;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -12,11 +13,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.*;
 import android.widget.*;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.core.app.ActivityCompat;
@@ -27,14 +30,13 @@ import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.publicClass.history;
+import com.publicClass.collection;
 
-// 参考仓库：https://github.com/zhangbenzhi/Mkbrowser-master
 @SuppressLint("UseSwitchCompatOrMaterialCode")
 public class webpage extends AppCompatActivity implements OnClickListener {
 
@@ -244,7 +246,6 @@ public class webpage extends AppCompatActivity implements OnClickListener {
          */
         public void addCollection(WebView view, String url, Bitmap favicon) {
             history h = new history(url , view.getTitle(), favicon==null?((BitmapDrawable)webIcon.getDrawable()).getBitmap():favicon);
-//            if(mSQLiteMaster.mHistoryDBDao.queryData(url) == null)
             mSQLiteMaster.mHistoryDBDao.insertData(h);
         }
 
@@ -352,7 +353,6 @@ public class webpage extends AppCompatActivity implements OnClickListener {
         }
     }
 
-    //TODO webpage的界面响应
     @Override
     public void onClick(View view) {
         int ID = view.getId();
@@ -384,22 +384,35 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             try {
                 new download(webView.getUrl());
             } catch (FileNotFoundException e) {
-                toast("????！");
                 throw new RuntimeException(e);
             }
-            toast("页面下载完成，请移步到文件管理器中查看！");
+            toast("页面下载完成，请移步到软件的文件夹下进行查看！");
         } else if(ID==R.id.btn_add_collection) {
-            //TODO 将目前页添加收藏，需要用户确认收藏的分类是什么
+            final String[] collection_label = new String[1];
+            AlertDialog.Builder builder = new AlertDialog.Builder(webpage.this);
+            builder.setIcon(R.drawable.add_collections);
+            builder.setTitle("请输入当前页面所属分类");
+            //  通过LayoutInflater来加载一个xml的布局文件作为一个View对象
+            View viewx = LayoutInflater.from(webpage.this).inflate(R.layout.report_collection, null);
+            //  设置我们自己定义的布局文件作为弹出框的Content
+            builder.setView(viewx);
+
+            final EditText label = viewx.findViewById(R.id.username);
+            builder.setPositiveButton("确定", (dialog, which) -> collection_label[0] = label.getText().toString().trim());
+            builder.setNegativeButton("取消", (dialog, which) -> {});
+            builder.show();
+            // 操作完成后，就需要进行将该条记录写入数据库。
+            collection c=new collection(webView.getUrl(),webView.getTitle(), webView.getFavicon()==null?((BitmapDrawable)webIcon.getDrawable()).getBitmap():webView.getFavicon(),collection_label[0]);
+            // TODO 将这条记录插入数据库
 
         } else if(ID==R.id.btn_my_collections) {
-            //TODO 进入我的收藏
             Intent intent= new Intent(com.webpage.webpage.this, collectionShow.class);
             startActivity(intent);
         }
     }
 
     /**
-     * 判断字符串是否为URL（https://blog.csdn.net/bronna/article/details/77529145）
+     * 判断字符串是否为URL
      * @param urls 要勘定的字符串
      * @return true:是URL、false:不是URL
      */
