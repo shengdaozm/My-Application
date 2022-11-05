@@ -417,7 +417,9 @@ public class webpage extends AppCompatActivity implements OnClickListener {
                     }).create();
             dialog.show();
             // 操作完成后，就需要进行将该条记录写入数据库。
+            collection c=new collection(webView.getUrl()==null?"网址" : webView.getUrl(), webView.getTitle()==null?"标题" : webView.getTitle(), webView.getFavicon()==null?((BitmapDrawable)webIcon.getDrawable()).getBitmap():webView.getFavicon(), Objects.equals(collection_label, "") ?"默认":collection_label);
             collection c=new collection(webView.getUrl(),webView.getTitle(), webView.getFavicon()==null?((BitmapDrawable)webIcon.getDrawable()).getBitmap():webView.getFavicon(), Objects.equals(collection_label, "") ?"默认":collection_label);
+
             // TODO 将这条记录插入数据库
             mSQLiteMaster.mCollectionDBDao.insertData(c);
             Log.d("TEST","收藏写入成功");
