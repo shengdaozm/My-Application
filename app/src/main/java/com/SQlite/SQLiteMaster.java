@@ -5,26 +5,23 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import com.publicClass.Labol;
-import com.publicClass.User;
-import com.publicClass.history;
-import com.SQlite.SQLiteConfig;
 
 import static com.SQlite.SQLiteConfig.DB_NAME;
 import static com.SQlite.SQLiteConfig.DB_VERSION;
 
 public class SQLiteMaster {
 
-    private Context mContext;
-    private SQLiteDatabase mDatabase;
-    private DBOpenHelper mDBOpenHelper;
+    private Context mContext;//上下文
+    private SQLiteDatabase mDatabase;//数据库
+    private DBOpenHelper mDBOpenHelper;//数据库打开帮助类
+    public UserDBDao mUserDBDao;//数据表操作类实例化
+    public HistoryDBDao mHistoryDBDao;//数据表操作类实例化
+    public CollectionDBDao mCollectionDBDao;//数据表操作类实例化
 
-    //数据表操作类实例化
-    public UserDBDao mUserDBDao;
-    public HistoryDBDao mHistoryDBDao;
-    public CollectionDBDao mCollectionDBDao;
-    public LabolDBDao mLabolDBDao;
-
+    /**
+     * 舒适化数据库上下文
+     * @param context 上下文
+     */
     public SQLiteMaster(Context context){
         mContext = context;
         mUserDBDao = new UserDBDao(mContext);
@@ -33,7 +30,9 @@ public class SQLiteMaster {
         Log.d("TEST","SQLiteMaster构造成功");
     }
 
-    //打开数据库
+    /**
+     * 打开数据库，在super()方法调用
+     */
     public void openDataBase(){
         mDBOpenHelper = new DBOpenHelper(mContext , DB_NAME , null , DB_VERSION);
         try{
@@ -47,7 +46,9 @@ public class SQLiteMaster {
         mCollectionDBDao.setDatabase(mDatabase);
     }
 
-    //关闭数据库
+    /**
+     * 关闭数据库
+     */
     public void closeDataBase(){
         if(mDatabase != null){
             mDatabase.close();
@@ -68,19 +69,14 @@ public class SQLiteMaster {
             HistoryDBDao.KEY_TEXT + " text not null , " +
             HistoryDBDao.KEY_WEBICON + " blob not null );";
 
+    //创建该数据库下Collection表的语句
     private static final String mCollectionSqlqtr = "create table if not exists " + CollectionDBDao.TABLE_NAME + "(" +
-            HistoryDBDao.KEY_ID + " integer primary key autoincrement , " +
-            HistoryDBDao.KEY_URL + " text not null , " +
-            HistoryDBDao.KEY_TEXT + " text not null , " +
-            HistoryDBDao.KEY_WEBICON + " BLOB );";
+            CollectionDBDao.KEY_ID + " integer primary key autoincrement , " +
+            CollectionDBDao.KEY_URL + " text not null , " +
+            CollectionDBDao.KEY_TEXT + " text not null , " +
+            CollectionDBDao.KEY_WEBICON + " BLOB , " +
+            CollectionDBDao.KEY_LABEL + " text not null );";
 
-    private static final String mLabolSqlqtr = "create table if not exists " + CollectionDBDao.TABLE_NAME + "(" +
-            LabolDBDao.KEY_ID + " integer primary key autoincrement , " +
-            LabolDBDao.KEY_URL + " text not null , " +
-            LabolDBDao.KEY_TEXT + " text not null , " +
-            LabolDBDao.KEY_WEBICON + " BLOB , " +
-            LabolDBDao.KEY_LABOL + " text not null )";
-            ;
 
     //删除该数据库下User表的语句
     private static final String mUserDelSql = "DROP TABLE IF EXISTS " + UserDBDao.TABLE_NAME;
@@ -88,9 +84,7 @@ public class SQLiteMaster {
     //删除该数据库下History表的语句
     private static final String mHistoryDelSql = "DROP TABLE IF EXISTS " + HistoryDBDao.TABLE_NAME;
     //删除该数据库下Collection表的语句
-    private static final String mCollectionDelSql = "DROP TABLE IF EXISTS " + HistoryDBDao.TABLE_NAME;
-    //删除该数据库下Labol表的语句
-    private static final String mLabolDelSql = "DROP TABLE IF EXISTS " + LabolDBDao.TABLE_NAME;
+    private static final String mCollectionDelSql = "DROP TABLE IF EXISTS " + CollectionDBDao.TABLE_NAME;
     //数据表打开帮助类
     public static class DBOpenHelper extends SQLiteOpenHelper{
 
@@ -98,20 +92,26 @@ public class SQLiteMaster {
             super(context , name , factory , version);
         }
 
-        @Override
+        /**
+         * 创建数据库下的所有数据表
+         * @param db 数据库
+         */
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(mUserSqlStr);
             db.execSQL(mHistorySqlqtr);
             db.execSQL(mCollectionSqlqtr);
-            db.execSQL(mLabolSqlqtr);
         }
 
-        @Override
+        /**
+         * 更新数据库版本时调用
+         * @param db 数据库
+         * @param i 前一个版本
+         * @param i1 新版本
+         */
         public void onUpgrade(SQLiteDatabase db, int i, int i1) {
             db.execSQL(mUserDelSql);
             db.execSQL(mHistoryDelSql);
             db.execSQL(mCollectionSqlqtr);
-            db.execSQL(mLabolSqlqtr);
             onCreate(db);
         }
     }
