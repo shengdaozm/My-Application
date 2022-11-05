@@ -28,11 +28,12 @@ public class MainActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
         if(is.getIsfirst()) {
-            changeActivity();
+            changeActivity(null);
         }
+
         setContentView(R.layout.activity_main);
         ViewPager viewpaper = findViewById(R.id.viewpager);
-        ArrayList<View> view_list = new ArrayList<View>();
+        ArrayList<View> view_list = new ArrayList<>();
         LayoutInflater li = getLayoutInflater();
         view_list.add(li.inflate(R.layout.view_1,null,false));
         view_list.add(li.inflate(R.layout.view_2,null,false));
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 主页面的活动跳转
      */
-    public void changeActivity() {
+    public void changeActivity(View view) {
         Intent intent= new Intent(com.example.myapplication.MainActivity.this,com.webpage.webpage.class);
         startActivity(intent);
         finish();
