@@ -15,10 +15,11 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-//收藏数据表操作类
+/**
+ * 收藏数据库类
+ */
 public class CollectionDBDao {
-    //数据库名称
-    public static final String TABLE_NAME = "collection_info";
+    public static final String TABLE_NAME = "collection_info";//数据表名称
 
     public static String KEY_ID = "id";//数据库自增ID
     //表的字段名

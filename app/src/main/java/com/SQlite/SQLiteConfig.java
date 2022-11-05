@@ -2,8 +2,10 @@ package com.SQlite;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
+/**
+ * 数据表管理类
+ */
 public class SQLiteConfig {
 
     public static final String DB_NAME = "mSQLite.db";//数据库名称
@@ -25,7 +27,6 @@ public class SQLiteConfig {
           if(name.equals(tablename)){
                 a = true;
             }
-            Log.i("System.out" , name);
         }
         if(a){
             cursor = db.query(tablename , null , null, null , null , null , null);
