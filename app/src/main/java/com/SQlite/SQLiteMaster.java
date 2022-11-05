@@ -74,7 +74,7 @@ public class SQLiteMaster {
             CollectionDBDao.KEY_ID + " integer primary key autoincrement , " +
             CollectionDBDao.KEY_URL + " text not null , " +
             CollectionDBDao.KEY_TEXT + " text not null , " +
-            CollectionDBDao.KEY_WEBICON + " BLOB , " +
+            CollectionDBDao.KEY_WEBICON + " blob not null, " +
             CollectionDBDao.KEY_LABEL + " text not null );";
 
 
