@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 
 import java.io.File;
 import java.io.IOException;
+import com.publicClass.Filename;
+
 
 /**
  * 判断当前是否是第一次进入软件。
@@ -12,7 +14,7 @@ import java.io.IOException;
 public class isFirst {
     private Boolean isfirst;
     @SuppressLint("SdCardPath")
-    private final String filePath="/data/data/com.example.myapplication/first.txt";
+    private final String filePath=new Filename().getFilename()+"first.txt";
 
     /**
      * 读取本地的文件，判断是否为第一次使用
