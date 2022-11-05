@@ -14,12 +14,18 @@ import java.util.ArrayList;
 
 import com.publicClass.isFirst;
 
+/**
+ * 主方法入口
+ */
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * 软件的进入接口
+     * @param savedInstanceState 实例化继承
+     */
     @SuppressLint("InflateParams")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("TEST","软件启动");
         super.onCreate(savedInstanceState);
         isFirst is;
         try {

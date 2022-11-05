@@ -8,6 +8,10 @@ import java.sql.Timestamp;
 
 import android.util.Log;
 import com.publicClass.Filename;
+
+/**
+ * 页面下载功能函数
+ */
 public class download {
     /**
      * 将html写到文件里面

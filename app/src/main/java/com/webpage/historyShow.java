@@ -32,6 +32,12 @@ public class historyShow extends AppCompatActivity {
     List<history> mHistories = new ArrayList<>();
 
     public String Onurl;
+
+    /**
+     * 获取历史记录数据
+     * @throws IllegalAccessException 访问字段异常
+     * @throws InstantiationException 实例化异常
+     */
     public void getFromDB() throws IllegalAccessException, InstantiationException {
         mSQLiteMaster = new SQLiteMaster(historyShow.this);
         mSQLiteMaster.openDataBase();
@@ -39,6 +45,10 @@ public class historyShow extends AppCompatActivity {
         Collections.reverse(mHistories);//反转mHistories 按照时间的新旧进行排序
     }
 
+    /**
+     * 历史界面构造
+     * @param savedInstanceState 实例化状态
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +62,9 @@ public class historyShow extends AppCompatActivity {
         mRecyclerView.addItemDecoration(new DividerItemDecoration(historyShow.this,DividerItemDecoration.VERTICAL));
     }
 
+    /**
+     * 界面适配器
+     */
     class MyAdapter extends RecyclerView.Adapter<MyViewHoder> {
         @NonNull
         @Override
