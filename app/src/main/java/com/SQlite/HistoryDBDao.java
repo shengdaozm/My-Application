@@ -17,29 +17,36 @@ import java.util.List;
 
 //历史数据表操作类
 public class HistoryDBDao {
-    //数据库名称
-    public static final String TABLE_NAME = "history_info";
+    public static final String TABLE_NAME = "history_info";//数据表名称
+    public static String KEY_ID = "id";//数据库自增ID
+    public static String KEY_URL = "url";//网页的网址
+    public static String KEY_TEXT = "text";//网页的标题
+    public static String KEY_WEBICON = "webIcon";//网页的图标
 
-    //数据库自增ID
-    public static String KEY_ID = "id";
-    //表的字段名
-    public static String KEY_URL = "url";
-    public static String KEY_TEXT = "text";
-    public static String KEY_WEBICON = "webIcon";
 
-    private SQLiteDatabase mDatabase;
-    //上下文
-    private Context mContext;
-    //数据库打开帮助类
-    private SQLiteMaster.DBOpenHelper mDBOpenHelper;
+    private SQLiteDatabase mDatabase;//数据库
+    private Context mContext;//    //上下文
+    private SQLiteMaster.DBOpenHelper mDBOpenHelper;//数据库打开帮助类
 
+    /**
+     * 初始化该表的上下文
+     * @param context 上下文
+     */
     public HistoryDBDao(Context context){
         mContext = context;;
     }
 
+    /**
+     * 设置该数据表从属的数据库
+     * @param db 数据库
+     */
     public void setDatabase(SQLiteDatabase db){ mDatabase = db; }
 
-    //插入一条数据
+    /**
+     * 插入history对象
+     * @param History history对象
+     * @return 插入数据的条数
+     */
     public long insertData(history History) {
         Long id = null;
         ContentValues values = new ContentValues();
@@ -65,16 +72,29 @@ public class HistoryDBDao {
         return num;
     }
 
-    //删除数据
+    /**
+     * 删除数据
+     * @param id history的数据表ID
+     * @return 输出数据的条数
+     */
     public long deleteData(int id) {
         return mDatabase.delete(TABLE_NAME, KEY_ID + "=" + id, null);
     }
 
+    /**
+     * 删除所有数据
+     * @return 删除数据的条数
+     */
     public long deleteAllData() {
         return mDatabase.delete(TABLE_NAME, null, null);
     }
 
-    //更新一条数据
+    /**
+     * 更新数据
+     * @param id 要更新的数据的数据表ID
+     * @param History 更新后的history对象
+     * @return 更新数据的条数
+     */
     public long updateData(int id , history History){
         ContentValues values = new ContentValues();
         ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -85,12 +105,10 @@ public class HistoryDBDao {
         return mDatabase.update(TABLE_NAME,values,KEY_ID + "=" + id , null);
     }
 
-    //查询一条数据
-
     /**
-     *
-     * @param id
-     * @return
+     * 查询数据
+     * @param id 查询数据的ID
+     * @return history对象的链表
      */
     public List<history> queryData(int id){
         if(!SQLiteConfig.HaveData(mDatabase,TABLE_NAME)){
@@ -103,7 +121,10 @@ public class HistoryDBDao {
         return convertUtil(results);
     }
 
-    //查询所有数据
+    /**
+     * 查询所有数据
+     * @return history对象的链表
+     */
     public List<history> queryDataList(){
         if(!SQLiteConfig.HaveData(mDatabase,TABLE_NAME)) {return null;}
         Cursor results = mDatabase.query(TABLE_NAME, new String[]{KEY_ID ,
@@ -113,8 +134,12 @@ public class HistoryDBDao {
         return convertUtil(results);
     }
 
-    //查询结果转换
     @SuppressLint("Range")
+    /**
+     * 对cursor查询结果进行转换
+     * @param cursor 数据表的游标
+     * @return history对象链表
+     */
     private List<history> convertUtil(Cursor cursor){
         int resultCounts = cursor.getCount();
         if(resultCounts == 0 || !cursor.moveToFirst()){
