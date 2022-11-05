@@ -10,8 +10,8 @@
             android:layout_height="match_parent" tools:layout_editor_absoluteY="16dp"
             tools:layout_editor_absoluteX="98dp">
         <ImageView
-                android:layout_width="39dp"
-                android:layout_height="41dp" app:srcCompat="@drawable/ic_internet" android:id="@+id/web_history_icon"
+                android:layout_width="51dp"
+                android:layout_height="42dp" app:srcCompat="@drawable/ic_internet" android:id="@+id/web_collection_icon"
         />
         <LinearLayout
                 android:orientation="vertical"
@@ -19,16 +19,16 @@
                 android:layout_height="wrap_content">
             <TextView
                     android:text="TextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/history_title" android:background="#E2D0D0"/>
+                    android:layout_width="295dp"
+                    android:layout_height="wrap_content" android:id="@+id/collection_title" android:background="#FEFEFE"/>
             <TextView
                     android:text="TextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp" android:id="@+id/textView4"/>
+                    android:layout_width="198dp"
+                    android:layout_height="0dp" android:id="@+id/textView4"/>
             <TextView
                     android:text="TextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/history_url" android:background="#CAC0C0"/>
+                    android:layout_width="201dp"
+                    android:layout_height="wrap_content" android:id="@+id/collection_url" android:background="#FFFFFF"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

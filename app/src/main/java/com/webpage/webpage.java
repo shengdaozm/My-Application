@@ -3,7 +3,6 @@ package com.webpage;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -26,7 +25,7 @@ import androidx.core.app.ActivityCompat;
 import com.SQlite.SQLiteMaster;
 import com.example.myapplication.R;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashSet;
@@ -36,9 +35,11 @@ import java.util.regex.Pattern;
 
 import com.publicClass.history;
 import com.publicClass.collection;
+import com.webpage.download;
 
 @SuppressLint("UseSwitchCompatOrMaterialCode")
 public class webpage extends AppCompatActivity implements OnClickListener {
+    public String html="";
 
     private Set<String> hs;//用哈希进行判重
     private static final String HTTP = "http://";
@@ -136,7 +137,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
     /**
      * 初始化 web
      */
-    @SuppressLint("SetJavaScriptEnabled")
+    @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface"})
     private void initWeb() {
         // 重写 WebViewClient
         webView.setWebViewClient(new MkWebViewClient());
@@ -146,6 +147,8 @@ public class webpage extends AppCompatActivity implements OnClickListener {
         settings = webView.getSettings();
         // 启用 js 功能
         settings.setJavaScriptEnabled(true);
+        //设置嵌入JavaScript代码的Java对象。
+        webView.addJavascriptInterface(new InJavaScriptLocalObj(), "java_obj");
         // 设置浏览器 UserAgent
         settings.setUserAgentString(settings.getUserAgentString() + " mkBrowser/" + getVerName(webpage.this));
         // 将图片调整到适合 WebView 的大小
@@ -214,7 +217,6 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             }
             // 调用第三方应用，防止crash (如果手机上没有安装处理某个scheme开头的url的APP, 会导致crash)
             try {
-                // TODO:弹窗提示用户，允许后再调用
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivityForResult(intent, 100);
                 return true;
@@ -230,12 +232,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             progressBar.setVisibility(View.VISIBLE);
             textUrl.setText("加载中..."); // 更新状态文字
             webIcon.setImageResource(R.drawable.internet); // 切换默认网页图标
-            // TODO 数据库的基础判重需要做。
-            if(is_add_history&&!hs.equals(url)) {
-                hs.add(url);
-                history h = new history(url , view.getTitle(), favicon==null?((BitmapDrawable)webIcon.getDrawable()).getBitmap():favicon);
-                mSQLiteMaster.mHistoryDBDao.insertData(h);
-            }
+            // 历史记录的插入要在页面加载完成后进行操作。
         }
 
         /**
@@ -251,6 +248,8 @@ public class webpage extends AppCompatActivity implements OnClickListener {
 
         @Override
         public void onPageFinished(WebView view, String url) {
+            view.loadUrl("javascript:window.java_obj.getSource('<head>'+" +
+                    "document.getElementsByTagName('html')[0].innerHTML+'</head>');");
             super.onPageFinished(view, url);
             // 网页加载完毕，隐藏进度条
             progressBar.setVisibility(View.INVISIBLE);
@@ -258,6 +257,12 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             setTitle(webView.getTitle());
             // 显示页面标题
             textUrl.setText(webView.getTitle());
+            // 在网页加载完成后再放入数据库
+            if(is_add_history&&!hs.equals(url)) {
+                hs.add(url);
+                history h = new history(url , view.getTitle(), webView.getFavicon()==null?((BitmapDrawable)webIcon.getDrawable()).getBitmap():webView.getFavicon());
+                mSQLiteMaster.mHistoryDBDao.insertData(h);
+            }
         }
     }
 
@@ -382,11 +387,11 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             startActivity(intent);
         } else if(ID==R.id.btn_download) {
             try {
-                new download(webView.getUrl());
-            } catch (FileNotFoundException e) {
+                new download(html);
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            toast("页面下载完成，请移步到软件的文件夹下进行查看！");
+            toast("页面保存完成，请到软件的根目录下进行查看！");
         } else if(ID==R.id.btn_add_collection) {
             final String[] collection_label = new String[1];
             AlertDialog.Builder builder = new AlertDialog.Builder(webpage.this);
@@ -396,7 +401,6 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             View viewx = LayoutInflater.from(webpage.this).inflate(R.layout.report_collection, null);
             //  设置我们自己定义的布局文件作为弹出框的Content
             builder.setView(viewx);
-
             final EditText label = viewx.findViewById(R.id.username);
             builder.setPositiveButton("确定", (dialog, which) -> collection_label[0] = label.getText().toString().trim());
             builder.setNegativeButton("取消", (dialog, which) -> {});
@@ -434,6 +438,16 @@ public class webpage extends AppCompatActivity implements OnClickListener {
                 Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public class InJavaScriptLocalObj {
+        /**
+         * Js交互获得页面的html
+         */
+        @JavascriptInterface
+        public void getSource(String _html) {
+            html=_html;
+        }
     }
 
     protected void onDestroy() {
