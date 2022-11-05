@@ -8,14 +8,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import com.publicClass.history;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-//历史数据表操作类
+/**
+ * 历史数据库表操作类
+ */
 public class HistoryDBDao {
     public static final String TABLE_NAME = "history_info";//数据表名称
     public static String KEY_ID = "id";//数据库自增ID

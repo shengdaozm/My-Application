@@ -35,7 +35,6 @@ public class collectionShow extends AppCompatActivity {
         mSQLiteMaster = new SQLiteMaster(collectionShow.this);
         mSQLiteMaster.openDataBase();
 
-        Log.d("TEST","进入收藏记录页面 !");
         setContentView(R.layout.collectios);
         try {
             getFromDB();
@@ -44,7 +43,6 @@ public class collectionShow extends AppCompatActivity {
         } catch (InstantiationException e) {
             throw new RuntimeException(e);
         }
-        Log.d("TEST","数据获取成功");
         mRecyclerView= findViewById(R.id.recyclerview2);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(collectionShow.this, LinearLayoutManager.VERTICAL, false);//布局管理器
         mRecyclerView.setLayoutManager(layoutManager);

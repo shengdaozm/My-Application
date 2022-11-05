@@ -4,11 +4,13 @@ import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import static com.SQlite.SQLiteConfig.DB_NAME;
 import static com.SQlite.SQLiteConfig.DB_VERSION;
 
+/**
+ * 数据库管理类
+ */
 public class SQLiteMaster {
 
     private Context mContext;//上下文
@@ -27,11 +29,10 @@ public class SQLiteMaster {
         mUserDBDao = new UserDBDao(mContext);
         mHistoryDBDao = new HistoryDBDao(mContext);
         mCollectionDBDao = new CollectionDBDao(mContext);
-        Log.d("TEST","SQLiteMaster构造成功");
     }
 
     /**
-     * 打开数据库，在super()方法调用
+     * 打开数据库，在onsuper()方法调用
      */
     public void openDataBase(){
         mDBOpenHelper = new DBOpenHelper(mContext , DB_NAME , null , DB_VERSION);
