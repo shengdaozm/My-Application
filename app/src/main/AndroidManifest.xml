@@ -27,11 +27,6 @@
         </activity>
 
         <activity
-                android:name="com.login.login"
-                android:label="login">
-        </activity>
-
-        <activity
                 android:name="com.webpage.webpage"
                 android:label="webpage">
         </activity>
