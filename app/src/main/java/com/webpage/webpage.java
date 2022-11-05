@@ -3,7 +3,6 @@ package com.webpage;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -13,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
@@ -30,16 +28,17 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.publicClass.history;
 import com.publicClass.collection;
-import com.webpage.download;
 
 @SuppressLint("UseSwitchCompatOrMaterialCode")
+/**
+ * 网页交互页面
+ */
 public class webpage extends AppCompatActivity implements OnClickListener {
     public String html="";
     public String collection_label="默认";
@@ -138,7 +137,7 @@ public class webpage extends AppCompatActivity implements OnClickListener {
     }
 
     /**
-     * 初始化 web
+     * 初始化 web，完善相关设置
      */
     @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface"})
     private void initWeb() {
@@ -308,7 +307,6 @@ public class webpage extends AppCompatActivity implements OnClickListener {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("TEST","界面初始化");
         super.onCreate(savedInstanceState);
 
         hs= new HashSet<>();
@@ -336,7 +334,6 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             toast("欢迎使用！祝您快乐每一天！");
             toast("右滑可以打开设置栏！");
         } else {
-            Log.d("TEST","url from history is loaded!");
             webView.loadUrl(load_url);
         }
     }
@@ -362,6 +359,9 @@ public class webpage extends AppCompatActivity implements OnClickListener {
     }
 
     @Override
+    /**
+     * webpage 界面响应
+     */
     public void onClick(View view) {
         int ID = view.getId();
         if (ID == R.id.btnStart) {
@@ -396,33 +396,24 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             }
             toast("页面保存完成，请到软件的根目录下进行查看！");
         } else if(ID==R.id.btn_add_collection) {
-            @SuppressLint("InflateParams") View viewx = getLayoutInflater().inflate(R.layout.report_collection, null);
-            final EditText editText = (EditText) viewx.findViewById(R.id.username);
+            View viewx = getLayoutInflater().inflate(R.layout.report_collection, null);
             AlertDialog dialog = new AlertDialog.Builder(this)
-                    .setIcon(R.drawable.add_collections)//设置标题的图片
-                    .setTitle("请输入该页面的分类")//设置对话框的标题
+                    .setIcon(R.drawable.add_collections) //设置标题的图片
+                    .setTitle("请输入该页面的分类") //设置对话框的标题
                     .setView(viewx)
-                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
+                    .setNegativeButton("取消", (dialog1, which) -> dialog1.dismiss())
+                    .setPositiveButton("确定", (dialog12, which) -> {
+                        EditText editText = viewx.findViewById(R.id.username);
+                        collection_label = editText.getText().toString();
+                        if(collection_label.equals("")) {
+                            collection_label="默认";
                         }
-                    })
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            collection_label = editText.getText().toString();
-                            dialog.dismiss();
-                        }
+                        collection c=new collection(webView.getUrl(),webView.getTitle(),
+                                webView.getFavicon()==null?((BitmapDrawable)webIcon.getDrawable()).getBitmap():webView.getFavicon(),collection_label);
+                        mSQLiteMaster.mCollectionDBDao.insertData(c);
+                        dialog12.dismiss();
                     }).create();
             dialog.show();
-            // 操作完成后，就需要进行将该条记录写入数据库。
-            collection c=new collection(webView.getUrl()==null?"网址" : webView.getUrl(), webView.getTitle()==null?"标题" : webView.getTitle(), webView.getFavicon()==null?((BitmapDrawable)webIcon.getDrawable()).getBitmap():webView.getFavicon(), Objects.equals(collection_label, "") ?"默认":collection_label);
-            collection c=new collection(webView.getUrl(),webView.getTitle(), webView.getFavicon()==null?((BitmapDrawable)webIcon.getDrawable()).getBitmap():webView.getFavicon(), Objects.equals(collection_label, "") ?"默认":collection_label);
-
-            // TODO 将这条记录插入数据库
-            mSQLiteMaster.mCollectionDBDao.insertData(c);
-            Log.d("TEST","收藏写入成功");
         } else if(ID==R.id.btn_my_collections) {
             Intent intent= new Intent(com.webpage.webpage.this, collectionShow.class);
             startActivity(intent);
@@ -453,6 +444,9 @@ public class webpage extends AppCompatActivity implements OnClickListener {
         runOnUiThread(() -> Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show());
     }
 
+    /**
+     * 页面的js交互，用来获取源码
+     */
     public class InJavaScriptLocalObj {
         /**
          * Js交互获得页面的html

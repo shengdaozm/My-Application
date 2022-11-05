@@ -8,10 +8,16 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+/**
+ * 初始化界面展示
+ */
 public class MsPagerAdapter extends PagerAdapter {
 
     private ArrayList<View> mData;
 
+    /**
+     * 构造函数
+     */
     public MsPagerAdapter() {
     }
 
