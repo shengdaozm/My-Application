@@ -14,10 +14,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/welcome_forth_view"/>
-
-
     </FrameLayout>
-
 
     <LinearLayout
             android:id="@+id/linearLayout"
@@ -74,7 +71,6 @@
             android:layout_marginBottom="8dp"
             android:gravity="center"
             android:orientation="horizontal">
-
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,7 +82,8 @@
                 android:textAllCaps="false"
                 android:textStyle="bold"
                 android:textColor="#96ffffff"
-                android:textSize="16sp" android:onClick="Gowebpage" android:id="@+id/all_in_all"/>
+                android:textSize="16sp" android:id="@+id/all_in_all"
+                android:layout_marginRight="16dp"/>
 
     </LinearLayout>
 

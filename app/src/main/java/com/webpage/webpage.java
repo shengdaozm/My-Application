@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,6 +41,7 @@ import com.webpage.download;
 @SuppressLint("UseSwitchCompatOrMaterialCode")
 public class webpage extends AppCompatActivity implements OnClickListener {
     public String html="";
+    public String collection_label;
 
     private Set<String> hs;//用哈希进行判重
     private static final String HTTP = "http://";
@@ -393,7 +395,6 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             }
             toast("页面保存完成，请到软件的根目录下进行查看！");
         } else if(ID==R.id.btn_add_collection) {
-            final String[] collection_label = new String[1];
             AlertDialog.Builder builder = new AlertDialog.Builder(webpage.this);
             builder.setIcon(R.drawable.add_collections);
             builder.setTitle("请输入当前页面所属分类");
@@ -402,15 +403,15 @@ public class webpage extends AppCompatActivity implements OnClickListener {
             //  设置我们自己定义的布局文件作为弹出框的Content
             builder.setView(viewx);
             final EditText label = viewx.findViewById(R.id.username);
-            builder.setPositiveButton("确定", (dialog, which) -> collection_label[0] = label.getText().toString().trim());
+            builder.setPositiveButton("确定", (dialog, which) -> collection_label = label.getText().toString().trim());
             builder.setNegativeButton("取消", (dialog, which) -> {});
             builder.show();
             // 操作完成后，就需要进行将该条记录写入数据库。
-            collection c=new collection(webView.getUrl(),webView.getTitle(), webView.getFavicon()==null?((BitmapDrawable)webIcon.getDrawable()).getBitmap():webView.getFavicon(),collection_label[0]);
-
+            collection c=new collection(webView.getUrl(),webView.getTitle(), webView.getFavicon()==null?((BitmapDrawable)webIcon.getDrawable()).getBitmap():webView.getFavicon(), Objects.equals(collection_label, "") ?"默认":collection_label);
+            //Log.d("TEST", Objects.equals(collection_label, "") ?"默认":collection_label);
             // TODO 将这条记录插入数据库
             mSQLiteMaster.mCollectionDBDao.insertData(c);
-
+            Log.d("TEST","收藏写入成功");
         } else if(ID==R.id.btn_my_collections) {
             Intent intent= new Intent(com.webpage.webpage.this, collectionShow.class);
             startActivity(intent);

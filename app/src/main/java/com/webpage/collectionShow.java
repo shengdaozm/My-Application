@@ -40,6 +40,7 @@ public class collectionShow extends AppCompatActivity {
         } catch (InstantiationException e) {
             throw new RuntimeException(e);
         }
+        Log.d("TEST","数据获取成功");
         mRecyclerView= findViewById(R.id.recyclerview2);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(collectionShow.this, LinearLayoutManager.VERTICAL, false);//布局管理器
         mRecyclerView.setLayoutManager(layoutManager);
@@ -94,7 +95,11 @@ public class collectionShow extends AppCompatActivity {
         mSQLiteMaster = new SQLiteMaster(collectionShow.this);
         mSQLiteMaster.openDataBase();
         mCollections = mSQLiteMaster.mCollectionDBDao.queryDataList();
-        Collections.reverse(mCollections);//反转mCollections 按照时间的新旧进行排序
+        if(mCollections==null) {
+            Log.d("TEST","收藏啥也没有");
+        } else {
+            Log.d("TEST","收藏存在");
+        }
     }
 
     public void onDestory(){
