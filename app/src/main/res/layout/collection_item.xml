@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   android:layout_width="match_parent"
+                                                   android:id="@+id/collection_item"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
                                                    android:layout_height="match_parent">
-
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" tools:layout_editor_absoluteY="16dp"
+            tools:layout_editor_absoluteX="98dp">
+        <ImageView
+                android:layout_width="51dp"
+                android:layout_height="42dp" app:srcCompat="@drawable/ic_internet" android:id="@+id/web_collection_icon"
+        />
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="211dp"
+                android:layout_height="40dp">
+            <TextView
+                    android:text="TextView"
+                    android:layout_width="203dp"
+                    android:layout_height="wrap_content" android:id="@+id/collection_title"
+                    android:background="#FEFEFE"/>
+            <TextView
+                    android:text="TextView"
+                    android:layout_width="202dp"
+                    android:layout_height="1dp" android:id="@+id/textView4"/>
+            <TextView
+                    android:text="TextView"
+                    android:layout_width="203dp"
+                    android:layout_height="wrap_content" android:id="@+id/collection_url"
+                    android:background="#FFFFFF"/>
+        </LinearLayout>
+        <TextView
+                android:text="TextView"
+                android:layout_width="68dp"
+                android:layout_height="38dp" android:id="@+id/collection_label"/>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

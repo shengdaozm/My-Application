@@ -3,16 +3,13 @@ package com.webpage;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -66,13 +63,12 @@ public class historyShow extends AppCompatActivity {
         @Override
         public void onBindViewHolder(MyViewHoder holder, int position) {
             history h = mHistories.get(position);
+            // 判断当前存入的标题是中文还是英文
             holder.mTitle.setText(h.getText()==null?"标题":h.getText());
             holder.mUrl.setText(h.getUrl()==null?"网址":(h.getUrl().substring(0,10)+"..."));
             holder.mimage.setImageBitmap(h.getWebIcon());
-            // TODO 需要增加每条链接的响应，使得链接可以访问
             holder.mRootView.setOnClickListener(view -> {
                 Onurl=mHistories.get(position).getUrl();
-                Log.d("TSET","返回地址是"+Onurl);
                 //传递参数并跳转
                 Intent jump_url=new Intent(historyShow.this,webpage.class);
                 jump_url.putExtra("load_url",Onurl);
@@ -80,7 +76,6 @@ public class historyShow extends AppCompatActivity {
                 startActivity(jump_url);
             });
         }
-
         @Override
         public int getItemCount() {return mHistories.size();}
     }
@@ -92,9 +87,9 @@ public class historyShow extends AppCompatActivity {
 
         public MyViewHoder(final View itemView) {
             super(itemView);
-            mTitle = itemView.findViewById(R.id.history_title);
-            mUrl = itemView.findViewById(R.id.history_url);
-            mimage=itemView.findViewById(R.id.web_history_icon);
+            mTitle = itemView.findViewById(R.id.collection_title);
+            mUrl = itemView.findViewById(R.id.collection_url);
+            mimage=itemView.findViewById(R.id.web_collection_icon);
             mRootView = itemView.findViewById(R.id.history_item);
         }
     }
